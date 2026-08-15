@@ -61,6 +61,9 @@
               Panel Kelola <span class="gradient-text">Pre-Order</span>
             </h1>
             <p class="section-desc">Gunakan panel wirausaha ini untuk mengelola pesanan batagor wirausaha sekolahmu.</p>
+            <p id="current-datetime"
+              style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin-top: 0.5rem;">
+              Memuat waktu...</p>
           </div>
 
           <div class="admin-actions-bar">
@@ -113,10 +116,10 @@
           <table class="orders-table" id="orders-table">
             <thead>
               <tr>
-                <th>No</th>
+                <th style="width: 1%;">No</th>
                 <th>Waktu</th>
                 <th>Nama & Kelas</th>
-                <th>Detail Pesanan</th>
+                <th style="width: 15%;">Detail Pesanan</th>
                 <th>Catatan</th>
                 <th>Total</th>
                 <th>Status</th>
@@ -174,7 +177,7 @@
   </div>
 
   <!-- Core Javascript -->
-  <script src="admin.js"></script>
+  <script type="module" src="admin.js"></script>
 </body>
 
 </html>
