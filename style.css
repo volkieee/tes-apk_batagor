@@ -76,6 +76,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  -webkit-text-size-adjust: 100%; /* Mencegah zoom otomatis font di iOS */
 }
 
 body {
@@ -166,6 +167,7 @@ header.navbar.scrolled {
   padding: 1.2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  transition: padding 0.4s ease;
 }
 
 .brand-logo {
@@ -394,6 +396,11 @@ header.navbar.scrolled {
   max-width: 540px;
 }
 
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
 .hero-actions {
   display: flex;
   gap: 1.2rem;
@@ -1528,6 +1535,11 @@ footer {
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .nav-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1554,6 +1566,10 @@ footer {
     display: flex;
   }
 
+  .btn-preorder-nav {
+    display: none; /* Sembunyikan tombol pesan di nav, karena sudah ada di menu burger */
+  }
+
   .ribbon-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -1573,6 +1589,12 @@ footer {
     gap: 1rem;
   }
 
+  .variant-card-selector {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
   .orders-table th:nth-child(4),
   .orders-table td:nth-child(4),
   .orders-table th:nth-child(5),
@@ -1587,12 +1609,22 @@ footer {
     font-size: 2.6rem;
   }
 
+  .hero-actions {
+    flex-direction: column;
+    font-size: 2.6rem;
+  }
+
   .section-title {
     font-size: 2rem;
   }
 
   .preorder-form-container {
     padding: 1.5rem;
+  }
+
+  .nav-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 

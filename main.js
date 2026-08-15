@@ -269,11 +269,24 @@ function initFormListeners() {
     ordersList.unshift(newOrder);
     localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
 
+    // Tampilkan notifikasi sukses
+    showToast(
+      'Terima Kasih!',
+      'Pesanan Anda sedang dialihkan ke WhatsApp untuk dikirim.',
+      'success'
+    );
+
     // Buka WhatsApp langsung ke nomor penjual dengan pesan sudah terisi
     const waMessageText = constructWhatsAppMessage(newOrder);
     const waUrl = buildWhatsAppUrl(waMessageText);
 
-    window.location.href = waUrl;
+    // Reset form untuk pesanan berikutnya
+    resetPreorderForm();
+
+    // Alihkan ke WhatsApp setelah jeda singkat agar notifikasi terbaca
+    setTimeout(() => {
+      window.location.href = waUrl;
+    }, 1500); // Jeda 1.5 detik
   });
 }
 
@@ -501,5 +514,3 @@ function showToast(title, desc, type = 'success') {
     toast.classList.remove('show');
   }, 4000);
 }
-
-
