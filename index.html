@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batagor Crispy Premium - Pre-Order Sekolah</title>
+  <meta name="description"
+    content="Pre-order Batagor Crispy Premium buatan Joshua. Tersedia varian Cheese (Mozzarella) & Mercon (Ayam Pedas) untuk guru, siswa, dan staf sekolah.">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Ikon tersembunyi admin (pojok kiri atas) — hanya penjual yang tahu -->
+  <button type="button" id="admin-secret-btn" class="admin-secret-btn" aria-label="Portal Penjual" title="">
+    <i class="fa-solid fa-lock"></i>
+  </button>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glows">
+    <div class="glow-blob blob-orange"></div>
+    <div class="glow-blob blob-red"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" id="nav-logo">
+        <i class="fa-solid fa-fire-burner"></i>
+        <span>Batagor<span class="accent-dot">.</span>Joshua</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#menu" class="nav-link">Menu Varian</a>
+        <a href="#preorder" class="nav-link">Pre-Order</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun" id="theme-icon"></i>
+        </button>
+        <a href="#preorder" class="btn-preorder-nav">
+          <i class="fa-solid fa-basket-shopping"></i> Pesan
+        </a>
+        <button class="burger-menu" id="burger-menu" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="hero-badge">
+            <i class="fa-solid fa-circle-check"></i> PROYEK WIRAUSAHA SEKOLAH
+          </span>
+          <h1 class="hero-title">
+            Sensasi Batagor <br><span class="gradient-text">Crispy Premium</span>
+          </h1>
+          <p class="hero-subtitle">
+            Nikmati batagor renyah berkualitas tinggi yang dibuat fresh setiap pagi. Dibuat khusus untuk seluruh warga
+            sekolah—baik guru, siswa, maupun staf. Pilih varian favoritmu hari ini!
+          </p>
+          <div class="hero-actions">
+            <a href="#preorder" class="btn-primary">
+              <i class="fa-solid fa-basket-shopping"></i> Pre-Order Sekarang
+            </a>
+            <a href="#menu" class="btn-secondary">
+              <i class="fa-solid fa-utensils"></i> Lihat Varian
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+          <div class="hero-circle-bg"></div>
+          <div class="hero-img-card">
+            <img src="batagor_hero.png" alt="Delicious Indonesian Batagor with Peanut Sauce" id="hero-main-img">
+          </div>
+          <!-- Float Badges -->
+          <div class="float-badge fb-1">
+            <i class="fa-solid fa-cheese"></i>
+            <div>
+              <h4>Batagor Cheese</h4>
+              <p>Mozzarella inside!</p>
+            </div>
+          </div>
+          <div class="float-badge fb-2">
+            <i class="fa-solid fa-fire"></i>
+            <div>
+              <h4>Batagor Mercon</h4>
+              <p>Ayam pedas suwir</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Ribbon -->
+    <section class="features-ribbon">
+      <div class="container ribbon-grid">
+        <div class="ribbon-item">
+          <i class="fa-solid fa-droplet"></i>
+          <h3>Bumbu Kacang Khas</h3>
+          <p>Saus kacang kental gurih dengan resep rahasia wangi limau.</p>
+        </div>
+        <div class="ribbon-item">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <h3>Higenis & Fresh</h3>
+          <p>Diproduksi bersih dan digoreng segar sebelum jam istirahat.</p>
+        </div>
+        <div class="ribbon-item">
+          <i class="fa-solid fa-truck-ramp-box"></i>
+          <h3>Pre-Order Praktis</h3>
+          <p>Pesan online sekarang, pesanan diantar langsung ke kelas/ruangan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Varian Section -->
+    <section id="menu" class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Menu Pilihan</span>
+          <h2 class="section-title">Dua Varian Istimewa</h2>
+          <p class="section-desc">Pilih varian batagor favoritmu yang diracik khusus dengan cita rasa premium khas
+            nusantara.</p>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Card 1: Cheese -->
+          <div class="menu-card card-cheese">
+            <div class="menu-img-container">
+              <span class="menu-badge badge-cheese">GURIH MELELEH</span>
+              <img src="batagor_cheese.png" alt="Batagor Cheese Mozzarella">
+            </div>
+            <div class="menu-details">
+              <div class="menu-meta">
+                <h3 class="menu-name">Batagor Cheese</h3>
+                <span class="menu-price">Rp 15.000</span>
+              </div>
+              <p class="menu-desc">
+                Kombinasi adonan bakso ikan tenggiri garing dengan potongan keju mozzarella premium di dalamnya yang
+                meleleh ketika digoreng hangat. Disajikan dengan bumbu kacang lezat.
+              </p>
+              <div class="menu-tags">
+                <span class="tag-pill">Keju Mozzarella</span>
+                <span class="tag-pill">Ikan Premium</span>
+                <span class="tag-pill">Gurih Asin</span>
+              </div>
+              <button class="btn-add-order" onclick="selectVariant('cheese')">
+                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Cheese
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Mercon -->
+          <div class="menu-card card-mercon">
+            <div class="menu-img-container">
+              <span class="menu-badge badge-mercon">PEDAS NAGIH</span>
+              <img src="batagor_mercon.png" alt="Batagor Mercon Pedas">
+            </div>
+            <div class="menu-details">
+              <div class="menu-meta">
+                <h3 class="menu-name">Batagor Mercon</h3>
+                <span class="menu-price">Rp 15.000</span>
+              </div>
+              <p class="menu-desc">
+                Batagor crispy dengan isian ayam suwir bumbu mercon yang ekstra pedas dan gurih rempah pilihan. Sangat
+                direkomendasikan bagi pecinta kuliner pedas!
+              </p>
+              <div class="menu-tags">
+                <span class="tag-pill">Ayam Suwir</span>
+                <span class="tag-pill">Sambal Mercon</span>
+                <span class="tag-pill">Pedas Mantap</span>
+              </div>
+              <button class="btn-add-order" onclick="selectVariant('mercon')">
+                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Mercon
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pre-Order Section -->
+    <section id="preorder" class="preorder-section section-padding">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Pesan Cepat</span>
+          <h2 class="section-title">Formulir Pre-Order</h2>
+          <p class="section-desc">Silakan lengkapi formulir di bawah ini. Pesanan Anda akan kami rekap secara otomatis
+            dan dikirim melalui WhatsApp.</p>
+        </div>
+
+        <div class="preorder-layout">
+          <!-- Form Wrapper -->
+          <div class="preorder-form-container">
+            <h3 class="form-title">
+              <i class="fa-solid fa-pen-to-square"></i> Data Pemesan
+            </h3>
+
+            <form id="preorder-form">
+              <!-- Name Input -->
+              <div class="form-group">
+                <label for="input-name" class="form-label">Nama Lengkap <span class="req">*</span></label>
+                <input type="text" id="input-name" class="form-input"
+                  placeholder="Masukkan nama panggilan / lengkap Anda..." required>
+              </div>
+
+              <!-- Role Selector -->
+              <div class="form-group">
+                <label class="form-label">Status di Sekolah <span class="req">*</span></label>
+                <div class="role-selectors">
+                  <label class="role-option">
+                    <input type="radio" name="user-role" value="Siswa" checked id="role-siswa">
+                    <div class="role-box">
+                      <i class="fa-solid fa-graduation-cap"></i>
+                      <span>Siswa</span>
+                    </div>
+                  </label>
+                  <label class="role-option">
+                    <input type="radio" name="user-role" value="Guru" id="role-guru">
+                    <div class="role-box">
+                      <i class="fa-solid fa-chalkboard-user"></i>
+                      <span>Guru</span>
+                    </div>
+                  </label>
+                  <label class="role-option">
+                    <input type="radio" name="user-role" value="Staf / Karyawan" id="role-staf">
+                    <div class="role-box">
+                      <i class="fa-solid fa-briefcase"></i>
+                      <span>Staf/Karyawan</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Conditional Class Input (Only if Siswa is selected) -->
+              <div class="conditional-class-wrapper active" id="class-input-container">
+                <div class="form-group">
+                  <label for="input-class" class="form-label">Kelas <span class="req">*</span></label>
+                  <input type="text" id="input-class" class="form-input" placeholder="Contoh: XII-IPA-3, X-IPS-1, dll."
+                    required>
+                </div>
+              </div>
+
+              <h3 class="form-title" style="margin-top: 2rem;">
+                <i class="fa-solid fa-box-open"></i> Pilih Jumlah Pesanan
+              </h3>
+
+              <!-- Variant 1: Cheese Configurator -->
+              <div class="variant-card-selector">
+                <div class="variant-info">
+                  <img src="batagor_cheese.png" alt="Cheese Small">
+                  <div class="variant-text-box">
+                    <h4>Batagor Cheese</h4>
+                    <p>Rp 15.000 / Porsi</p>
+                  </div>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="qty-btn" id="btn-cheese-minus" disabled>-</button>
+                  <span class="qty-val" id="val-cheese-qty">0</span>
+                  <button type="button" class="qty-btn" id="btn-cheese-plus">+</button>
+                </div>
+              </div>
+
+              <!-- Variant 2: Mercon Configurator -->
+              <div class="variant-card-selector">
+                <div class="variant-info">
+                  <img src="batagor_mercon.png" alt="Mercon Small">
+                  <div class="variant-text-box">
+                    <h4>Batagor Mercon</h4>
+                    <p>Rp 15.000 / Porsi</p>
+                  </div>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="qty-btn" id="btn-mercon-minus" disabled>-</button>
+                  <span class="qty-val" id="val-mercon-qty">0</span>
+                  <button type="button" class="qty-btn" id="btn-mercon-plus">+</button>
+                </div>
+              </div>
+
+              <!-- Special Notes -->
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="input-notes" class="form-label">Catatan Tambahan (Opsional)</label>
+                <textarea id="input-notes" class="form-input" style="resize: vertical; min-height: 80px;"
+                  placeholder="Contoh: Bumbu kacang dipisah, tanpa kecap manis, dll."></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- Live Summary Card -->
+          <div class="summary-container">
+            <h3 class="summary-title">
+              <i class="fa-solid fa-file-invoice-dollar"></i> Ringkasan Pesanan
+            </h3>
+
+            <div class="order-badge-preview">
+              <div class="order-badge-preview-row">
+                <span>Nama:</span>
+                <span id="preview-name">-</span>
+              </div>
+              <div class="order-badge-preview-row">
+                <span>Status:</span>
+                <span id="preview-role">Siswa</span>
+              </div>
+              <div class="order-badge-preview-row" id="preview-class-row">
+                <span>Kelas:</span>
+                <span id="preview-class">-</span>
+              </div>
+            </div>
+
+            <div class="summary-list" id="summary-items-list">
+              <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 1rem 0;">
+                Belum ada item terpilih. Silakan klik + pada varian batagor.
+              </div>
+            </div>
+
+            <div class="summary-item total">
+              <span>Total Estimasi:</span>
+              <span class="price-val" id="summary-total-price">Rp 0</span>
+            </div>
+
+            <button type="button" class="btn-checkout" id="btn-submit-order" disabled>
+              <i class="fa-brands fa-whatsapp"></i> Kirim Order via WhatsApp
+            </button>
+            <p class="checkout-hint">
+              Setelah klik tombol ini, WhatsApp akan terbuka ke nomor penjual dengan pesanan sudah terisi — tinggal tekan Kirim.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-content">
+      <a href="#" class="footer-logo">Batagor<span>.</span>Joshua</a>
+      <div class="footer-links">
+        <a href="#hero" class="footer-link">Home</a>
+        <a href="#menu" class="footer-link">Menu Varian</a>
+        <a href="#preorder" class="footer-link">Pre-Order</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 Proyek Kewirausahaan Mandiri - Batagor Joshua. Made with <i class="fa-solid fa-heart"
+          style="color: var(--accent-mercon);"></i> for School.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal Password Admin -->
+  <div class="modal-overlay" id="admin-gate-modal">
+    <div class="admin-modal admin-gate-modal">
+      <button class="modal-close-btn" id="btn-close-admin-gate" aria-label="Tutup">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="login-logo" style="margin-bottom: 1rem;">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+      <h3 class="modal-title" style="justify-content: center; margin-bottom: 0.5rem;">
+        Akses Penjual
+      </h3>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Masukkan kata sandi untuk membuka dashboard pesanan.
+      </p>
+      <form id="admin-gate-form">
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="admin-gate-password" class="form-label">Kata Sandi</label>
+          <input type="password" id="admin-gate-password" class="form-input" placeholder="Masukkan kata sandi..." required autofocus>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+          <i class="fa-solid fa-key"></i> Masuk Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-notification" id="toast-notif">
+    <div class="toast-icon" id="toast-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="toast-body">
+      <h4 id="toast-title">Sukses</h4>
+      <p id="toast-desc">Pesan berhasil dikirim.</p>
+    </div>
+  </div>
+
+
+
+  <!-- Core Javascript -->
+  <script src="main.js"></script>
+</body>
+
+</html>

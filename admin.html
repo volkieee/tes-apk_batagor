@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Portal - Batagor Joshua</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="admin-body">
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glows">
+    <div class="glow-blob blob-orange"></div>
+    <div class="glow-blob blob-red"></div>
+  </div>
+
+  <!-- Back to Main Page Button -->
+  <div class="admin-back-nav">
+    <a href="index.html" class="btn-secondary"
+      style="border-radius: 30px; padding: 0.6rem 1.2rem; font-size: 0.9rem; margin: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Pembeli
+    </a>
+  </div>
+
+  <!-- Custom Login Form Screen -->
+  <div class="admin-login-screen" id="admin-login-screen">
+    <div class="admin-login-card">
+      <div class="login-logo">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h2>Seller Authentication</h2>
+      <p>Masukkan PIN atau kata sandi penjual untuk mengakses panel manajemen pre-order.</p>
+
+      <form id="admin-login-form">
+        <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+          <label for="admin-password" class="form-label">PIN / Kata Sandi Penjual</label>
+          <input type="password" id="admin-password" class="form-input" placeholder="Masukkan PIN..." required
+            autofocus>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+          <i class="fa-solid fa-key"></i> Buka Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Admin Dashboard (Hidden by default, shown on successful auth) -->
+  <main class="admin-main-dashboard" id="admin-dashboard-view" style="display: none;">
+    <section class="section-padding" style="padding-top: 2rem;">
+      <div class="container">
+
+        <div class="admin-header-row">
+          <div class="admin-title-area">
+            <span class="section-tag">Dashboard Penjual</span>
+            <h1 class="admin-title" style="font-size: 2.5rem; font-family: var(--font-heading);">
+              Panel Kelola <span class="gradient-text">Pre-Order</span>
+            </h1>
+            <p class="section-desc">Gunakan panel wirausaha ini untuk mengelola pesanan batagor wirausaha sekolahmu.</p>
+          </div>
+
+          <div class="admin-actions-bar">
+            <button class="btn-secondary" id="btn-settings-modal" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+              <i class="fa-solid fa-gears"></i> Pengaturan No. WA
+            </button>
+            <button class="btn-primary" id="btn-export-orders" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+              <i class="fa-solid fa-copy"></i> Salin Semua Rekap
+            </button>
+            <button class="btn-secondary" id="btn-logout"
+              style="padding: 0.6rem 1.2rem; font-size: 0.85rem; border-color: var(--accent-mercon); color: var(--accent-mercon);">
+              <i class="fa-solid fa-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-icon count">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <div class="stat-details">
+              <h4>Total Pesanan</h4>
+              <p id="stat-total-orders">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon revenue">
+              <i class="fa-solid fa-rupiah-sign"></i>
+            </div>
+            <div class="stat-details">
+              <h4>Total Pendapatan</h4>
+              <p id="stat-total-revenue">Rp 0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pending">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div class="stat-details">
+              <h4>Rasio Varian (C / M)</h4>
+              <p id="stat-variant-ratio">0 / 0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="table-container">
+          <table class="orders-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Waktu</th>
+                <th>Nama & Kelas</th>
+                <th>Detail Pesanan</th>
+                <th>Catatan</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body">
+              <!-- Dynamically populated from LocalStorage -->
+            </tbody>
+          </table>
+
+          <div class="admin-empty-state" id="table-empty-state">
+            <i class="fa-solid fa-inbox"></i>
+            <h3>Belum Ada Pre-Order Masuk</h3>
+            <p>Daftar pesanan baru yang dibuat lewat formulir pesanan akan muncul di sini.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Settings Modal for WhatsApp Config -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="admin-modal">
+      <button class="modal-close-btn" id="btn-close-modal" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="modal-title">
+        <i class="fa-solid fa-gears"></i> Pengaturan No. Seller
+      </h3>
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="input-wa-number" class="form-label">Nomor WhatsApp Penerima Order <span class="req">*</span></label>
+        <input type="text" id="input-wa-number" class="form-input" placeholder="Contoh: 6285921214331"
+          value="6285921214331">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">
+          Gunakan kode negara di depan nomor (62 untuk Indonesia) dan hapus angka 0 di depan (contoh: 628123456789).
+        </p>
+      </div>
+      <button class="btn-primary" id="btn-save-wa" style="width: 100%; justify-content: center;">
+        <i class="fa-solid fa-floppy-disk"></i> Simpan Nomor WA
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-notification" id="toast-notif">
+    <div class="toast-icon" id="toast-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="toast-body">
+      <h4 id="toast-title">Sukses</h4>
+      <p id="toast-desc">Pesan berhasil dikirim.</p>
+    </div>
+  </div>
+
+  <!-- Core Javascript -->
+  <script src="admin.js"></script>
+</body>
+
+</html>
