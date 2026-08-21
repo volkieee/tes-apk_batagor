@@ -45,25 +45,6 @@
   --radius-sm: 8px;
 }
 
-/* Light Mode Variables Override */
-[data-theme="light"] {
-  --bg-primary: hsl(30, 35%, 96%);
-  --bg-secondary: hsl(30, 30%, 91%);
-  --bg-tertiary: hsl(30, 25%, 86%);
-
-  --text-main: hsl(24, 25%, 15%);
-  --text-muted: hsl(24, 15%, 45%);
-  --text-inverse: hsl(24, 20%, 95%);
-
-  --primary: hsl(28, 95%, 48%);
-  --primary-glow: hsla(28, 95%, 48%, 0.2);
-
-  --border-color: rgba(0, 0, 0, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.06);
-  --glass-shadow: 0 12px 40px 0 rgba(139, 90, 43, 0.12);
-}
-
 /* Reset Styles */
 *,
 *::before,
@@ -147,7 +128,7 @@ header.navbar {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(var(--bg-primary), 0.7);
+  background: rgba(13, 11, 10, 0.7); /* Hardcoded dark theme color */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
@@ -232,29 +213,6 @@ header.navbar.scrolled {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.theme-toggle-btn {
-  background: none;
-  border: none;
-  color: var(--text-main);
-  font-size: 1.2rem;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
-}
-
-.theme-toggle-btn:hover {
-  transform: rotate(20deg) scale(1.05);
-  background-color: var(--bg-tertiary);
-  color: var(--primary);
 }
 
 .btn-preorder-nav {
@@ -1516,9 +1474,19 @@ footer {
     font-size: 3.2rem;
   }
 
+  .hero-content p {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
   .hero-image-wrapper {
     max-width: 440px;
-    margin: 0 auto;
+    margin: 2rem auto 0;
   }
 
   .preorder-layout {
@@ -1543,31 +1511,49 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .section-padding {
+    padding: 4rem 0;
+  }
+
   .nav-links {
-    display: none;
-    /* Can be toggled with burger JS later */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
     background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
     flex-direction: column;
-    padding: 2rem;
+    padding: 6rem 2rem;
     gap: 1.5rem;
-    box-shadow: var(--glass-shadow);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    transition: 0.4s ease;
+    z-index: 999;
   }
 
   .nav-links.active {
-    display: flex;
+    right: 0;
   }
 
   .burger-menu {
     display: flex;
+    z-index: 1001;
+  }
+
+  .burger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .burger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .btn-preorder-nav {
-    display: none; /* Sembunyikan tombol pesan di nav, karena sudah ada di menu burger */
+    display: none;
   }
 
   .ribbon-grid {

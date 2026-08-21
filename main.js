@@ -34,42 +34,14 @@ let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
 // DOM Element Selections
 document.addEventListener('DOMContentLoaded', () => {
   // Init features
-  initTheme();
   initBurgerMenu();
   initFormListeners();
   initSecretAdminTrigger();
 });
 
 // ==========================================================================
-// 1. Theme Configuration (Dark / Light)
+// 1. Theme Configuration (REMOVED)
 // ==========================================================================
-function initTheme() {
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
-
-  // Set default theme or saved theme
-  const savedTheme = localStorage.getItem('site_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme, themeIcon);
-
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('site_theme', newTheme);
-    updateThemeIcon(newTheme, themeIcon);
-    showToast('Theme Changed', `Switched to ${newTheme} mode!`, 'success');
-  });
-}
-
-function updateThemeIcon(theme, iconEl) {
-  if (theme === 'dark') {
-    iconEl.className = 'fa-solid fa-sun';
-  } else {
-    iconEl.className = 'fa-solid fa-moon';
-  }
-}
 
 // ==========================================================================
 // 2. Burger Menu (Mobile Nav)
