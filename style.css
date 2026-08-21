@@ -57,7 +57,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  -webkit-text-size-adjust: 100%; /* Mencegah zoom otomatis font di iOS */
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -65,8 +66,16 @@ body {
   color: var(--text-main);
   font-family: var(--font-body);
   line-height: 1.6;
+  max-width: 100%;
   overflow-x: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
 }
 
 /* Custom Scrollbar */
@@ -100,12 +109,14 @@ h4 {
 
 .gradient-text {
   background: linear-gradient(135deg, var(--primary), var(--accent-cheese));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-spicy {
   background: linear-gradient(135deg, var(--accent-mercon), var(--primary));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -115,6 +126,7 @@ h4 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .section-padding {
@@ -298,6 +310,14 @@ header.navbar.scrolled {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 4rem;
   align-items: center;
+  min-width: 0;
+}
+
+.hero-grid > *,
+.preorder-layout > *,
+.menu-grid > *,
+.ribbon-grid > * {
+  min-width: 0;
 }
 
 .hero-content {
@@ -529,7 +549,8 @@ header.navbar.scrolled {
 /* Feature Ribbons */
 .features-ribbon {
   background: var(--bg-secondary);
-  border-y: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 2rem 0;
   margin-bottom: 2rem;
 }
@@ -1511,6 +1532,11 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .section-padding {
     padding: 4rem 0;
   }
@@ -1519,8 +1545,8 @@ footer {
     display: flex;
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 80%;
+    right: -100vw;
+    width: min(80vw, 320px);
     height: 100vh;
     background: var(--bg-secondary);
     flex-direction: column;
@@ -1575,29 +1601,194 @@ footer {
     gap: 1rem;
   }
 
+  .admin-header-row {
+    align-items: stretch;
+  }
+
+  .admin-title {
+    font-size: 2rem !important;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-title-area {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-actions-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .admin-actions-bar button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stat-card {
+    min-width: 0;
+  }
+
+  .table-container {
+    overflow: visible;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .orders-table {
+    display: block;
+    width: 100%;
+  }
+
+  .orders-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .orders-table tbody,
+  .orders-table tr,
+  .orders-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .orders-table tr {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .orders-table td {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    overflow-wrap: anywhere;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.82rem;
+  }
+
+  .orders-table td::before {
+    content: attr(data-label);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .orders-table td:last-child {
+    border-bottom: none;
+  }
+
+  .orders-table td[style] {
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+  }
+
+  .orders-table th:nth-child(1),
+  .orders-table td:nth-child(1) {
+    width: 100%;
+  }
+
+  .orders-table th:nth-child(3),
+  .orders-table td:nth-child(3) {
+    width: 100%;
+  }
+
+  .orders-table th:nth-child(6),
+  .orders-table td:nth-child(6) {
+    width: 100%;
+  }
+
+  .orders-table th:nth-child(7),
+  .orders-table td:nth-child(7) {
+    width: 100%;
+  }
+
+  .orders-table th:nth-child(8),
+  .orders-table td:nth-child(8) {
+    width: 100%;
+  }
+
+  .order-badge-status {
+    justify-self: start;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
   .variant-card-selector {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
   }
 
-  .orders-table th:nth-child(4),
-  .orders-table td:nth-child(4),
-  .orders-table th:nth-child(5),
-  .orders-table td:nth-child(5) {
-    display: none;
-    /* Hide date/items on extra small screens */
-  }
 }
 
 @media (max-width: 480px) {
+  .admin-main-dashboard .section-padding {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .admin-title {
+    font-size: 1.7rem !important;
+  }
+
+  .admin-title-area .section-desc {
+    font-size: 0.85rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+
+  .stat-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    font-size: 1.1rem;
+  }
+
+  .stat-details p {
+    font-size: 1.4rem;
+  }
+
+  .admin-back-nav {
+    padding: 0.75rem 1rem 0;
+  }
+
+  .order-badge-status i {
+    display: none;
+  }
+
   .hero-title {
     font-size: 2.6rem;
   }
 
   .hero-actions {
     flex-direction: column;
-    font-size: 2.6rem;
+    align-items: stretch;
+  }
+
+  .hero-actions a,
+  .btn-primary,
+  .btn-secondary {
+    justify-content: center;
+    width: 100%;
   }
 
   .section-title {
@@ -1606,6 +1797,32 @@ footer {
 
   .preorder-form-container {
     padding: 1.5rem;
+  }
+
+  .summary-container {
+    padding: 1.5rem;
+  }
+
+  .menu-details {
+    padding: 1.5rem;
+  }
+
+  .menu-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .menu-name {
+    font-size: 1.5rem;
+  }
+
+  .menu-price {
+    font-size: 1.25rem;
+  }
+
+  .float-badge {
+    display: none;
   }
 
   .nav-container {
@@ -1684,10 +1901,17 @@ footer {
 }
 
 .admin-back-nav {
-  position: absolute;
+  position: relative;
+  width: 100%;
+  display: flex;
+  padding: 1rem 1rem 0;
   top: 0;
   left: 0;
   z-index: 100;
+}
+
+.admin-back-nav a {
+  margin: 0 !important;
 }
 
 /* Ikon tersembunyi admin di pojok kiri atas (halaman pembeli) */

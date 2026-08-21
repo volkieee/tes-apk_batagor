@@ -79,14 +79,14 @@ export function refreshAdminTable() {
 
       const rowHtml = `
         <tr>
-          <td>${index + 1}</td>
-          <td style="font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;">${ord.date || '-'}</td>
-          <td><strong>${ord.name}</strong><div style="font-size: 0.75rem; color: var(--text-muted)">${ord.role} ${ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div></td>
-          <td>${detailsString}</td>
-          <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ord.notes}">${ord.notes}</td>
-          <td><strong>Rp ${ord.total.toLocaleString('id-ID')}</strong></td>
-          <td><span class="order-badge-status ${statusClass}" style="cursor: pointer;" data-order-id="${ord.id}" data-action="cycle-status"><i class="fa-solid ${ord.status === 'Pending' ? 'fa-spinner' : ord.status === 'Paid' ? 'fa-cash-register' : 'fa-circle-check'}"></i> ${ord.status}</span></td>
-          <td><button class="admin-action-btn btn-delete" data-order-id="${ord.id}" data-action="delete-order" title="Hapus order"><i class="fa-solid fa-trash-can"></i></button></td>
+          <td data-label="No">${index + 1}</td>
+          <td data-label="Waktu" style="font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;">${ord.date || '-'}</td>
+          <td data-label="Nama & Kelas"><strong>${ord.name}</strong><div style="font-size: 0.75rem; color: var(--text-muted)">${ord.role} ${ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div></td>
+          <td data-label="Detail Pesanan">${detailsString}</td>
+          <td data-label="Catatan" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ord.notes}">${ord.notes}</td>
+          <td data-label="Total"><strong>Rp ${ord.total.toLocaleString('id-ID')}</strong></td>
+          <td data-label="Status"><span class="order-badge-status ${statusClass}" style="cursor: pointer;" data-order-id="${ord.id}" data-action="cycle-status"><i class="fa-solid ${ord.status === 'Pending' ? 'fa-spinner' : ord.status === 'Paid' ? 'fa-cash-register' : 'fa-circle-check'}"></i> ${ord.status}</span></td>
+          <td data-label="Aksi"><button class="admin-action-btn btn-delete" data-order-id="${ord.id}" data-action="delete-order" title="Hapus order"><i class="fa-solid fa-trash-can"></i></button></td>
         </tr>`;
       tableBody.insertAdjacentHTML('beforeend', rowHtml);
     });
