@@ -81,7 +81,7 @@
         <div class="hero-image-wrapper">
           <div class="hero-circle-bg"></div>
           <div class="hero-img-card">
-            <img src="batagor_hero.png" alt="Delicious Indonesian Batagor with Peanut Sauce" id="hero-main-img">
+            <img src="img/batagor_hero.png" alt="Delicious Indonesian Batagor with Peanut Sauce" id="hero-main-img">
           </div>
           <!-- Float Badges -->
           <div class="float-badge fb-1">
@@ -138,7 +138,7 @@
           <div class="menu-card card-cheese">
             <div class="menu-img-container">
               <span class="menu-badge badge-cheese">GURIH MELELEH</span>
-              <img src="batagor_cheese.png" alt="Batagor Cheese Mozzarella">
+              <img src="img/batagor_cheese.png" alt="Batagor Cheese Mozzarella">
             </div>
             <div class="menu-details">
               <div class="menu-meta">
@@ -164,7 +164,7 @@
           <div class="menu-card card-mercon">
             <div class="menu-img-container">
               <span class="menu-badge badge-mercon">PEDAS NAGIH</span>
-              <img src="batagor_mercon.png" alt="Batagor Mercon Pedas">
+              <img src="img/batagor_mercon.png" alt="Batagor Mercon Pedas">
             </div>
             <div class="menu-details">
               <div class="menu-meta">
@@ -258,7 +258,7 @@
               <!-- Variant 1: Cheese Configurator -->
               <div class="variant-card-selector">
                 <div class="variant-info">
-                  <img src="batagor_cheese.png" alt="Cheese Small">
+                  <img src="img/batagor_cheese.png" alt="Cheese Small">
                   <div class="variant-text-box">
                     <h4>Batagor Cheese</h4>
                     <p>Rp 15.000 / Porsi</p>
@@ -274,7 +274,7 @@
               <!-- Variant 2: Mercon Configurator -->
               <div class="variant-card-selector">
                 <div class="variant-info">
-                  <img src="batagor_mercon.png" alt="Mercon Small">
+                  <img src="img/batagor_mercon.png" alt="Mercon Small">
                   <div class="variant-text-box">
                     <h4>Batagor Mercon</h4>
                     <p>Rp 15.000 / Porsi</p>
@@ -293,11 +293,17 @@
                 <textarea id="input-notes" class="form-input" style="resize: vertical; min-height: 80px;"
                   placeholder="Contoh: Bumbu kacang dipisah, tanpa kecap manis, dll."></textarea>
               </div>
+
+              <div class="form-step-actions">
+                <button type="button" class="btn-primary" id="btn-next-order">
+                  Next <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
             </form>
           </div>
 
           <!-- Live Summary Card -->
-          <div class="summary-container">
+          <div class="summary-container is-hidden" id="order-summary-step" aria-hidden="true">
             <h3 class="summary-title">
               <i class="fa-solid fa-file-invoice-dollar"></i> Ringkasan Pesanan
             </h3>
@@ -330,6 +336,9 @@
 
             <button type="button" class="btn-checkout" id="btn-submit-order" disabled>
               <i class="fa-brands fa-whatsapp"></i> Kirim Order via WhatsApp
+            </button>
+            <button type="button" class="btn-summary-back" id="btn-back-to-form">
+              <i class="fa-solid fa-arrow-left"></i> Kembali ke Formulir
             </button>
             <p class="checkout-hint">
               Setelah klik tombol ini, WhatsApp akan terbuka ke nomor penjual dengan pesanan sudah terisi — tinggal

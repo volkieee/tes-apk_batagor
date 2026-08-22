@@ -3,7 +3,7 @@
 // Manages authentication, modals, clock, and notifications.
 // ==========================================================================
 
-import { refreshAdminTable } from './dashboard.js';
+import { refreshAdminTable } from '../dashboard/dashboard.js';
 
 /**
  * Initializes the authentication flow (login/logout).

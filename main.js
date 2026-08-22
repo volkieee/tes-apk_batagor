@@ -195,6 +195,33 @@ function initFormListeners() {
   });
 
   // Main Submit pre-order checkout trigger
+  const preorderForm = document.getElementById('preorder-form');
+  const btnNextOrder = document.getElementById('btn-next-order');
+  const btnBackToForm = document.getElementById('btn-back-to-form');
+  const preorderLayout = document.querySelector('.preorder-layout');
+  const summaryStep = document.getElementById('order-summary-step');
+
+  btnNextOrder.addEventListener('click', () => {
+    if (!preorderForm.reportValidity()) return;
+    if (cheeseQty + merconQty <= 0) {
+      showToast('Item Kosong', 'Silakan pilih minimal 1 porsi Batagor.', 'error');
+      return;
+    }
+
+    updateOrderSummary();
+    preorderLayout.classList.add('summary-visible');
+    summaryStep.classList.remove('is-hidden');
+    summaryStep.setAttribute('aria-hidden', 'false');
+    summaryStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  btnBackToForm.addEventListener('click', () => {
+    preorderLayout.classList.remove('summary-visible');
+    summaryStep.classList.add('is-hidden');
+    summaryStep.setAttribute('aria-hidden', 'true');
+    preorderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   const btnSubmitOrder = document.getElementById('btn-submit-order');
   btnSubmitOrder.addEventListener('click', () => {
     // Form and Qty verification before submit
@@ -297,6 +324,10 @@ function resetPreorderForm() {
   document.getElementById('preview-name').textContent = '-';
   document.getElementById('preview-class').textContent = '-';
   document.getElementById('preview-role').textContent = 'Siswa';
+
+  document.querySelector('.preorder-layout').classList.remove('summary-visible');
+  document.getElementById('order-summary-step').classList.add('is-hidden');
+  document.getElementById('order-summary-step').setAttribute('aria-hidden', 'true');
 
   updateOrderSummary();
 }
@@ -445,7 +476,7 @@ function initSecretAdminTrigger() {
       closeGateModal();
       showToast('Akses Diterima', 'Mengalihkan ke dashboard penjual...', 'success');
       setTimeout(() => {
-        window.location.href = 'admin.html';
+        window.location.href = 'admin/admin.html';
       }, 800);
     } else {
       showToast('Akses Ditolak', 'Kata sandi salah!', 'error');

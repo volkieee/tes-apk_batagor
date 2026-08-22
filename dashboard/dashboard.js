@@ -3,7 +3,7 @@
 // Manages table population, stats calculation, and order actions.
 // ==========================================================================
 
-import { showToast } from './ui.js';
+import { showToast } from '../UI/ui.js';
 
 let ordersList = [];
 

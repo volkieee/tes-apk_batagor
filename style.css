@@ -775,6 +775,23 @@ header.navbar.scrolled {
   align-items: start;
 }
 
+.preorder-layout:not(.summary-visible) {
+  display: block;
+}
+
+.summary-container.is-hidden {
+  display: none;
+}
+
+.preorder-layout.summary-visible {
+  display: block;
+}
+
+.preorder-layout.summary-visible .summary-container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
 .preorder-form-container {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
@@ -909,6 +926,16 @@ header.navbar.scrolled {
   max-height: 120px;
   opacity: 1;
   margin-bottom: 1.5rem;
+}
+
+.form-step-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.form-step-actions .btn-primary {
+  width: auto;
 }
 
 /* Variant Quantity Configurator in Preorder Form */
@@ -1100,6 +1127,25 @@ header.navbar.scrolled {
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
+}
+
+.btn-summary-back {
+  width: 100%;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.8rem;
+  margin-top: 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-summary-back:hover {
+  color: var(--text-main);
+  border-color: var(--primary);
 }
 
 .checkout-hint {

@@ -3,8 +3,8 @@
 // This file imports and initializes all admin modules.
 // ==========================================================================
 
-import { initAdminDashboard, handleTableActions } from './dashboard.js';
-import { initAdminAuth, initModal, initLiveDateTime } from './ui.js';
+import { initAdminDashboard, handleTableActions } from '../dashboard/dashboard.js';
+import { initAdminAuth, initModal, initLiveDateTime } from '../UI/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all UI components
