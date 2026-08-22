@@ -104,11 +104,14 @@ function initFormListeners() {
   const inputName = document.getElementById('input-name');
   const inputClass = document.getElementById('input-class');
   const classContainer = document.getElementById('class-input-container');
+  const inputOtherRole = document.getElementById('input-other-role');
+  const otherRoleContainer = document.getElementById('other-role-input-container');
   const inputNotes = document.getElementById('input-notes');
 
   const radioSiswa = document.getElementById('role-siswa');
   const radioGuru = document.getElementById('role-guru');
   const radioStaf = document.getElementById('role-staf');
+  const radioLainnya = document.getElementById('role-lainnya');
 
   // Preview elements
   const previewName = document.getElementById('preview-name');
@@ -117,11 +120,21 @@ function initFormListeners() {
   const previewClassRow = document.getElementById('preview-class-row');
 
   // Role radio toggle listener
-  const roles = [radioSiswa, radioGuru, radioStaf];
+  const roles = [radioSiswa, radioGuru, radioStaf, radioLainnya];
   roles.forEach(radio => {
     radio.addEventListener('change', () => {
       const selectedRole = document.querySelector('input[name="user-role"]:checked').value;
-      previewRole.textContent = selectedRole;
+      const isOtherRole = selectedRole === 'Lainnya';
+      previewRole.textContent = isOtherRole ? inputOtherRole.value.trim() || 'Lainnya' : selectedRole;
+
+      if (isOtherRole) {
+        otherRoleContainer.classList.add('active');
+        inputOtherRole.setAttribute('required', 'true');
+      } else {
+        otherRoleContainer.classList.remove('active');
+        inputOtherRole.removeAttribute('required');
+        inputOtherRole.value = '';
+      }
 
       if (selectedRole === 'Siswa') {
         classContainer.classList.add('active');
@@ -145,6 +158,10 @@ function initFormListeners() {
   });
 
   inputClass.addEventListener('input', updateClassPreview);
+  inputOtherRole.addEventListener('input', () => {
+    previewRole.textContent = inputOtherRole.value.trim() || 'Lainnya';
+    validateCheckoutButton();
+  });
 
   function updateClassPreview() {
     previewClass.textContent = inputClass.value.trim() || '-';
@@ -226,7 +243,8 @@ function initFormListeners() {
   btnSubmitOrder.addEventListener('click', () => {
     // Form and Qty verification before submit
     const name = inputName.value.trim();
-    const role = document.querySelector('input[name="user-role"]:checked').value;
+    const selectedRole = document.querySelector('input[name="user-role"]:checked').value;
+    const role = selectedRole === 'Lainnya' ? inputOtherRole.value.trim() : selectedRole;
     const classRoom = role === 'Siswa' ? inputClass.value.trim() : '-';
     const notes = inputNotes.value.trim();
 
@@ -235,9 +253,14 @@ function initFormListeners() {
       inputName.focus();
       return;
     }
-    if (role === 'Siswa' && !classRoom) {
+    if (selectedRole === 'Siswa' && !classRoom) {
       showToast('Data Kurang', 'Siswa wajib mengisi kelas.', 'error');
       inputClass.focus();
+      return;
+    }
+    if (selectedRole === 'Lainnya' && !role) {
+      showToast('Data Kurang', 'Silakan isi status Anda.', 'error');
+      inputOtherRole.focus();
       return;
     }
     if (cheeseQty + merconQty <= 0) {
@@ -309,9 +332,12 @@ window.selectVariant = function (type) {
 function resetPreorderForm() {
   document.getElementById('input-name').value = '';
   document.getElementById('input-class').value = '';
+  document.getElementById('input-other-role').value = '';
   document.getElementById('input-notes').value = '';
 
   document.getElementById('role-siswa').checked = true;
+  document.getElementById('other-role-input-container').classList.remove('active');
+  document.getElementById('input-other-role').removeAttribute('required');
   document.getElementById('class-input-container').classList.add('active');
   document.getElementById('input-class').setAttribute('required', 'true');
   document.getElementById('preview-class-row').style.display = 'flex';
@@ -381,6 +407,7 @@ function validateCheckoutButton() {
   const nameVal = document.getElementById('input-name').value.trim();
   const roleVal = document.querySelector('input[name="user-role"]:checked').value;
   const classVal = document.getElementById('input-class').value.trim();
+  const otherRoleVal = document.getElementById('input-other-role').value.trim();
   const totalItems = cheeseQty + merconQty;
 
   const btnSubmit = document.getElementById('btn-submit-order');
@@ -389,6 +416,7 @@ function validateCheckoutButton() {
 
   if (!nameVal) isValid = false;
   if (roleVal === 'Siswa' && !classVal) isValid = false;
+  if (roleVal === 'Lainnya' && !otherRoleVal) isValid = false;
   if (totalItems <= 0) isValid = false;
 
   btnSubmit.disabled = !isValid;
