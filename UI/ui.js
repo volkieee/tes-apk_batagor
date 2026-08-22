@@ -4,7 +4,7 @@
 // ==========================================================================
 
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
-import { auth } from '../firebase-config.js';
+import { auth } from '../database/firebase-config.js';
 
 /**
  * Initializes the authentication flow (login/logout).

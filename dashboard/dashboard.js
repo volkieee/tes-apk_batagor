@@ -5,7 +5,7 @@
 
 import { showToast } from '../UI/ui.js';
 import { collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
-import { db } from '../firebase-config.js';
+import { db } from '../database/firebase-config.js';
 
 let ordersList = [];
 
