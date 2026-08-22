@@ -8,13 +8,12 @@ import { initAdminAuth, initModal, initLiveDateTime } from '../UI/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all UI components
-  initAdminAuth();
+  initAdminAuth(listenForOrders);
   initModal();
   initLiveDateTime();
 
   // Initialize dashboard logic
   initAdminDashboard();
-  listenForOrders();
 
   // Set up a single event listener for table actions (event delegation)
   const table = document.getElementById('orders-table');

@@ -473,54 +473,13 @@ _Mohon konfirmasi pesanan Anda dengan mengirim pesan ini. Terima kasih!_ 🙏`;
 }
 
 // ==========================================================================
-// 4. Secret Admin Access Trigger (ikon tersembunyi + modal password)
+// 4. Secret Admin Access Trigger
 // ==========================================================================
-const ADMIN_PASSWORDS = ['admin', 'joshua'];
-
 function initSecretAdminTrigger() {
   const secretBtn = document.getElementById('admin-secret-btn');
-  const gateModal = document.getElementById('admin-gate-modal');
-  const gateForm = document.getElementById('admin-gate-form');
-  const gatePassword = document.getElementById('admin-gate-password');
-  const btnCloseGate = document.getElementById('btn-close-admin-gate');
-
-  if (!secretBtn || !gateModal || !gateForm) return;
-
-  const openGateModal = () => {
-    gateModal.classList.add('active');
-    gatePassword.value = '';
-    setTimeout(() => gatePassword.focus(), 100);
-  };
-
-  const closeGateModal = () => {
-    gateModal.classList.remove('active');
-    gatePassword.value = '';
-  };
-
-  secretBtn.addEventListener('click', openGateModal);
-
-  btnCloseGate.addEventListener('click', closeGateModal);
-
-  gateModal.addEventListener('click', (e) => {
-    if (e.target === gateModal) closeGateModal();
-  });
-
-  gateForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const password = gatePassword.value.trim();
-
-    if (ADMIN_PASSWORDS.includes(password)) {
-      sessionStorage.setItem('is_admin', 'true');
-      closeGateModal();
-      showToast('Akses Diterima', 'Mengalihkan ke dashboard penjual...', 'success');
-      setTimeout(() => {
-        window.location.href = 'admin/admin.html';
-      }, 800);
-    } else {
-      showToast('Akses Ditolak', 'Kata sandi salah!', 'error');
-      gatePassword.value = '';
-      gatePassword.focus();
-    }
+  if (!secretBtn) return;
+  secretBtn.addEventListener('click', () => {
+    window.location.href = 'admin/admin.html';
   });
 }
 

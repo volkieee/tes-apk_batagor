@@ -3,46 +3,44 @@
 // Manages authentication, modals, clock, and notifications.
 // ==========================================================================
 
-import { refreshAdminTable } from '../dashboard/dashboard.js';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
+import { auth } from '../firebase-config.js';
 
 /**
  * Initializes the authentication flow (login/logout).
  */
-export function initAdminAuth() {
+export function initAdminAuth(onAuthenticated) {
   const loginScreen = document.getElementById('admin-login-screen');
   const dashboardView = document.getElementById('admin-dashboard-view');
   const loginForm = document.getElementById('admin-login-form');
   const passwordInput = document.getElementById('admin-password');
   const btnLogout = document.getElementById('btn-logout');
 
-  if (sessionStorage.getItem('is_admin') === 'true') {
-    loginScreen.style.display = 'none';
-    dashboardView.style.display = 'block';
-    refreshAdminTable();
-  }
+  onAuthStateChanged(auth, user => {
+    const isAuthenticated = Boolean(user);
+    loginScreen.style.display = isAuthenticated ? 'none' : 'flex';
+    dashboardView.style.display = isAuthenticated ? 'block' : 'none';
+    if (isAuthenticated) onAuthenticated();
+  });
 
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const password = passwordInput.value.trim();
-    if (password === 'admin' || password === 'joshua') {
-      sessionStorage.setItem('is_admin', 'true');
-      loginScreen.style.display = 'none';
-      dashboardView.style.display = 'block';
+    const email = document.getElementById('admin-email').value.trim();
+    const password = passwordInput.value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       passwordInput.value = '';
       showToast('Akses Diterima', 'Selamat datang kembali, Penjual!', 'success');
-      refreshAdminTable();
-    } else {
+    } catch (error) {
       showToast('Akses Ditolak', 'PIN / Kata sandi salah!', 'error');
       passwordInput.value = '';
       passwordInput.focus();
     }
   });
 
-  btnLogout.addEventListener('click', () => {
+  btnLogout.addEventListener('click', async () => {
     if (confirm('Apakah Anda yakin ingin keluar dari panel admin?')) {
-      sessionStorage.removeItem('is_admin');
-      dashboardView.style.display = 'none';
-      loginScreen.style.display = 'flex';
+      await signOut(auth);
       showToast('Keluar', 'Anda telah log out dari panel penjual.', 'success');
     }
   });

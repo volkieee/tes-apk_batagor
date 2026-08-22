@@ -38,9 +38,11 @@
 
       <form id="admin-login-form">
         <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
-          <label for="admin-password" class="form-label">PIN / Kata Sandi Penjual</label>
+          <label for="admin-email" class="form-label">Email Admin</label>
+          <input type="email" id="admin-email" class="form-input" placeholder="admin@email.com" required autofocus>
+          <label for="admin-password" class="form-label">Kata Sandi</label>
           <input type="password" id="admin-password" class="form-input" placeholder="Masukkan PIN..." required
-            autofocus>
+            autocomplete="current-password">
         </div>
         <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
           <i class="fa-solid fa-key"></i> Buka Dashboard
