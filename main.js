@@ -1,4 +1,7 @@
-// ==========================================================================
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+import { db } from './firebase-config.js';
+
+// ========================================================================
 // DAPUR BATAGOR - PRE-ORDER LOGICAL SYSTEM (JS)
 // Includes Real-time billing, WhatsApp formatting, and LocalStorage admin log.
 // ==========================================================================
@@ -240,7 +243,7 @@ function initFormListeners() {
   });
 
   const btnSubmitOrder = document.getElementById('btn-submit-order');
-  btnSubmitOrder.addEventListener('click', () => {
+  btnSubmitOrder.addEventListener('click', async () => {
     // Form and Qty verification before submit
     const name = inputName.value.trim();
     const selectedRole = document.querySelector('input[name="user-role"]:checked').value;
@@ -287,9 +290,16 @@ function initFormListeners() {
       status: 'Pending'
     };
 
-    // Save order in local database
+    // Keep the local copy for offline visibility, then save the shared copy.
     ordersList.unshift(newOrder);
     localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
+    try {
+      await setDoc(doc(db, 'orders', String(newOrder.id)), newOrder);
+    } catch (error) {
+      console.error('Firestore save failed:', error);
+      showToast('Order Belum Tersimpan Online', 'Periksa koneksi internet atau aturan Firestore.', 'error');
+      return;
+    }
 
     // Tampilkan notifikasi sukses
     showToast(

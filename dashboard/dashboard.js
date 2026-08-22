@@ -4,6 +4,8 @@
 // ==========================================================================
 
 import { showToast } from '../UI/ui.js';
+import { collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+import { db } from '../firebase-config.js';
 
 let ordersList = [];
 
@@ -52,8 +54,6 @@ export function initAdminDashboard() {
  * Refreshes the admin table and statistics from localStorage.
  */
 export function refreshAdminTable() {
-  ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
-
   const tableBody = document.getElementById('orders-table-body');
   const emptyState = document.getElementById('table-empty-state');
   const statOrders = document.getElementById('stat-total-orders');
@@ -116,15 +116,29 @@ export function handleTableActions(e) {
     const currentIdx = states.indexOf(ordersList[index].status);
     const nextIdx = (currentIdx + 1) % states.length;
     ordersList[index].status = states[nextIdx];
+    updateDoc(doc(db, 'orders', String(ordersList[index].id)), { status: ordersList[index].status })
+      .catch(error => console.error('Firestore status update failed:', error));
     showToast('Status Diubah', `Pesanan ${ordersList[index].name} diubah menjadi ${states[nextIdx]}`, 'success');
   } else if (action === 'delete-order') {
     if (!confirm('Apakah Anda yakin ingin menghapus catatan pesanan ini?')) return;
     ordersList = ordersList.filter(o => o.id !== id);
+    deleteDoc(doc(db, 'orders', String(id)))
+      .catch(error => console.error('Firestore order delete failed:', error));
     showToast('Order Dihapus', 'Pesanan berhasil dihapus dari log lokal.', 'success');
   }
 
-  localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
   refreshAdminTable();
+}
+
+export function listenForOrders() {
+  const ordersQuery = query(collection(db, 'orders'), orderBy('id', 'desc'));
+  onSnapshot(ordersQuery, snapshot => {
+    ordersList = snapshot.docs.map(orderDoc => ({ id: orderDoc.id, ...orderDoc.data() }));
+    refreshAdminTable();
+  }, error => {
+    console.error('Firestore orders listener failed:', error);
+    showToast('Gagal Memuat Order', 'Periksa aturan dan koneksi Firestore.', 'error');
+  });
 }
 
 function getFormattedDate() {

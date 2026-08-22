@@ -3,7 +3,7 @@
 // This file imports and initializes all admin modules.
 // ==========================================================================
 
-import { initAdminDashboard, handleTableActions } from '../dashboard/dashboard.js';
+import { initAdminDashboard, handleTableActions, listenForOrders } from '../dashboard/dashboard.js';
 import { initAdminAuth, initModal, initLiveDateTime } from '../UI/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize dashboard logic
   initAdminDashboard();
+  listenForOrders();
 
   // Set up a single event listener for table actions (event delegation)
   const table = document.getElementById('orders-table');
