@@ -16,8 +16,6 @@ let hasLoadedOrders = false;
 export function initAdminDashboard() {
   const btnExport = document.getElementById('btn-export-orders');
 
-  requestBrowserNotifications();
-
   btnExport.addEventListener('click', () => {
     if (ordersList.length === 0) {
       showToast('Log Kosong', 'Belum ada pesanan masuk untuk diekspor.', 'error');
@@ -134,6 +132,8 @@ export function handleTableActions(e) {
 }
 
 export function listenForOrders() {
+  requestBrowserNotifications();
+
   const ordersQuery = query(collection(db, 'orders'), orderBy('id', 'desc'));
   onSnapshot(ordersQuery, snapshot => {
     const newOrderChanges = hasLoadedOrders
