@@ -4,7 +4,9 @@
 // ==========================================================================
 
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
-import { auth } from '../database/firebase-config.js';
+import { getToken, onMessage } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-messaging.js';
+import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+import { auth, db, messaging, FCM_VAPID_KEY } from '../database/firebase-config.js';
 
 /**
  * Initializes the authentication flow (login/logout).
@@ -139,4 +141,38 @@ export function showToast(title, desc, type = 'success') {
   toastTimeout = setTimeout(() => {
     toast.classList.remove('show');
   }, 4000);
+}
+
+export async function initAdminPushNotifications() {
+  if (!('serviceWorker' in navigator) || !('Notification' in window)) return;
+  if (FCM_VAPID_KEY.startsWith('REPLACE_')) {
+    console.warn('FCM VAPID key is not configured yet.');
+    return;
+  }
+
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted' || !auth.currentUser) return;
+
+    const serviceWorkerRegistration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    const token = await getToken(messaging, {
+      vapidKey: FCM_VAPID_KEY,
+      serviceWorkerRegistration
+    });
+
+    if (!token) return;
+    await setDoc(doc(db, 'adminDevices', auth.currentUser.uid), {
+      token,
+      uid: auth.currentUser.uid,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    onMessage(messaging, payload => {
+      const title = payload.notification?.title || 'Order Baru Masuk';
+      const body = payload.notification?.body || 'Ada pesanan baru di dashboard.';
+      showToast(title, body, 'success');
+    });
+  } catch (error) {
+    console.error('FCM setup failed:', error);
+  }
 }
