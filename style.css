@@ -1286,6 +1286,18 @@ header.navbar.scrolled {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.order-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 7rem;
+  line-height: 1.35;
+}
+
+.order-detail-list div {
+  white-space: nowrap;
+}
+
 .order-badge-status {
   padding: 0.3rem 0.8rem;
   border-radius: 30px;
@@ -1730,6 +1742,16 @@ footer {
     color: var(--text-muted);
     font-size: 0.75rem;
     font-weight: 700;
+  }
+
+  .order-detail-list {
+    min-width: 0;
+    gap: 0.25rem;
+  }
+
+  .order-detail-list div {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .orders-table td:last-child {

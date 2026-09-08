@@ -74,15 +74,15 @@ export function refreshAdminTable() {
 
       let statusClass = ord.status === 'Paid' ? 'status-paid' : ord.status === 'Delivered' ? 'status-delivered' : 'status-pending';
       let detailsString = '';
-      if (ord.cheese > 0) detailsString += `<div>Cheese: <strong>${ord.cheese}</strong></div>`;
       if (ord.mercon > 0) detailsString += `<div>Mercon: <strong>${ord.mercon}</strong></div>`;
+      if (ord.cheese > 0) detailsString += `<div>Cheese: <strong>${ord.cheese}</strong></div>`;
 
       const rowHtml = `
         <tr>
           <td data-label="No">${index + 1}</td>
           <td data-label="Waktu" style="font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;">${ord.date || '-'}</td>
           <td data-label="Nama & Kelas"><strong>${ord.name}</strong><div style="font-size: 0.75rem; color: var(--text-muted)">${ord.role} ${ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div></td>
-          <td data-label="Detail Pesanan">${detailsString}</td>
+          <td data-label="Detail Pesanan"><div class="order-detail-list">${detailsString}</div></td>
           <td data-label="Catatan" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ord.notes}">${ord.notes}</td>
           <td data-label="Total"><strong>Rp ${ord.total.toLocaleString('id-ID')}</strong></td>
           <td data-label="Status"><span class="order-badge-status ${statusClass}" style="cursor: pointer;" data-order-id="${ord.id}" data-action="cycle-status"><i class="fa-solid ${ord.status === 'Pending' ? 'fa-spinner' : ord.status === 'Paid' ? 'fa-cash-register' : 'fa-circle-check'}"></i> ${ord.status}</span></td>
