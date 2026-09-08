@@ -8,12 +8,15 @@ import { collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } fro
 import { db } from '../database/firebase-config.js';
 
 let ordersList = [];
+let hasLoadedOrders = false;
 
 /**
  * Initializes the main dashboard functionalities like the export button.
  */
 export function initAdminDashboard() {
   const btnExport = document.getElementById('btn-export-orders');
+
+  requestBrowserNotifications();
 
   btnExport.addEventListener('click', () => {
     if (ordersList.length === 0) {
@@ -133,8 +136,17 @@ export function handleTableActions(e) {
 export function listenForOrders() {
   const ordersQuery = query(collection(db, 'orders'), orderBy('id', 'desc'));
   onSnapshot(ordersQuery, snapshot => {
+    const newOrderChanges = hasLoadedOrders
+      ? snapshot.docChanges().filter(change => change.type === 'added')
+      : [];
+
     ordersList = snapshot.docs.map(orderDoc => ({ id: orderDoc.id, ...orderDoc.data() }));
     refreshAdminTable();
+
+    newOrderChanges.forEach(change => {
+      notifyNewOrder({ id: change.doc.id, ...change.doc.data() });
+    });
+    hasLoadedOrders = true;
   }, error => {
     console.error('Firestore orders listener failed:', error);
     showToast('Gagal Memuat Order', 'Periksa aturan dan koneksi Firestore.', 'error');
@@ -150,4 +162,33 @@ function getFormattedDate() {
   const hours = pad(d.getHours());
   const minutes = pad(d.getMinutes());
   return `${day} ${month}, ${hours}:${minutes}`;
+}
+
+function requestBrowserNotifications() {
+  if (!('Notification' in window) || Notification.permission !== 'default') return;
+
+  Notification.requestPermission().catch(error => {
+    console.warn('Browser notification permission was not granted:', error);
+  });
+}
+
+function notifyNewOrder(order) {
+  const itemCount = (order.cheese || 0) + (order.mercon || 0);
+  const total = Number(order.total || 0).toLocaleString('id-ID');
+  const message = `${itemCount} porsi - Rp ${total}`;
+
+  showToast('Order Baru Masuk', `${order.name || 'Pelanggan'}: ${message}`, 'success');
+
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+  const browserNotification = new Notification('Order Baru Masuk - Batagor', {
+    body: `${order.name || 'Pelanggan'} memesan ${message}.`,
+    icon: '../img/batagor_cheese.png',
+    tag: `batagor-order-${order.id}`
+  });
+
+  browserNotification.onclick = () => {
+    window.focus();
+    browserNotification.close();
+  };
 }
