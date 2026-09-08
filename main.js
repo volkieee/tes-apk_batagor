@@ -121,6 +121,7 @@ function initFormListeners() {
   const previewRole = document.getElementById('preview-role');
   const previewClass = document.getElementById('preview-class');
   const previewClassRow = document.getElementById('preview-class-row');
+  const previewNotes = document.getElementById('preview-notes');
 
   // Role radio toggle listener
   const roles = [radioSiswa, radioGuru, radioStaf, radioLainnya];
@@ -164,6 +165,10 @@ function initFormListeners() {
   inputOtherRole.addEventListener('input', () => {
     previewRole.textContent = inputOtherRole.value.trim() || 'Lainnya';
     validateCheckoutButton();
+  });
+
+  inputNotes.addEventListener('input', () => {
+    previewNotes.textContent = inputNotes.value.trim() || '-';
   });
 
   function updateClassPreview() {
@@ -360,6 +365,7 @@ function resetPreorderForm() {
   document.getElementById('preview-name').textContent = '-';
   document.getElementById('preview-class').textContent = '-';
   document.getElementById('preview-role').textContent = 'Siswa';
+  document.getElementById('preview-notes').textContent = '-';
 
   document.querySelector('.preorder-layout').classList.remove('summary-visible');
   document.getElementById('order-summary-step').classList.add('is-hidden');
