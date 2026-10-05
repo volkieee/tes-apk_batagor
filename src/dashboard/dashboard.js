@@ -3,9 +3,9 @@
 // Manages table population, stats calculation, and order actions.
 // ==========================================================================
 
-import { showToast } from '../UI/ui.js';
+import { showToast } from '../ui/ui.js';
 import { collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
-import { db } from '../database/firebase-config.js';
+import { db } from '../config/firebase-config.js';
 
 let ordersList = [];
 let hasLoadedOrders = false;
@@ -29,7 +29,8 @@ export function initAdminDashboard() {
     ordersList.forEach((ord, idx) => {
       const classPart = ord.role === 'Siswa' ? ` (${ord.classRoom})` : ` (${ord.role})`;
       summaryText += `${idx + 1}. *${ord.name}*${classPart}\n`;
-      if (ord.cheese > 0) summaryText += `   - Cheese: ${ord.cheese} porsi\n`;
+      if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
+      if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
       if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
       if (ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
       summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
@@ -61,7 +62,7 @@ export function refreshAdminTable() {
   const statRevenue = document.getElementById('stat-total-revenue');
   const statRatio = document.getElementById('stat-variant-ratio');
 
-  let totalRevenue = 0, totalCheese = 0, totalMercon = 0;
+  let totalRevenue = 0, totalCheese = 0, totalOriginal = 0, totalMercon = 0;
   tableBody.innerHTML = '';
 
   if (ordersList.length === 0) {
@@ -70,20 +71,22 @@ export function refreshAdminTable() {
     emptyState.style.display = 'none';
     ordersList.forEach((ord, index) => {
       totalRevenue += ord.total;
-      totalCheese += ord.cheese;
-      totalMercon += ord.mercon;
+      totalCheese += (ord.cheese || 0);
+      totalOriginal += (ord.original || 0);
+      totalMercon += (ord.mercon || 0);
 
       let statusClass = ord.status === 'Paid' ? 'status-paid' : ord.status === 'Delivered' ? 'status-delivered' : 'status-pending';
       let detailsString = '';
+      if (ord.original > 0) detailsString += `<div>Original: <strong>${ord.original}</strong></div>`;
+      if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
       if (ord.mercon > 0) detailsString += `<div>Mercon: <strong>${ord.mercon}</strong></div>`;
-      if (ord.cheese > 0) detailsString += `<div>Cheese: <strong>${ord.cheese}</strong></div>`;
 
       const rowHtml = `
         <tr>
           <td data-label="No">${index + 1}</td>
           <td data-label="Waktu" style="font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;">${ord.date || '-'}</td>
           <td data-label="Nama & Kelas"><strong>${ord.name}</strong><div style="font-size: 0.75rem; color: var(--text-muted)">${ord.role} ${ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div></td>
-          <td data-label="Detail Pesanan"><div class="order-detail-list">${detailsString}</div></td>
+          <td data-label="Detail Pesanan"><div class="order-detail-list">${detailsString || '-'}</div></td>
           <td data-label="Catatan" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ord.notes}">${ord.notes}</td>
           <td data-label="Total"><strong>Rp ${ord.total.toLocaleString('id-ID')}</strong></td>
           <td data-label="Status"><span class="order-badge-status ${statusClass}" style="cursor: pointer;" data-order-id="${ord.id}" data-action="cycle-status"><i class="fa-solid ${ord.status === 'Pending' ? 'fa-spinner' : ord.status === 'Paid' ? 'fa-cash-register' : 'fa-circle-check'}"></i> ${ord.status}</span></td>
@@ -95,7 +98,7 @@ export function refreshAdminTable() {
 
   statOrders.textContent = ordersList.length;
   statRevenue.textContent = `Rp ${totalRevenue.toLocaleString('id-ID')}`;
-  statRatio.textContent = `${totalCheese} C / ${totalMercon} M`;
+  statRatio.textContent = `${totalOriginal} Orig / ${totalCheese} Keju`;
 }
 
 /**
@@ -173,7 +176,7 @@ function requestBrowserNotifications() {
 }
 
 function notifyNewOrder(order) {
-  const itemCount = (order.cheese || 0) + (order.mercon || 0);
+  const itemCount = (order.original || 0) + (order.cheese || 0) + (order.mercon || 0);
   const total = Number(order.total || 0).toLocaleString('id-ID');
   const message = `${itemCount} porsi - Rp ${total}`;
 
@@ -183,7 +186,7 @@ function notifyNewOrder(order) {
 
   const browserNotification = new Notification('Order Baru Masuk - Batagor', {
     body: `${order.name || 'Pelanggan'} memesan ${message}.`,
-    icon: '../img/batagor_cheese.png',
+    icon: '../../assets/img/batagor_cheese.png',
     tag: `batagor-order-${order.id}`
   });
 

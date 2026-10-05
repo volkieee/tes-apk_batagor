@@ -4,7 +4,7 @@
 // ==========================================================================
 
 import { initAdminDashboard, handleTableActions, listenForOrders } from '../dashboard/dashboard.js';
-import { initAdminAuth, initModal, initLiveDateTime, initAdminPushNotifications } from '../UI/ui.js';
+import { initAdminAuth, initModal, initLiveDateTime, initAdminPushNotifications } from '../ui/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all UI components

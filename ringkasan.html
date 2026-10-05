@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ringkasan Pesanan - Batagor-in</title>
+  <meta name="description" content="Ringkasan pemesanan Batagor-in buatan Joshua. Cek kembali pesanan Anda sebelum dikirim ke WhatsApp.">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glows">
+    <div class="glow-blob blob-orange"></div>
+    <div class="glow-blob blob-red"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo" id="nav-logo">
+        <i class="fa-solid fa-fire-burner"></i>
+        <span>Batagor<span class="accent-dot">-</span>in</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html#preorder" class="btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Form
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px; min-height: 90vh;">
+    <section class="section-padding" style="padding-top: 2rem;">
+      <div class="container">
+        
+        <!-- Stepper Visual -->
+        <div class="checkout-stepper">
+          <div class="step-item step-done">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span class="step-label">1. Formulir</span>
+          </div>
+          <div class="step-divider active"></div>
+          <div class="step-item step-active">
+            <span class="step-number">2</span>
+            <span class="step-label">2. Ringkasan Pesanan</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item">
+            <span class="step-number"><i class="fa-brands fa-whatsapp"></i></span>
+            <span class="step-label">3. Konfirmasi WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-bottom: 2rem;">
+          <span class="section-tag">Konfirmasi Akhir</span>
+          <h1 class="section-title" style="font-size: 2.4rem;">Ringkasan Pesanan</h1>
+          <p class="section-desc">Mohon periksa kembali rincian data pemesan dan porsi batagor Anda sebelum melanjutkan ke WhatsApp.</p>
+        </div>
+
+        <!-- Main Invoice Receipt Card -->
+        <div id="receipt-wrapper" class="receipt-card-container">
+          <!-- Content dynamically rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-content">
+      <a href="index.html" class="footer-logo">Batagor<span>-</span>in</a>
+      <div class="footer-links">
+        <a href="index.html#hero" class="footer-link">Home</a>
+        <a href="index.html#menu" class="footer-link">Menu Varian</a>
+        <a href="index.html#preorder" class="footer-link">Pre-Order</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 Proyek Kewirausahaan Mandiri - Batagor-in. Made with <i class="fa-solid fa-heart"
+          style="color: var(--accent-mercon);"></i> for School.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification System -->
+  <div class="toast-notification" id="toast-notif">
+    <div class="toast-icon" id="toast-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="toast-body">
+      <h4 id="toast-title">Sukses</h4>
+      <p id="toast-desc">Pesan berhasil diproses.</p>
+    </div>
+  </div>
+
+  <!-- Ringkasan Script Logic -->
+  <script type="module" src="assets/js/ringkasan.js"></script>
+</body>
+
+</html>

@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Batagor-Rin</title>
+  <title>Batagor-in</title>
   <meta name="description"
-    content="Pre-order Batagor Crispy Premium buatan Joshua. Tersedia varian Cheese (Mozzarella) & Mercon (Ayam Pedas) untuk guru, siswa, dan staf sekolah.">
+    content="Pre-order Batagor Crispy Premium buatan Joshua. Tersedia varian Original & Keju gurih untuk guru, siswa, dan staf sekolah.">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
     <div class="nav-container">
       <a href="#" class="brand-logo" id="nav-logo">
         <i class="fa-solid fa-fire-burner"></i>
-        <span>Batagor<span class="accent-dot">-</span>Rin</span>
+        <span>Batagor<span class="accent-dot">-</span>in</span>
       </a>
 
       <nav class="nav-links" id="nav-links">
@@ -62,7 +62,7 @@
             <i class="fa-solid fa-circle-check"></i> PROYEK WIRAUSAHA SEKOLAH
           </span>
           <h1 class="hero-title">
-            Sensasi Batagor <br><span class="gradient-text">Crispy Premium</span>
+            Welcome to <br><span class="gradient-text">batagor-in</span>
           </h1>
           <p class="hero-subtitle">
             Nikmati batagor renyah berkualitas tinggi yang dibuat fresh setiap pagi. Dibuat khusus untuk seluruh warga
@@ -81,21 +81,21 @@
         <div class="hero-image-wrapper">
           <div class="hero-circle-bg"></div>
           <div class="hero-img-card">
-            <img src="img/batagor_hero.png" alt="Delicious Indonesian Batagor with Peanut Sauce" id="hero-main-img">
+            <img src="assets/img/batagor_hero.png" alt="Delicious Indonesian Batagor with Peanut Sauce" id="hero-main-img">
           </div>
           <!-- Float Badges -->
           <div class="float-badge fb-1">
             <i class="fa-solid fa-cheese"></i>
             <div>
-              <h4>Batagor Cheese</h4>
-              <p>Mozzarella inside!</p>
+              <h4>Batagor Keju</h4>
+              <p>Gurih & lezat!</p>
             </div>
           </div>
           <div class="float-badge fb-2">
-            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-star" style="color: var(--primary);"></i>
             <div>
-              <h4>Batagor Mercon</h4>
-              <p>Ayam pedas suwir</p>
+              <h4>Batagor Original</h4>
+              <p>Ikan tenggiri renyah</p>
             </div>
           </div>
         </div>
@@ -134,54 +134,52 @@
         </div>
 
         <div class="menu-grid">
-          <!-- Card 1: Cheese -->
-          <div class="menu-card card-cheese">
+          <!-- Card 1: Original -->
+          <div class="menu-card card-original">
             <div class="menu-img-container">
-              <span class="menu-badge badge-cheese">GURIH MELELEH</span>
-              <img src="img/batagor_cheese.png" alt="Batagor Cheese Mozzarella">
+              <span class="menu-badge badge-original" style="background: linear-gradient(135deg, var(--primary), #d9531e); color: white;">KLASIK SPESIAL</span>
+              <img src="assets/img/batagor_hero.png" alt="Batagor Original Crispy">
             </div>
             <div class="menu-details">
               <div class="menu-meta">
-                <h3 class="menu-name">Batagor Cheese</h3>
+                <h3 class="menu-name">Batagor Original</h3>
                 <span class="menu-price">Rp 15.000</span>
               </div>
               <p class="menu-desc">
-                Kombinasi adonan bakso ikan tenggiri garing dengan potongan keju premium di dalamnya yang
-                meleleh ketika digoreng hangat. Disajikan dengan bumbu kacang lezat.
+                Batagor crispy legendaris khas Bandung dengan olahan bakso ikan tenggiri asli bermutu tinggi, tahu gurih renyah, dan siraman bumbu kacang kental dengan perasan jeruk limau.
               </p>
               <div class="menu-tags">
-                <span class="tag-pill">Keju</span>
-                <span class="tag-pill">Ikan Premium</span>
-                <span class="tag-pill">Gurih Asin</span>
+                <span class="tag-pill">Ikan Tenggiri</span>
+                <span class="tag-pill">Tahu Renyah</span>
+                <span class="tag-pill">Bumbu Kacang Mantap</span>
               </div>
-              <button class="btn-add-order" onclick="selectVariant('cheese')">
-                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Cheese
+              <button class="btn-add-order" onclick="selectVariant('original')">
+                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Original
               </button>
             </div>
           </div>
 
-          <!-- Card 2: Mercon -->
-          <div class="menu-card card-mercon">
+          <!-- Card 2: Keju -->
+          <div class="menu-card card-cheese">
             <div class="menu-img-container">
-              <span class="menu-badge badge-mercon">PEDAS NAGIH</span>
-              <img src="img/batagor_mercon.png" alt="Batagor Mercon Pedas">
+              <span class="menu-badge badge-cheese">GURIH MELELEH</span>
+              <img src="assets/img/batagor_cheese.png" alt="Batagor Keju Gurih">
             </div>
             <div class="menu-details">
               <div class="menu-meta">
-                <h3 class="menu-name">Batagor Mercon</h3>
+                <h3 class="menu-name">Batagor Keju</h3>
                 <span class="menu-price">Rp 15.000</span>
               </div>
               <p class="menu-desc">
-                Batagor crispy dengan isian ayam suwir bumbu mercon yang ekstra pedas dan gurih rempah pilihan. Sangat
-                direkomendasikan bagi pecinta kuliner pedas!
+                Kombinasi adonan bakso ikan tenggiri garing dengan potongan keju gurih pilihan di dalamnya yang lumer lezat ketika digoreng hangat. Disajikan dengan bumbu kacang lezat.
               </p>
               <div class="menu-tags">
-                <span class="tag-pill">Ayam Suwir</span>
-                <span class="tag-pill">Sambal Mercon</span>
-                <span class="tag-pill">Pedas Mantap</span>
+                <span class="tag-pill">Keju Gurih</span>
+                <span class="tag-pill">Ikan Premium</span>
+                <span class="tag-pill">Gurih Asin</span>
               </div>
-              <button class="btn-add-order" onclick="selectVariant('mercon')">
-                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Mercon
+              <button class="btn-add-order" onclick="selectVariant('cheese')">
+                <i class="fa-solid fa-circle-plus"></i> Pilih Batagor Keju
               </button>
             </div>
           </div>
@@ -195,13 +193,12 @@
         <div class="section-header">
           <span class="section-tag">Pesan Cepat</span>
           <h2 class="section-title">Formulir Pre-Order</h2>
-          <p class="section-desc">Silakan lengkapi formulir di bawah ini. Pesanan Anda akan kami rekap secara otomatis
-            dan dikirim melalui WhatsApp.</p>
+          <p class="section-desc">Silakan lengkapi formulir di bawah ini. Tekan tombol Next untuk melihat ringkasan pesanan khusus Anda sebelum dikirim.</p>
         </div>
 
-        <div class="preorder-layout">
+        <div class="preorder-layout" style="display: flex; justify-content: center;">
           <!-- Form Wrapper -->
-          <div class="preorder-form-container">
+          <div class="preorder-form-container" style="max-width: 640px; width: 100%;">
             <h3 class="form-title">
               <i class="fa-solid fa-pen-to-square"></i> Data Pemesan
             </h3>
@@ -269,12 +266,28 @@
                 <i class="fa-solid fa-box-open"></i> Pilih Jumlah Pesanan
               </h3>
 
-              <!-- Variant 1: Cheese Configurator -->
+              <!-- Variant 1: Original Configurator -->
               <div class="variant-card-selector">
                 <div class="variant-info">
-                  <img src="img/batagor_cheese.png" alt="Cheese Small">
+                  <img src="assets/img/batagor_hero.png" alt="Original Small">
                   <div class="variant-text-box">
-                    <h4>Batagor Cheese</h4>
+                    <h4>Batagor Original</h4>
+                    <p>Rp 15.000 / Porsi</p>
+                  </div>
+                </div>
+                <div class="quantity-control">
+                  <button type="button" class="qty-btn" id="btn-original-minus" disabled>-</button>
+                  <span class="qty-val" id="val-original-qty">0</span>
+                  <button type="button" class="qty-btn" id="btn-original-plus">+</button>
+                </div>
+              </div>
+
+              <!-- Variant 2: Cheese Configurator -->
+              <div class="variant-card-selector">
+                <div class="variant-info">
+                  <img src="assets/img/batagor_cheese.png" alt="Cheese Small">
+                  <div class="variant-text-box">
+                    <h4>Batagor Keju</h4>
                     <p>Rp 15.000 / Porsi</p>
                   </div>
                 </div>
@@ -285,22 +298,6 @@
                 </div>
               </div>
 
-              <!-- Variant 2: Mercon Configurator -->
-              <div class="variant-card-selector">
-                <div class="variant-info">
-                  <img src="img/batagor_mercon.png" alt="Mercon Small">
-                  <div class="variant-text-box">
-                    <h4>Batagor Mercon</h4>
-                    <p>Rp 15.000 / Porsi</p>
-                  </div>
-                </div>
-                <div class="quantity-control">
-                  <button type="button" class="qty-btn" id="btn-mercon-minus" disabled>-</button>
-                  <span class="qty-val" id="val-mercon-qty">0</span>
-                  <button type="button" class="qty-btn" id="btn-mercon-plus">+</button>
-                </div>
-              </div>
-
               <!-- Special Notes -->
               <div class="form-group" style="margin-top: 1.5rem;">
                 <label for="input-notes" class="form-label">Catatan Tambahan (Opsional)</label>
@@ -308,60 +305,12 @@
                   placeholder="Contoh: Bumbu kacang dipisah, tanpa kecap manis, dll."></textarea>
               </div>
 
-              <div class="form-step-actions">
-                <button type="button" class="btn-primary" id="btn-next-order">
-                  Next <i class="fa-solid fa-arrow-right"></i>
+              <div class="form-step-actions" style="margin-top: 2rem;">
+                <button type="button" class="btn-primary" id="btn-next-order" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 1.1rem;">
+                  Lanjut ke Ringkasan <i class="fa-solid fa-arrow-right"></i>
                 </button>
               </div>
             </form>
-          </div>
-
-          <!-- Live Summary Card -->
-          <div class="summary-container is-hidden" id="order-summary-step" aria-hidden="true">
-            <h3 class="summary-title">
-              <i class="fa-solid fa-file-invoice-dollar"></i> Ringkasan Pesanan
-            </h3>
-
-            <div class="order-badge-preview">
-              <div class="order-badge-preview-row">
-                <span>Nama:</span>
-                <span id="preview-name">-</span>
-              </div>
-              <div class="order-badge-preview-row">
-                <span>Status:</span>
-                <span id="preview-role">Siswa</span>
-              </div>
-              <div class="order-badge-preview-row" id="preview-class-row">
-                <span>Kelas:</span>
-                <span id="preview-class">-</span>
-              </div>
-              <div class="order-badge-preview-row preview-notes-row" id="preview-notes-row">
-                <span>Catatan:</span>
-                <span id="preview-notes">-</span>
-              </div>
-            </div>
-
-            <div class="summary-list" id="summary-items-list">
-              <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 1rem 0;">
-                Belum ada item terpilih. Silakan klik + pada varian batagor.
-              </div>
-            </div>
-
-            <div class="summary-item total">
-              <span>Total Estimasi:</span>
-              <span class="price-val" id="summary-total-price">Rp 0</span>
-            </div>
-
-            <button type="button" class="btn-checkout" id="btn-submit-order" disabled>
-              <i class="fa-brands fa-whatsapp"></i> Kirim Order via WhatsApp
-            </button>
-            <button type="button" class="btn-summary-back" id="btn-back-to-form">
-              <i class="fa-solid fa-arrow-left"></i> Kembali ke Formulir
-            </button>
-            <p class="checkout-hint">
-              Setelah klik tombol ini, WhatsApp akan terbuka ke nomor penjual dengan pesanan sudah terisi — tinggal
-              tekan Kirim.
-            </p>
           </div>
         </div>
       </div>
@@ -373,14 +322,14 @@
   <!-- Footer Section -->
   <footer>
     <div class="container footer-content">
-      <a href="#" class="footer-logo">Batagor<span>-</span>Rin</a>
+      <a href="#" class="footer-logo">Batagor<span>-</span>in</a>
       <div class="footer-links">
         <a href="#hero" class="footer-link">Home</a>
         <a href="#menu" class="footer-link">Menu Varian</a>
         <a href="#preorder" class="footer-link">Pre-Order</a>
       </div>
       <p class="footer-copy">
-        &copy; 2026 Proyek Kewirausahaan Mandiri - Batagor-Rin. Made with <i class="fa-solid fa-heart"
+        &copy; 2026 Proyek Kewirausahaan Mandiri - Batagor-in. Made with <i class="fa-solid fa-heart"
           style="color: var(--accent-mercon);"></i> for School.
       </p>
     </div>
@@ -428,7 +377,7 @@
 
 
   <!-- Core Javascript -->
-  <script type="module" src="main.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 
 </html>

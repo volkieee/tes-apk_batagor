@@ -6,7 +6,7 @@
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
 import { getToken, onMessage } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-messaging.js';
 import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
-import { auth, db, messaging, FCM_VAPID_KEY } from '../database/firebase-config.js';
+import { auth, db, messaging, FCM_VAPID_KEY } from '../config/firebase-config.js';
 
 /**
  * Initializes the authentication flow (login/logout).
