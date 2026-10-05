@@ -1,8 +1,23 @@
-import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
-import { db } from '../src/config/firebase-config.js';
+// ============================================================
+// RINGKASAN.JS — Halaman Ringkasan Pesanan Batagor-in
+// Membaca draft order dari sessionStorage / localStorage
+// Menampilkan receipt digital, lalu kirim ke WhatsApp + Firestore
+// ============================================================
 
 const ITEM_PRICE = 15000;
 const DEFAULT_SELLER_WA = '6285921214331';
+
+// Firestore safe dynamic import
+async function saveOrderToFirestore(order) {
+  try {
+    const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const { db } = await import('../../src/config/firebase-config.js');
+    await setDoc(doc(db, 'orders', String(order.id)), order);
+    console.log('Order synced to Firestore:', order.id);
+  } catch (err) {
+    console.warn('Firestore sync failed (offline?):', err);
+  }
+}
 
 function getSellerWANumber() {
   let number = (localStorage.getItem('seller_wa_number') || DEFAULT_SELLER_WA).replace(/[^0-9]/g, '');
@@ -119,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderEmptyState(container) {
+  if (!container) return;
   container.innerHTML = `
     <div class="empty-receipt-card">
       <div class="empty-receipt-icon">
@@ -136,6 +152,8 @@ function renderEmptyState(container) {
 }
 
 function renderReceipt(container, order) {
+  if (!container) return;
+
   const originalQty = Number(order.original || 0);
   const cheeseQty = Number(order.cheese || 0);
   const formattedDate = order.date || getFormattedDate();
@@ -247,9 +265,11 @@ function renderReceipt(container, order) {
 
   // Listener tombol kirim WA
   const btnConfirmWA = document.getElementById('btn-confirm-wa');
-  btnConfirmWA.addEventListener('click', async () => {
+  if (!btnConfirmWA) return;
+
+  btnConfirmWA.addEventListener('click', () => {
     btnConfirmWA.disabled = true;
-    btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke WhatsApp...';
+    btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Membuka WhatsApp...';
 
     const timestamp = order.id || Date.now();
     const finalOrder = {
@@ -265,29 +285,35 @@ function renderReceipt(container, order) {
       status: 'Pending'
     };
 
-    // Simpan ke local history
+    // Simpan ke local history (sinkron, cepat)
     let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
     ordersList.unshift(finalOrder);
     localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
 
-    // Simpan ke Firestore
-    try {
-      await setDoc(doc(db, 'orders', String(finalOrder.id)), finalOrder);
-    } catch (err) {
-      console.warn('Firestore offline or failed:', err);
-    }
+    // Simpan ke Firestore di background — TIDAK ditunggu agar cepat
+    saveOrderToFirestore(finalOrder);
 
     // Bersihkan draft order
     sessionStorage.removeItem('batagor_draft_order');
     localStorage.removeItem('batagor_draft_order');
 
-    showToast('Pesanan Terkirim!', 'Membuka aplikasi WhatsApp...', 'success');
-
     const waText = constructWhatsAppMessage(finalOrder);
     const waUrl = buildWhatsAppUrl(waText);
 
-    setTimeout(() => {
+    // Buka WA langsung (tab baru), tetap di halaman ringkasan
+    const newTab = window.open(waUrl, '_blank');
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      // Popup diblokir: fallback langsung redirect
       window.location.href = waUrl;
-    }, 1000);
+      return;
+    }
+
+    showToast('Pesanan Terkirim!', 'Membuka WhatsApp di tab baru...', 'success');
+
+    // Setelah WA terbuka, redirect ke halaman utama setelah jeda singkat
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1200);
   });
 }
+

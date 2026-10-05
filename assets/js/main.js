@@ -1,15 +1,25 @@
-import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
-import { db } from '../src/config/firebase-config.js';
-
 // ========================================================================
 // DAPUR BATAGOR - PRE-ORDER LOGICAL SYSTEM (JS)
 // Single-Page View Transition Mode with Live Receipt & WhatsApp Integration
 // ==========================================================================
 
+// Global state variables
 let originalQty = 0;
 let cheeseQty = 0;
 const ITEM_PRICE = 15000;
 const DEFAULT_SELLER_WA = '6285921214331';
+
+// Firebase Firestore safe dynamic helper
+async function saveOrderToFirestore(order) {
+  try {
+    const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const { db } = await import('../../src/config/firebase-config.js');
+    await setDoc(doc(db, 'orders', String(order.id)), order);
+    console.log('Order successfully synced to Firestore:', order.id);
+  } catch (err) {
+    console.warn('Firestore sync failed or offline (order saved locally):', err);
+  }
+}
 
 function getSellerWANumber() {
   let number = (localStorage.getItem('seller_wa_number') || DEFAULT_SELLER_WA).replace(/[^0-9]/g, '');
@@ -62,16 +72,117 @@ ${itemsBreakdown}
 _Halo kak, saya ingin mengonfirmasi pesanan Batagor-in saya di atas. Terima kasih!_ 🙏`;
 }
 
+// Update quantity display in the preorder form
+function updateQuantityDisplay() {
+  const valOriginal = document.getElementById('val-original-qty');
+  const btnOriginalMinus = document.getElementById('btn-original-minus');
+  if (valOriginal) valOriginal.textContent = originalQty;
+  if (btnOriginalMinus) btnOriginalMinus.disabled = (originalQty <= 0);
+
+  const valCheese = document.getElementById('val-cheese-qty');
+  const btnCheeseMinus = document.getElementById('btn-cheese-minus');
+  if (valCheese) valCheese.textContent = cheeseQty;
+  if (btnCheeseMinus) btnCheeseMinus.disabled = (cheeseQty <= 0);
+}
+
+// Global variant select helper (called from menu buttons or global clicks)
+window.selectVariant = function (type) {
+  const section = document.getElementById('preorder');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  if (type === 'original') {
+    originalQty++;
+    updateQuantityDisplay();
+    showToast('Item Ditambahkan', '1 Porsi Batagor Original ditambahkan ke formulir.', 'success');
+  } else if (type === 'cheese') {
+    cheeseQty++;
+    updateQuantityDisplay();
+    showToast('Item Ditambahkan', '1 Porsi Batagor Keju ditambahkan ke formulir.', 'success');
+  }
+};
+
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', () => {
   initBurgerMenu();
   initFormListeners();
+  initQuantityControls();
   initSecretAdminTrigger();
-  initNavBackButton();
+  initMenuCardsDelegation();
+  updateQuantityDisplay();
 });
 
 // ==========================================================================
-// 1. Burger Menu & Navbar Scroll
+// 1. Menu Cards Event Delegation
+// ==========================================================================
+function initMenuCardsDelegation() {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-add-order');
+    if (!btn) return;
+    
+    // Check which card it belongs to
+    const card = btn.closest('.menu-card');
+    if (card && card.classList.contains('card-original')) {
+      window.selectVariant('original');
+    } else if (card && card.classList.contains('card-cheese')) {
+      window.selectVariant('cheese');
+    } else if (btn.textContent.toLowerCase().includes('original')) {
+      window.selectVariant('original');
+    } else if (btn.textContent.toLowerCase().includes('keju') || btn.textContent.toLowerCase().includes('cheese')) {
+      window.selectVariant('cheese');
+    }
+  });
+}
+
+// ==========================================================================
+// 2. Quantity Controls (+ / -) in Pre-order Form
+// ==========================================================================
+function initQuantityControls() {
+  const btnOriginalMinus = document.getElementById('btn-original-minus');
+  const btnOriginalPlus = document.getElementById('btn-original-plus');
+  const btnCheeseMinus = document.getElementById('btn-cheese-minus');
+  const btnCheesePlus = document.getElementById('btn-cheese-plus');
+
+  if (btnOriginalMinus) {
+    btnOriginalMinus.addEventListener('click', () => {
+      if (originalQty > 0) {
+        originalQty--;
+        updateQuantityDisplay();
+      }
+    });
+  }
+
+  if (btnOriginalPlus) {
+    btnOriginalPlus.addEventListener('click', () => {
+      if (originalQty < 25) {
+        originalQty++;
+        updateQuantityDisplay();
+      }
+    });
+  }
+
+  if (btnCheeseMinus) {
+    btnCheeseMinus.addEventListener('click', () => {
+      if (cheeseQty > 0) {
+        cheeseQty--;
+        updateQuantityDisplay();
+      }
+    });
+  }
+
+  if (btnCheesePlus) {
+    btnCheesePlus.addEventListener('click', () => {
+      if (cheeseQty < 25) {
+        cheeseQty++;
+        updateQuantityDisplay();
+      }
+    });
+  }
+}
+
+// ==========================================================================
+// 3. Burger Menu & Navbar Scroll
 // ==========================================================================
 function initBurgerMenu() {
   const burger = document.getElementById('burger-menu');
@@ -136,12 +247,9 @@ function initNavBackButton() {
 }
 
 // ==========================================================================
-// 2. Pre-order Form Logics & Single-Page Transition
+// 4. Pre-order Form Logics & Single-Page Transition
 // ==========================================================================
 function initFormListeners() {
-  const preorderForm = document.getElementById('preorder-form');
-  if (!preorderForm) return;
-
   const inputName = document.getElementById('input-name');
   const inputClass = document.getElementById('input-class');
   const classContainer = document.getElementById('class-input-container');
@@ -158,107 +266,70 @@ function initFormListeners() {
   roles.forEach(radio => {
     if (!radio) return;
     radio.addEventListener('change', () => {
-      const selectedRole = document.querySelector('input[name="user-role"]:checked').value;
+      const selectedRadio = document.querySelector('input[name="user-role"]:checked');
+      const selectedRole = selectedRadio ? selectedRadio.value : 'Siswa';
       const isOtherRole = selectedRole === 'Lainnya';
 
       if (isOtherRole) {
         otherRoleContainer.classList.add('active');
-        inputOtherRole.setAttribute('required', 'true');
+        if (inputOtherRole) inputOtherRole.setAttribute('required', 'true');
       } else {
         otherRoleContainer.classList.remove('active');
-        inputOtherRole.removeAttribute('required');
-        inputOtherRole.value = '';
+        if (inputOtherRole) {
+          inputOtherRole.removeAttribute('required');
+          inputOtherRole.value = '';
+        }
       }
 
       if (selectedRole === 'Siswa') {
         classContainer.classList.add('active');
-        inputClass.setAttribute('required', 'true');
+        if (inputClass) inputClass.setAttribute('required', 'true');
       } else {
         classContainer.classList.remove('active');
-        inputClass.removeAttribute('required');
-        inputClass.value = '';
+        if (inputClass) {
+          inputClass.removeAttribute('required');
+          inputClass.value = '';
+        }
       }
     });
   });
 
-  // Quantity Counters: Original
-  const btnOriginalMinus = document.getElementById('btn-original-minus');
-  const btnOriginalPlus = document.getElementById('btn-original-plus');
-  const valOriginalQty = document.getElementById('val-original-qty');
-
-  if (btnOriginalMinus && btnOriginalPlus && valOriginalQty) {
-    btnOriginalMinus.addEventListener('click', () => {
-      if (originalQty > 0) {
-        originalQty--;
-        valOriginalQty.textContent = originalQty;
-        btnOriginalMinus.disabled = originalQty <= 0;
-      }
-    });
-
-    btnOriginalPlus.addEventListener('click', () => {
-      if (originalQty < 25) {
-        originalQty++;
-        valOriginalQty.textContent = originalQty;
-        btnOriginalMinus.disabled = false;
-      }
-    });
-  }
-
-  // Quantity Counters: Cheese
-  const btnCheeseMinus = document.getElementById('btn-cheese-minus');
-  const btnCheesePlus = document.getElementById('btn-cheese-plus');
-  const valCheeseQty = document.getElementById('val-cheese-qty');
-
-  if (btnCheeseMinus && btnCheesePlus && valCheeseQty) {
-    btnCheeseMinus.addEventListener('click', () => {
-      if (cheeseQty > 0) {
-        cheeseQty--;
-        valCheeseQty.textContent = cheeseQty;
-        btnCheeseMinus.disabled = cheeseQty <= 0;
-      }
-    });
-
-    btnCheesePlus.addEventListener('click', () => {
-      if (cheeseQty < 25) {
-        cheeseQty++;
-        valCheeseQty.textContent = cheeseQty;
-        btnCheeseMinus.disabled = false;
-      }
-    });
-  }
-
   // Next Button Trigger -> Transisi ke Ringkasan Saja (Elemen lain menghilang)
   const btnNextOrder = document.getElementById('btn-next-order');
   if (btnNextOrder) {
-    btnNextOrder.addEventListener('click', () => {
-      if (!preorderForm.reportValidity()) return;
+    btnNextOrder.addEventListener('click', (e) => {
+      e.preventDefault();
 
-      const name = inputName.value.trim();
-      const selectedRole = document.querySelector('input[name="user-role"]:checked').value;
-      const role = selectedRole === 'Lainnya' ? inputOtherRole.value.trim() : selectedRole;
-      const classRoom = role === 'Siswa' ? inputClass.value.trim() : '-';
-      const notes = inputNotes.value.trim();
+      const name = inputName ? inputName.value.trim() : '';
+      const selectedRadio = document.querySelector('input[name="user-role"]:checked');
+      const selectedRole = selectedRadio ? selectedRadio.value : 'Siswa';
+      const otherRoleVal = inputOtherRole ? inputOtherRole.value.trim() : '';
+      const role = selectedRole === 'Lainnya' ? otherRoleVal : selectedRole;
+      const classRoom = (role === 'Siswa' && inputClass) ? inputClass.value.trim() : '-';
+      const notes = inputNotes ? inputNotes.value.trim() : '';
 
       if (!name) {
-        showToast('Data Kurang', 'Silakan isi nama Anda terlebih dahulu.', 'error');
-        inputName.focus();
+        showToast('Data Kurang', 'Silakan isi nama lengkap Anda terlebih dahulu.', 'error');
+        if (inputName) inputName.focus();
         return;
       }
 
       if (selectedRole === 'Siswa' && !classRoom) {
-        showToast('Data Kurang', 'Siswa wajib mengisi kelas.', 'error');
-        inputClass.focus();
+        showToast('Data Kurang', 'Siswa wajib mengisi kelas Anda.', 'error');
+        if (inputClass) inputClass.focus();
         return;
       }
 
       if (selectedRole === 'Lainnya' && !role) {
-        showToast('Data Kurang', 'Silakan isi status Anda.', 'error');
-        inputOtherRole.focus();
+        showToast('Data Kurang', 'Silakan sebutkan status Anda di sekolah.', 'error');
+        if (inputOtherRole) inputOtherRole.focus();
         return;
       }
 
       if (originalQty + cheeseQty <= 0) {
-        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor.', 'error');
+        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor (Original / Keju).', 'error');
+        const selector = document.querySelector('.variant-card-selector');
+        if (selector) selector.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
@@ -280,32 +351,8 @@ function initFormListeners() {
   }
 }
 
-// Global variant select helper called directly from Menu cards
-window.selectVariant = function (type) {
-  const section = document.getElementById('preorder');
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  if (type === 'original') {
-    originalQty++;
-    const valOriginal = document.getElementById('val-original-qty');
-    const btnOriginalMinus = document.getElementById('btn-original-minus');
-    if (valOriginal) valOriginal.textContent = originalQty;
-    if (btnOriginalMinus) btnOriginalMinus.disabled = false;
-    showToast('Item Ditambahkan', '1 Porsi Batagor Original ditambahkan ke formulir.', 'success');
-  } else if (type === 'cheese') {
-    cheeseQty++;
-    const valCheese = document.getElementById('val-cheese-qty');
-    const btnCheeseMinus = document.getElementById('btn-cheese-minus');
-    if (valCheese) valCheese.textContent = cheeseQty;
-    if (btnCheeseMinus) btnCheeseMinus.disabled = false;
-    showToast('Item Ditambahkan', '1 Porsi Batagor Keju ditambahkan ke formulir.', 'success');
-  }
-};
-
 // ==========================================================================
-// 3. Render Dedicated Summary & Screen Transition
+// 5. Render Dedicated Summary & Screen Transition
 // ==========================================================================
 function showCheckoutView(order) {
   const receiptContainer = document.getElementById('inline-receipt-container');
@@ -427,46 +474,84 @@ function showCheckoutView(order) {
   // Listener tombol WhatsApp
   const btnConfirmWA = document.getElementById('btn-confirm-wa');
   if (btnConfirmWA) {
-    btnConfirmWA.addEventListener('click', async () => {
+    btnConfirmWA.addEventListener('click', () => {
       btnConfirmWA.disabled = true;
-      btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke WhatsApp...';
+      btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Membuka WhatsApp...';
 
+      // Simpan riwayat pesanan ke localStorage (sinkron, cepat)
       let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
       ordersList.unshift(order);
       localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
 
-      try {
-        await setDoc(doc(db, 'orders', String(order.id)), order);
-      } catch (err) {
-        console.warn('Firestore sync failed or offline:', err);
-      }
-
-      showToast('Pesanan Terkirim!', 'Membuka aplikasi WhatsApp...', 'success');
+      // Simpan ke Firestore di background — TIDAK ditunggu agar cepat
+      saveOrderToFirestore(order);
 
       const waText = constructWhatsAppMessage(order);
       const waUrl = buildWhatsAppUrl(waText);
 
-      setTimeout(() => {
+      // Buka WA langsung (tab baru), tetap di halaman ringkasan
+      const newTab = window.open(waUrl, '_blank');
+      if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+        // Popup diblokir: fallback langsung redirect
         window.location.href = waUrl;
-      }, 1000);
+        return;
+      }
+
+      showToast('Pesanan Terkirim!', 'Membuka WhatsApp di tab baru...', 'success');
+
+      // Setelah WA terbuka, kembali ke halaman utama setelah jeda singkat
+      setTimeout(() => {
+        resetPreorderForm();
+        exitCheckoutView();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1200);
     });
   }
+
+  // Simpan draft ke sessionStorage (backup untuk ringkasan.html standalone)
+  sessionStorage.setItem('batagor_draft_order', JSON.stringify(order));
 
   // Aktifkan mode layar ringkasan (hilangkan elemen lain dengan transisi mulus)
   document.body.classList.add('checkout-active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function resetPreorderForm() {
+  const inputName = document.getElementById('input-name');
+  const inputClass = document.getElementById('input-class');
+  const inputOtherRole = document.getElementById('input-other-role');
+  const inputNotes = document.getElementById('input-notes');
+  const radioSiswa = document.getElementById('role-siswa');
+  const otherRoleContainer = document.getElementById('other-role-input-container');
+  const classContainer = document.getElementById('class-input-container');
+
+  if (inputName) inputName.value = '';
+  if (inputClass) inputClass.value = '';
+  if (inputOtherRole) inputOtherRole.value = '';
+  if (inputNotes) inputNotes.value = '';
+  if (radioSiswa) radioSiswa.checked = true;
+
+  if (otherRoleContainer) otherRoleContainer.classList.remove('active');
+  if (classContainer) classContainer.classList.add('active');
+
+  originalQty = 0;
+  cheeseQty = 0;
+  updateQuantityDisplay();
+
+  sessionStorage.removeItem('batagor_draft_order');
+  localStorage.removeItem('batagor_draft_order');
+}
+
 function exitCheckoutView() {
   document.body.classList.remove('checkout-active');
-  const section = document.getElementById('preorder');
+  const section = document.getElementById('hero') || document.getElementById('preorder');
   if (section) {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
 // ==========================================================================
-// 4. Secret Admin Access Trigger
+// 6. Secret Admin Access Trigger
 // ==========================================================================
 function initSecretAdminTrigger() {
   const secretBtn = document.getElementById('admin-secret-btn');
@@ -477,7 +562,7 @@ function initSecretAdminTrigger() {
 }
 
 // ==========================================================================
-// 5. Toast Notification System
+// 7. Toast Notification System
 // ==========================================================================
 let toastTimeout;
 function showToast(title, desc, type = 'success') {
