@@ -41,6 +41,9 @@
       </nav>
 
       <div class="nav-actions">
+        <button type="button" class="btn-secondary checkout-nav-back" id="nav-btn-back-to-form" style="display: none; padding: 0.5rem 1.2rem; font-size: 0.85rem;">
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Form
+        </button>
         <a href="#preorder" class="btn-preorder-nav">
           <i class="fa-solid fa-basket-shopping"></i> Pesan
         </a>
@@ -307,7 +310,7 @@
 
               <div class="form-step-actions" style="margin-top: 2rem;">
                 <button type="button" class="btn-primary" id="btn-next-order" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 1.1rem;">
-                  Lanjut ke Ringkasan <i class="fa-solid fa-arrow-right"></i>
+                  Next <i class="fa-solid fa-arrow-right"></i>
                 </button>
               </div>
             </form>
@@ -316,7 +319,38 @@
       </div>
     </section>
 
+    <!-- Dedicated Single-Page Order Summary View (Shown via smooth transition when Next is clicked) -->
+    <section id="order-summary-view" class="section-padding order-summary-screen" style="display: none; padding-top: 2.5rem; min-height: 85vh;">
+      <div class="container">
+        <!-- Stepper Visual -->
+        <div class="checkout-stepper">
+          <div class="step-item step-done">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span class="step-label">1. Formulir</span>
+          </div>
+          <div class="step-divider active"></div>
+          <div class="step-item step-active">
+            <span class="step-number">2</span>
+            <span class="step-label">2. Ringkasan Pesanan</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item">
+            <span class="step-number"><i class="fa-brands fa-whatsapp"></i></span>
+            <span class="step-label">3. Konfirmasi WhatsApp</span>
+          </div>
+        </div>
 
+        <div class="section-header" style="margin-bottom: 2rem;">
+          <span class="section-tag">Konfirmasi Akhir</span>
+          <h2 class="section-title" style="font-size: 2.3rem;">Ringkasan Pesanan</h2>
+          <p class="section-desc">Mohon periksa kembali rincian data pemesan dan porsi batagor Anda sebelum melanjutkan ke WhatsApp.</p>
+        </div>
+
+        <div id="inline-receipt-container" class="receipt-card-container">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer Section -->

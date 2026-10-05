@@ -2472,3 +2472,146 @@ footer { background: #24211e; border: 0; }
   color: var(--text-muted);
   font-size: 0.95rem;
 }
+
+/* ==========================================================================
+   Single-Page Checkout Transition Mode
+   ========================================================================== */
+body.checkout-active #hero,
+body.checkout-active .features-ribbon,
+body.checkout-active #menu,
+body.checkout-active #preorder,
+body.checkout-active footer {
+  display: none !important;
+}
+
+body.checkout-active .nav-links,
+body.checkout-active .nav-actions .btn-preorder-nav,
+body.checkout-active .burger-menu {
+  display: none !important;
+}
+
+body.checkout-active .checkout-nav-back {
+  display: inline-flex !important;
+}
+
+body.checkout-active #order-summary-view {
+  display: block !important;
+  animation: summaryFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes summaryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Mobile & Tablet Optimization */
+@media (max-width: 640px) {
+  .checkout-stepper {
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .step-item {
+    gap: 0.35rem;
+  }
+
+  .step-number {
+    width: 26px;
+    height: 26px;
+    font-size: 0.72rem;
+  }
+
+  .step-label {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .step-divider {
+    max-width: 24px;
+    height: 1.5px;
+  }
+
+  .digital-receipt-card {
+    padding: 1.6rem 1.1rem;
+    border-radius: 18px;
+  }
+
+  .receipt-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .receipt-order-id {
+    font-size: 1.45rem;
+  }
+
+  .receipt-section-title {
+    font-size: 0.85rem;
+  }
+
+  .receipt-info-grid {
+    padding: 1rem 0.9rem;
+    gap: 0.7rem;
+  }
+
+  .receipt-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    font-size: 0.85rem;
+  }
+
+  .receipt-info-row .info-value {
+    text-align: left;
+  }
+
+  .receipt-item-row {
+    padding: 0.85rem 1rem;
+  }
+
+  .item-title {
+    font-size: 0.92rem;
+  }
+
+  .item-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .item-price-col {
+    font-size: 0.98rem;
+  }
+
+  .receipt-total-row {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+  }
+
+  .receipt-total-row .total-amount {
+    font-size: 1.35rem;
+  }
+
+  .instruction-box {
+    padding: 0.85rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-checkout {
+    padding: 0.95rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-summary-back {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+}

@@ -1,24 +1,77 @@
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+import { db } from '../src/config/firebase-config.js';
+
 // ========================================================================
 // DAPUR BATAGOR - PRE-ORDER LOGICAL SYSTEM (JS)
-// Includes real-time validation, variant counters, and redirect to dedicated summary page.
+// Single-Page View Transition Mode with Live Receipt & WhatsApp Integration
 // ==========================================================================
 
-// Global state variables
 let originalQty = 0;
 let cheeseQty = 0;
-const ITEM_PRICE = 15000; // Rp 15.000 per portion for both variants
+const ITEM_PRICE = 15000;
+const DEFAULT_SELLER_WA = '6285921214331';
 
-// DOM Element Selections
+function getSellerWANumber() {
+  let number = (localStorage.getItem('seller_wa_number') || DEFAULT_SELLER_WA).replace(/[^0-9]/g, '');
+  if (number.startsWith('0')) {
+    number = '62' + number.substring(1);
+  } else if (!number.startsWith('62')) {
+    number = '62' + number;
+  }
+  return number;
+}
+
+function buildWhatsAppUrl(message) {
+  const phone = getSellerWANumber();
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
+
+function getFormattedDate() {
+  const d = new Date();
+  const pad = (n) => n.toString().padStart(2, '0');
+  const day = pad(d.getDate());
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  const month = months[d.getMonth()];
+  const hours = pad(d.getHours());
+  const minutes = pad(d.getMinutes());
+  return `${day} ${month}, ${hours}:${minutes}`;
+}
+
+function constructWhatsAppMessage(order) {
+  let itemsBreakdown = '';
+  if (order.original > 0) {
+    itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  }
+  if (order.cheese > 0) {
+    itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  }
+
+  const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
+
+  return `*PRE-ORDER BATAGOR-IN* 🥟
+--------------------------------------------
+*Nama:* ${order.name}
+*Status:* ${order.role}
+${classLine}--------------------------------------------
+*Rincian Pesanan:*
+${itemsBreakdown}
+*Catatan:* ${order.notes || '-'}
+--------------------------------------------
+*Total Tagihan:* Rp ${order.total.toLocaleString('id-ID')}
+--------------------------------------------
+_Halo kak, saya ingin mengonfirmasi pesanan Batagor-in saya di atas. Terima kasih!_ 🙏`;
+}
+
+// DOM Initialization
 document.addEventListener('DOMContentLoaded', () => {
-  // Init features
   initBurgerMenu();
   initFormListeners();
   initSecretAdminTrigger();
-  restoreDraftIfPresent();
+  initNavBackButton();
 });
 
 // ==========================================================================
-// 1. Burger Menu (Mobile Nav)
+// 1. Burger Menu & Navbar Scroll
 // ==========================================================================
 function initBurgerMenu() {
   const burger = document.getElementById('burger-menu');
@@ -30,7 +83,6 @@ function initBurgerMenu() {
       burger.classList.toggle('active');
     });
 
-    // Close nav on click links
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
@@ -39,7 +91,6 @@ function initBurgerMenu() {
     });
   }
 
-  // Navbar blur background on scroll
   const navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
@@ -54,6 +105,8 @@ function initBurgerMenu() {
 }
 
 function updateActiveLinkOnScroll() {
+  if (document.body.classList.contains('checkout-active')) return;
+
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-link');
   let currentSec = 'hero';
@@ -73,8 +126,17 @@ function updateActiveLinkOnScroll() {
   });
 }
 
+function initNavBackButton() {
+  const navBackBtn = document.getElementById('nav-btn-back-to-form');
+  if (navBackBtn) {
+    navBackBtn.addEventListener('click', () => {
+      exitCheckoutView();
+    });
+  }
+}
+
 // ==========================================================================
-// 2. Pre-order Form Logics & Multi-Page Redirect
+// 2. Pre-order Form Logics & Single-Page Transition
 // ==========================================================================
 function initFormListeners() {
   const preorderForm = document.getElementById('preorder-form');
@@ -92,7 +154,6 @@ function initFormListeners() {
   const radioStaf = document.getElementById('role-staf');
   const radioLainnya = document.getElementById('role-lainnya');
 
-  // Role radio toggle listener
   const roles = [radioSiswa, radioGuru, radioStaf, radioLainnya];
   roles.forEach(radio => {
     if (!radio) return;
@@ -120,8 +181,7 @@ function initFormListeners() {
     });
   });
 
-  // Quantity Counter Buttons Configuration
-  // Original
+  // Quantity Counters: Original
   const btnOriginalMinus = document.getElementById('btn-original-minus');
   const btnOriginalPlus = document.getElementById('btn-original-plus');
   const valOriginalQty = document.getElementById('val-original-qty');
@@ -144,7 +204,7 @@ function initFormListeners() {
     });
   }
 
-  // Cheese
+  // Quantity Counters: Cheese
   const btnCheeseMinus = document.getElementById('btn-cheese-minus');
   const btnCheesePlus = document.getElementById('btn-cheese-plus');
   const valCheeseQty = document.getElementById('val-cheese-qty');
@@ -167,7 +227,7 @@ function initFormListeners() {
     });
   }
 
-  // Next Button -> Alihkan ke Halaman Khusus Ringkasan
+  // Next Button Trigger -> Transisi ke Ringkasan Saja (Elemen lain menghilang)
   const btnNextOrder = document.getElementById('btn-next-order');
   if (btnNextOrder) {
     btnNextOrder.addEventListener('click', () => {
@@ -198,12 +258,11 @@ function initFormListeners() {
       }
 
       if (originalQty + cheeseQty <= 0) {
-        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor (Original / Keju).', 'error');
+        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor.', 'error');
         return;
       }
 
-      // Siapkan draft pesanan
-      const draftOrder = {
+      const orderData = {
         id: Date.now(),
         name: name,
         role: role,
@@ -216,17 +275,7 @@ function initFormListeners() {
         status: 'Pending'
       };
 
-      // Simpan ke storage untuk diambil oleh ringkasan.html
-      sessionStorage.setItem('batagor_draft_order', JSON.stringify(draftOrder));
-      localStorage.setItem('batagor_draft_order', JSON.stringify(draftOrder));
-
-      // Berikan efek transisi sebelum beralih
-      btnNextOrder.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyiapkan Ringkasan...';
-      btnNextOrder.disabled = true;
-
-      setTimeout(() => {
-        window.location.href = 'ringkasan.html';
-      }, 350);
+      showCheckoutView(orderData);
     });
   }
 }
@@ -255,85 +304,169 @@ window.selectVariant = function (type) {
   }
 };
 
-// Restore data jika user kembali dari halaman ringkasan untuk mengedit
-function restoreDraftIfPresent() {
-  const rawDraft = sessionStorage.getItem('batagor_draft_order') || localStorage.getItem('batagor_draft_order');
-  if (!rawDraft) return;
+// ==========================================================================
+// 3. Render Dedicated Summary & Screen Transition
+// ==========================================================================
+function showCheckoutView(order) {
+  const receiptContainer = document.getElementById('inline-receipt-container');
+  if (!receiptContainer) return;
 
-  try {
-    const draft = JSON.parse(rawDraft);
-    if (!draft) return;
+  let itemsHtml = '';
+  if (order.original > 0) {
+    itemsHtml += `
+      <div class="receipt-item-row">
+        <div class="item-name-col">
+          <span class="item-title">Batagor Original</span>
+          <span class="item-subtitle">${order.original} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+        </div>
+        <div class="item-price-col">
+          Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')}
+        </div>
+      </div>
+    `;
+  }
+  if (order.cheese > 0) {
+    itemsHtml += `
+      <div class="receipt-item-row">
+        <div class="item-name-col">
+          <span class="item-title">Batagor Keju</span>
+          <span class="item-subtitle">${order.cheese} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+        </div>
+        <div class="item-price-col">
+          Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')}
+        </div>
+      </div>
+    `;
+  }
 
-    const inputName = document.getElementById('input-name');
-    const inputClass = document.getElementById('input-class');
-    const inputOtherRole = document.getElementById('input-other-role');
-    const inputNotes = document.getElementById('input-notes');
+  const classRow = order.role === 'Siswa'
+    ? `<div class="receipt-info-row">
+         <span class="info-label"><i class="fa-solid fa-chalkboard"></i> Kelas</span>
+         <span class="info-value">${order.classRoom || '-'}</span>
+       </div>`
+    : '';
 
-    if (inputName && draft.name) inputName.value = draft.name;
-    if (inputNotes && draft.notes && draft.notes !== '-') inputNotes.value = draft.notes;
+  const notesRow = order.notes && order.notes !== '-'
+    ? `<div class="receipt-info-row">
+         <span class="info-label"><i class="fa-solid fa-message"></i> Catatan Khusus</span>
+         <span class="info-value">${order.notes}</span>
+       </div>`
+    : '';
 
-    if (draft.role === 'Siswa') {
-      const radioSiswa = document.getElementById('role-siswa');
-      if (radioSiswa) radioSiswa.checked = true;
-      if (inputClass && draft.classRoom && draft.classRoom !== '-') {
-        inputClass.value = draft.classRoom;
+  receiptContainer.innerHTML = `
+    <div class="digital-receipt-card">
+      <div class="receipt-header">
+        <div class="receipt-header-left">
+          <span class="receipt-badge"><i class="fa-solid fa-receipt"></i> INVOICE PRE-ORDER</span>
+          <h2 class="receipt-order-id">#BTG-${String(order.id).slice(-6)}</h2>
+          <span class="receipt-date"><i class="fa-regular fa-clock"></i> ${order.date}</span>
+        </div>
+        <div class="receipt-header-right">
+          <span class="status-pill status-ready">
+            <i class="fa-solid fa-circle-dot"></i> Siap Dikonfirmasi
+          </span>
+        </div>
+      </div>
+
+      <div class="receipt-section">
+        <h4 class="receipt-section-title"><i class="fa-solid fa-user-check"></i> Data Pemesan</h4>
+        <div class="receipt-info-grid">
+          <div class="receipt-info-row">
+            <span class="info-label"><i class="fa-solid fa-id-badge"></i> Nama Lengkap</span>
+            <span class="info-value highlight">${order.name}</span>
+          </div>
+          <div class="receipt-info-row">
+            <span class="info-label"><i class="fa-solid fa-graduation-cap"></i> Status</span>
+            <span class="info-value">${order.role}</span>
+          </div>
+          ${classRow}
+          ${notesRow}
+        </div>
+      </div>
+
+      <div class="receipt-section">
+        <h4 class="receipt-section-title"><i class="fa-solid fa-utensils"></i> Rincian Menu Pesanan</h4>
+        <div class="receipt-items-table">
+          ${itemsHtml}
+        </div>
+        <div class="receipt-total-row">
+          <span>Total Pembayaran</span>
+          <span class="total-amount">Rp ${order.total.toLocaleString('id-ID')}</span>
+        </div>
+      </div>
+
+      <div class="receipt-footer-instructions">
+        <div class="instruction-box">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div>
+            <strong>Langkah Terakhir:</strong>
+            <p>Klik tombol hijau di bawah untuk mengirim data pesanan Anda langsung ke WhatsApp penjual dengan format otomatis.</p>
+          </div>
+        </div>
+
+        <div class="receipt-actions">
+          <button type="button" class="btn-checkout" id="btn-confirm-wa">
+            <i class="fa-brands fa-whatsapp"></i> Kirim Order via WhatsApp
+          </button>
+          <button type="button" class="btn-summary-back" id="btn-edit-order-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Formulir
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Listener tombol kembali
+  const btnEditBack = document.getElementById('btn-edit-order-back');
+  if (btnEditBack) {
+    btnEditBack.addEventListener('click', () => {
+      exitCheckoutView();
+    });
+  }
+
+  // Listener tombol WhatsApp
+  const btnConfirmWA = document.getElementById('btn-confirm-wa');
+  if (btnConfirmWA) {
+    btnConfirmWA.addEventListener('click', async () => {
+      btnConfirmWA.disabled = true;
+      btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke WhatsApp...';
+
+      let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
+      ordersList.unshift(order);
+      localStorage.setItem('batagor_orders', JSON.stringify(ordersList));
+
+      try {
+        await setDoc(doc(db, 'orders', String(order.id)), order);
+      } catch (err) {
+        console.warn('Firestore sync failed or offline:', err);
       }
-    } else if (draft.role === 'Guru') {
-      const radioGuru = document.getElementById('role-guru');
-      if (radioGuru) radioGuru.checked = true;
-      const classContainer = document.getElementById('class-input-container');
-      if (classContainer) classContainer.classList.remove('active');
-    } else if (draft.role === 'Staf / Karyawan') {
-      const radioStaf = document.getElementById('role-staf');
-      if (radioStaf) radioStaf.checked = true;
-      const classContainer = document.getElementById('class-input-container');
-      if (classContainer) classContainer.classList.remove('active');
-    } else if (draft.role) {
-      const radioLainnya = document.getElementById('role-lainnya');
-      if (radioLainnya) radioLainnya.checked = true;
-      const otherContainer = document.getElementById('other-role-input-container');
-      if (otherContainer) otherContainer.classList.add('active');
-      if (inputOtherRole) inputOtherRole.value = draft.role;
-      const classContainer = document.getElementById('class-input-container');
-      if (classContainer) classContainer.classList.remove('active');
-    }
 
-    if (draft.original) {
-      originalQty = Number(draft.original);
-      const valOriginal = document.getElementById('val-original-qty');
-      const btnOriginalMinus = document.getElementById('btn-original-minus');
-      if (valOriginal) valOriginal.textContent = originalQty;
-      if (btnOriginalMinus) btnOriginalMinus.disabled = originalQty <= 0;
-    }
+      showToast('Pesanan Terkirim!', 'Membuka aplikasi WhatsApp...', 'success');
 
-    if (draft.cheese) {
-      cheeseQty = Number(draft.cheese);
-      const valCheese = document.getElementById('val-cheese-qty');
-      const btnCheeseMinus = document.getElementById('btn-cheese-minus');
-      if (valCheese) valCheese.textContent = cheeseQty;
-      if (btnCheeseMinus) btnCheeseMinus.disabled = cheeseQty <= 0;
-    }
-  } catch (e) {
-    console.warn('Failed restoring draft order', e);
+      const waText = constructWhatsAppMessage(order);
+      const waUrl = buildWhatsAppUrl(waText);
+
+      setTimeout(() => {
+        window.location.href = waUrl;
+      }, 1000);
+    });
+  }
+
+  // Aktifkan mode layar ringkasan (hilangkan elemen lain dengan transisi mulus)
+  document.body.classList.add('checkout-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function exitCheckoutView() {
+  document.body.classList.remove('checkout-active');
+  const section = document.getElementById('preorder');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
-// Helper date time stamp formatter
-function getFormattedDate() {
-  const d = new Date();
-  const pad = (n) => n.toString().padStart(2, '0');
-
-  const day = pad(d.getDate());
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-  const month = months[d.getMonth()];
-  const hours = pad(d.getHours());
-  const minutes = pad(d.getMinutes());
-
-  return `${day} ${month}, ${hours}:${minutes}`;
-}
-
 // ==========================================================================
-// 3. Secret Admin Access Trigger
+// 4. Secret Admin Access Trigger
 // ==========================================================================
 function initSecretAdminTrigger() {
   const secretBtn = document.getElementById('admin-secret-btn');
@@ -344,7 +477,7 @@ function initSecretAdminTrigger() {
 }
 
 // ==========================================================================
-// 4. Toast Notification System
+// 5. Toast Notification System
 // ==========================================================================
 let toastTimeout;
 function showToast(title, desc, type = 'success') {
