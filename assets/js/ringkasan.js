@@ -204,8 +204,6 @@ function renderReceipt(container, order) {
     <div class="digital-receipt-card">
       <div class="receipt-header">
         <div class="receipt-header-left">
-          <span class="receipt-badge"><i class="fa-solid fa-receipt"></i> INVOICE PRE-ORDER</span>
-          <h2 class="receipt-order-id">#BTG-${String(order.id || Date.now()).slice(-6)}</h2>
           <span class="receipt-date"><i class="fa-regular fa-clock"></i> ${formattedDate}</span>
         </div>
         <div class="receipt-header-right">
