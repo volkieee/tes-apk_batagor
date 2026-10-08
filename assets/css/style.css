@@ -973,6 +973,26 @@ header.navbar.scrolled {
   color: var(--text-muted);
 }
 
+.portion-info-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(var(--primary-rgb, 230, 80, 30), 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(var(--primary-rgb, 230, 80, 30), 0.3);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.portion-info-chip i {
+  font-size: 0.65rem;
+}
+
+
 .quantity-control {
   display: flex;
   align-items: center;

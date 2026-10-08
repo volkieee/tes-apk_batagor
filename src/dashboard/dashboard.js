@@ -186,7 +186,7 @@ function notifyNewOrder(order) {
 
   const browserNotification = new Notification('Order Baru Masuk - Batagor', {
     body: `${order.name || 'Pelanggan'} memesan ${message}.`,
-    icon: '../../assets/img/batagor_cheese.png',
+    icon: '../../assets/img/foto batagor.jpg',
     tag: `batagor-order-${order.id}`
   });
 
