@@ -4,6 +4,7 @@
 // ==========================================================================
 
 // Global state variables
+let portionQty = 0;
 let originalQty = 0;
 let cheeseQty = 0;
 const ITEM_PRICE = 15000;
@@ -49,11 +50,16 @@ function getFormattedDate() {
 
 function constructWhatsAppMessage(order) {
   let itemsBreakdown = '';
-  if (order.original > 0) {
-    itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
-  }
-  if (order.cheese > 0) {
-    itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  const qty = order.mix || (order.total ? Math.round(order.total / ITEM_PRICE) : (order.original || 0));
+  if (qty > 0) {
+    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (isi 4: 2 Ori + 2 Keju) (Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  } else {
+    if (order.original > 0) {
+      itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    }
+    if (order.cheese > 0) {
+      itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    }
   }
 
   const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
@@ -74,11 +80,12 @@ _Halo kak, saya ingin mengonfirmasi pesanan Batagor-in saya di atas. Terima kasi
 
 // Update quantity display in the preorder form
 function updateQuantityDisplay() {
-  const valOriginal = document.getElementById('val-original-qty');
-  const btnOriginalMinus = document.getElementById('btn-original-minus');
-  if (valOriginal) valOriginal.textContent = originalQty;
-  if (btnOriginalMinus) btnOriginalMinus.disabled = (originalQty <= 0);
+  const valPortion = document.getElementById('val-portion-qty') || document.getElementById('val-original-qty');
+  const btnPortionMinus = document.getElementById('btn-portion-minus') || document.getElementById('btn-original-minus');
+  if (valPortion) valPortion.textContent = portionQty;
+  if (btnPortionMinus) btnPortionMinus.disabled = (portionQty <= 0);
 
+  // Keep legacy elements synchronized if they exist
   const valCheese = document.getElementById('val-cheese-qty');
   const btnCheeseMinus = document.getElementById('btn-cheese-minus');
   if (valCheese) valCheese.textContent = cheeseQty;
@@ -92,14 +99,12 @@ window.selectVariant = function (type) {
     section.scrollIntoView({ behavior: 'smooth' });
   }
 
-  if (type === 'original') {
-    originalQty++;
+  if (portionQty < 25) {
+    portionQty++;
+    originalQty = portionQty * 2;
+    cheeseQty = portionQty * 2;
     updateQuantityDisplay();
-    showToast('Item Ditambahkan', '1 Porsi Batagor Original ditambahkan ke formulir.', 'success');
-  } else if (type === 'cheese') {
-    cheeseQty++;
-    updateQuantityDisplay();
-    showToast('Item Ditambahkan', '1 Porsi Batagor Keju ditambahkan ke formulir.', 'success');
+    showToast('Porsi Ditambahkan', '1 Porsi Batagor Original + Keju (2 Ori + 2 Keju) ditambahkan ke formulir.', 'success');
   }
 };
 
@@ -139,29 +144,34 @@ function initMenuCardsDelegation() {
 // 2. Quantity Controls (+ / -) in Pre-order Form
 // ==========================================================================
 function initQuantityControls() {
-  const btnOriginalMinus = document.getElementById('btn-original-minus');
-  const btnOriginalPlus = document.getElementById('btn-original-plus');
+  const btnPortionMinus = document.getElementById('btn-portion-minus') || document.getElementById('btn-original-minus');
+  const btnPortionPlus = document.getElementById('btn-portion-plus') || document.getElementById('btn-original-plus');
+
+  if (btnPortionMinus) {
+    btnPortionMinus.addEventListener('click', () => {
+      if (portionQty > 0) {
+        portionQty--;
+        originalQty = portionQty * 2;
+        cheeseQty = portionQty * 2;
+        updateQuantityDisplay();
+      }
+    });
+  }
+
+  if (btnPortionPlus) {
+    btnPortionPlus.addEventListener('click', () => {
+      if (portionQty < 25) {
+        portionQty++;
+        originalQty = portionQty * 2;
+        cheeseQty = portionQty * 2;
+        updateQuantityDisplay();
+      }
+    });
+  }
+
+  // Backward-compatibility handlers for legacy cheese controls if present
   const btnCheeseMinus = document.getElementById('btn-cheese-minus');
   const btnCheesePlus = document.getElementById('btn-cheese-plus');
-
-  if (btnOriginalMinus) {
-    btnOriginalMinus.addEventListener('click', () => {
-      if (originalQty > 0) {
-        originalQty--;
-        updateQuantityDisplay();
-      }
-    });
-  }
-
-  if (btnOriginalPlus) {
-    btnOriginalPlus.addEventListener('click', () => {
-      if (originalQty < 25) {
-        originalQty++;
-        updateQuantityDisplay();
-      }
-    });
-  }
-
   if (btnCheeseMinus) {
     btnCheeseMinus.addEventListener('click', () => {
       if (cheeseQty > 0) {
@@ -170,7 +180,6 @@ function initQuantityControls() {
       }
     });
   }
-
   if (btnCheesePlus) {
     btnCheesePlus.addEventListener('click', () => {
       if (cheeseQty < 25) {
@@ -326,21 +335,24 @@ function initFormListeners() {
         return;
       }
 
-      if (originalQty + cheeseQty <= 0) {
-        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor (Original / Keju).', 'error');
+      if (portionQty <= 0 && (originalQty + cheeseQty <= 0)) {
+        showToast('Porsi Kosong', 'Silakan pilih minimal 1 porsi Batagor Original + Keju.', 'error');
         const selector = document.querySelector('.variant-card-selector');
         if (selector) selector.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
+
+      const activePortion = portionQty > 0 ? portionQty : Math.max(1, originalQty + cheeseQty);
 
       const orderData = {
         id: Date.now(),
         name: name,
         role: role,
         classRoom: classRoom,
-        original: originalQty,
-        cheese: cheeseQty,
-        total: (originalQty + cheeseQty) * ITEM_PRICE,
+        mix: activePortion,
+        original: activePortion * 2,
+        cheese: activePortion * 2,
+        total: activePortion * ITEM_PRICE,
         notes: notes || '-',
         date: getFormattedDate(),
         status: 'Pending'
@@ -359,31 +371,46 @@ function showCheckoutView(order) {
   if (!receiptContainer) return;
 
   let itemsHtml = '';
-  if (order.original > 0) {
+  const qty = order.mix || (order.total ? Math.round(order.total / ITEM_PRICE) : 0);
+  if (qty > 0) {
     itemsHtml += `
       <div class="receipt-item-row">
         <div class="item-name-col">
-          <span class="item-title">Batagor Original</span>
-          <span class="item-subtitle">${order.original} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          <span class="item-title">Batagor Original + Keju</span>
+          <span class="item-subtitle">${qty} porsi (isi 4 pcs: 2 Original + 2 Keju) × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
         </div>
         <div class="item-price-col">
-          Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')}
+          Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')}
         </div>
       </div>
     `;
-  }
-  if (order.cheese > 0) {
-    itemsHtml += `
-      <div class="receipt-item-row">
-        <div class="item-name-col">
-          <span class="item-title">Batagor Keju</span>
-          <span class="item-subtitle">${order.cheese} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+  } else {
+    if (order.original > 0) {
+      itemsHtml += `
+        <div class="receipt-item-row">
+          <div class="item-name-col">
+            <span class="item-title">Batagor Original</span>
+            <span class="item-subtitle">${order.original} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          </div>
+          <div class="item-price-col">
+            Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')}
+          </div>
         </div>
-        <div class="item-price-col">
-          Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')}
+      `;
+    }
+    if (order.cheese > 0) {
+      itemsHtml += `
+        <div class="receipt-item-row">
+          <div class="item-name-col">
+            <span class="item-title">Batagor Keju</span>
+            <span class="item-subtitle">${order.cheese} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          </div>
+          <div class="item-price-col">
+            Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
   const classRow = order.role === 'Siswa'
@@ -532,6 +559,7 @@ function resetPreorderForm() {
   if (otherRoleContainer) otherRoleContainer.classList.remove('active');
   if (classContainer) classContainer.classList.add('active');
 
+  portionQty = 0;
   originalQty = 0;
   cheeseQty = 0;
   updateQuantityDisplay();

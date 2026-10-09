@@ -257,40 +257,23 @@
               </div>
 
               <h3 class="form-title" style="margin-top: 2rem;">
-                <i class="fa-solid fa-box-open"></i> Pilih Jumlah Pesanan
+                <i class="fa-solid fa-box-open"></i> Pilihan Pesanan
               </h3>
 
-              <!-- Variant 1: Original Configurator -->
+              <!-- Menu Porsi: Batagor Original + Keju (1 porsi = 4 pcs: 2 Original + 2 Keju) -->
               <div class="variant-card-selector">
                 <div class="variant-info">
-                  <img src="assets/img/foto batagor.jpg" alt="Original Small">
+                  <img src="assets/img/foto batagor.jpg" alt="Batagor Original + Keju">
                   <div class="variant-text-box">
-                    <h4>Batagor Original</h4>
+                    <h4>Batagor Original + Keju</h4>
                     <p>Rp 15.000 / Porsi</p>
-                    <span class="portion-info-chip"><i class="fa-solid fa-cubes-stacked"></i> 1 porsi = 4 pcs</span>
+                    <span class="portion-info-chip"><i class="fa-solid fa-cubes-stacked"></i> 1 porsi = 4 pcs (2 Original + 2 Keju)</span>
                   </div>
                 </div>
                 <div class="quantity-control">
-                  <button type="button" class="qty-btn" id="btn-original-minus" disabled>-</button>
-                  <span class="qty-val" id="val-original-qty">0</span>
-                  <button type="button" class="qty-btn" id="btn-original-plus">+</button>
-                </div>
-              </div>
-
-              <!-- Variant 2: Cheese Configurator -->
-              <div class="variant-card-selector">
-                <div class="variant-info">
-                  <img src="assets/img/foto batagor.jpg" alt="Cheese Small">
-                  <div class="variant-text-box">
-                    <h4>Batagor Keju</h4>
-                    <p>Rp 15.000 / Porsi</p>
-                    <span class="portion-info-chip"><i class="fa-solid fa-cubes-stacked"></i> 1 porsi = 4 pcs</span>
-                  </div>
-                </div>
-                <div class="quantity-control">
-                  <button type="button" class="qty-btn" id="btn-cheese-minus" disabled>-</button>
-                  <span class="qty-val" id="val-cheese-qty">0</span>
-                  <button type="button" class="qty-btn" id="btn-cheese-plus">+</button>
+                  <button type="button" class="qty-btn" id="btn-portion-minus" disabled aria-label="Kurangi porsi">-</button>
+                  <span class="qty-val" id="val-portion-qty">0</span>
+                  <button type="button" class="qty-btn" id="btn-portion-plus" aria-label="Tambah porsi">+</button>
                 </div>
               </div>
 

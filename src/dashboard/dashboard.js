@@ -29,10 +29,15 @@ export function initAdminDashboard() {
     ordersList.forEach((ord, idx) => {
       const classPart = ord.role === 'Siswa' ? ` (${ord.classRoom})` : ` (${ord.role})`;
       summaryText += `${idx + 1}. *${ord.name}*${classPart}\n`;
-      if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
-      if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
+      const qty = ord.mix || (ord.total ? Math.round(ord.total / 15000) : 0);
+      if (qty > 0) {
+        summaryText += `   - Original + Keju: ${qty} porsi (isi 4: 2 Ori + 2 Keju)\n`;
+      } else {
+        if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
+        if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
+      }
       if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
-      if (ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
+      if (ord.notes && ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
       summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
 
       totalIncome += ord.total;
@@ -62,7 +67,7 @@ export function refreshAdminTable() {
   const statRevenue = document.getElementById('stat-total-revenue');
   const statRatio = document.getElementById('stat-variant-ratio');
 
-  let totalRevenue = 0, totalCheese = 0, totalOriginal = 0, totalMercon = 0;
+  let totalRevenue = 0, totalCheese = 0, totalOriginal = 0, totalMix = 0, totalMercon = 0;
   tableBody.innerHTML = '';
 
   if (ordersList.length === 0) {
@@ -71,14 +76,25 @@ export function refreshAdminTable() {
     emptyState.style.display = 'none';
     ordersList.forEach((ord, index) => {
       totalRevenue += ord.total;
-      totalCheese += (ord.cheese || 0);
-      totalOriginal += (ord.original || 0);
+      const mixCount = ord.mix || (ord.total ? Math.round(ord.total / 15000) : 0);
+      if (mixCount > 0) {
+        totalMix += mixCount;
+        totalOriginal += mixCount * 2;
+        totalCheese += mixCount * 2;
+      } else {
+        totalCheese += (ord.cheese || 0);
+        totalOriginal += (ord.original || 0);
+      }
       totalMercon += (ord.mercon || 0);
 
       let statusClass = ord.status === 'Paid' ? 'status-paid' : ord.status === 'Delivered' ? 'status-delivered' : 'status-pending';
       let detailsString = '';
-      if (ord.original > 0) detailsString += `<div>Original: <strong>${ord.original}</strong></div>`;
-      if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
+      if (mixCount > 0) {
+        detailsString += `<div>Ori + Keju: <strong>${mixCount} porsi</strong> <small style="color: var(--text-muted);">(2 Ori + 2 Keju)</small></div>`;
+      } else {
+        if (ord.original > 0) detailsString += `<div>Original: <strong>${ord.original}</strong></div>`;
+        if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
+      }
       if (ord.mercon > 0) detailsString += `<div>Mercon: <strong>${ord.mercon}</strong></div>`;
 
       const rowHtml = `
@@ -98,7 +114,9 @@ export function refreshAdminTable() {
 
   statOrders.textContent = ordersList.length;
   statRevenue.textContent = `Rp ${totalRevenue.toLocaleString('id-ID')}`;
-  statRatio.textContent = `${totalOriginal} Orig / ${totalCheese} Keju`;
+  statRatio.textContent = totalMix > 0 
+    ? `${totalMix} Porsi (${totalOriginal} Ori / ${totalCheese} Keju)` 
+    : `${totalOriginal} Orig / ${totalCheese} Keju`;
 }
 
 /**

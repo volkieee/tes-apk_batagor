@@ -47,11 +47,16 @@ function getFormattedDate() {
 
 function constructWhatsAppMessage(order) {
   let itemsBreakdown = '';
-  if (order.original > 0) {
-    itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
-  }
-  if (order.cheese > 0) {
-    itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  const qty = order.mix || (order.total ? Math.round(order.total / ITEM_PRICE) : (order.original || 0));
+  if (qty > 0) {
+    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (isi 4: 2 Ori + 2 Keju) (Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+  } else {
+    if (order.original > 0) {
+      itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    }
+    if (order.cheese > 0) {
+      itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    }
   }
 
   const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
@@ -159,31 +164,46 @@ function renderReceipt(container, order) {
   const formattedDate = order.date || getFormattedDate();
 
   let itemsHtml = '';
-  if (originalQty > 0) {
+  const mixQty = Number(order.mix || 0) || (order.total ? Math.round(order.total / ITEM_PRICE) : 0);
+  if (mixQty > 0) {
     itemsHtml += `
       <div class="receipt-item-row">
         <div class="item-name-col">
-          <span class="item-title">Batagor Original</span>
-          <span class="item-subtitle">${originalQty} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          <span class="item-title">Batagor Original + Keju</span>
+          <span class="item-subtitle">${mixQty} porsi (isi 4 pcs: 2 Original + 2 Keju) × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
         </div>
         <div class="item-price-col">
-          Rp ${(originalQty * ITEM_PRICE).toLocaleString('id-ID')}
+          Rp ${(mixQty * ITEM_PRICE).toLocaleString('id-ID')}
         </div>
       </div>
     `;
-  }
-  if (cheeseQty > 0) {
-    itemsHtml += `
-      <div class="receipt-item-row">
-        <div class="item-name-col">
-          <span class="item-title">Batagor Keju</span>
-          <span class="item-subtitle">${cheeseQty} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+  } else {
+    if (originalQty > 0) {
+      itemsHtml += `
+        <div class="receipt-item-row">
+          <div class="item-name-col">
+            <span class="item-title">Batagor Original</span>
+            <span class="item-subtitle">${originalQty} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          </div>
+          <div class="item-price-col">
+            Rp ${(originalQty * ITEM_PRICE).toLocaleString('id-ID')}
+          </div>
         </div>
-        <div class="item-price-col">
-          Rp ${(cheeseQty * ITEM_PRICE).toLocaleString('id-ID')}
+      `;
+    }
+    if (cheeseQty > 0) {
+      itemsHtml += `
+        <div class="receipt-item-row">
+          <div class="item-name-col">
+            <span class="item-title">Batagor Keju</span>
+            <span class="item-subtitle">${cheeseQty} porsi × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          </div>
+          <div class="item-price-col">
+            Rp ${(cheeseQty * ITEM_PRICE).toLocaleString('id-ID')}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
   const classRow = order.role === 'Siswa'
