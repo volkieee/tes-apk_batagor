@@ -52,7 +52,7 @@ function constructWhatsAppMessage(order) {
   let itemsBreakdown = '';
   const qty = order.mix || (order.total ? Math.round(order.total / ITEM_PRICE) : (order.original || 0));
   if (qty > 0) {
-    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (isi 4: 2 Ori + 2 Keju) (Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (2 Ori + 2 Keju) (Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')})\n`;
   } else {
     if (order.original > 0) {
       itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
@@ -377,7 +377,7 @@ function showCheckoutView(order) {
       <div class="receipt-item-row">
         <div class="item-name-col">
           <span class="item-title">Batagor Original + Keju</span>
-          <span class="item-subtitle">${qty} porsi (isi 4 pcs: 2 Original + 2 Keju) × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
+          <span class="item-subtitle">${qty} porsi (2 Ori + 2 Keju) × Rp ${ITEM_PRICE.toLocaleString('id-ID')}</span>
         </div>
         <div class="item-price-col">
           Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')}
