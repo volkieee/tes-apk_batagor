@@ -31,7 +31,7 @@ export function initAdminDashboard() {
       summaryText += `${idx + 1}. *${ord.name}*${classPart}\n`;
       const qty = ord.mix || (ord.total ? Math.round(ord.total / 15000) : 0);
       if (qty > 0) {
-        summaryText += `   - Original + Keju: ${qty} porsi (isi 4: 2 Ori + 2 Keju)\n`;
+        summaryText += `   - Original + Keju: ${qty} porsi (${qty * 2} Ori + ${qty * 2} Keju)\n`;
       } else {
         if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
         if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
