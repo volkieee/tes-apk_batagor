@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Batagor Juara 1982 — Garing Kress! Gurih Nampol &amp; Gemoy Banget!</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,600;0,700;0,800;0,900;1,700&amp;family=Fredoka:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+  @layer base {
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Keyframe Animations */
+  @keyframes floatBounce {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+  }
+  @keyframes floatBounceRev {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(-3deg); }
+  }
+  @keyframes oilSizzle {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.03) translate(-2px, 2px); }
+    100% { transform: scale(1) translate(0, 0); }
+  }
+  @keyframes bubbleRise {
+    0% { transform: translateY(20px) scale(0.6); opacity: 0; }
+    40% { opacity: 0.9; }
+    100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
+  }
+  @keyframes popText {
+    0% { transform: translate(-50%, 0) scale(0.4) rotate(-10deg); opacity: 0; }
+    40% { transform: translate(-50%, -30px) scale(1.2) rotate(6deg); opacity: 1; }
+    80% { transform: translate(-50%, -55px) scale(1.05) rotate(-2deg); opacity: 0.9; }
+    100% { transform: translate(-50%, -75px) scale(0.9); opacity: 0; }
+  }
+  @keyframes fallInPlate {
+    0% { transform: translateY(-60px) scale(0.4) rotate(20deg); opacity: 0; }
+    70% { transform: translateY(6px) scale(1.15) rotate(-5deg); opacity: 1; }
+    100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes splashWave {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  @keyframes wobbleSlow {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  @keyframes bgStickerSpin {
+    0% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(180deg) translateY(-15px); }
+    100% { transform: rotate(360deg) translateY(0); }
+  }
+
+  /* Helper Classes */
+  .animate-float { animation: floatBounce 3s ease-in-out infinite; }
+  .animate-float-slow { animation: floatBounceRev 4.2s ease-in-out infinite; }
+  .animate-wobble-cute { animation: wobbleSlow 3s ease-in-out infinite; }
+  .animate-bubble-rise { animation: bubbleRise 1.6s ease-in infinite; }
+  .animate-sticker { animation: bgStickerSpin 20s linear infinite; }
+
+  /* Comic 3D Shadow Borders */
+  .neo-box {
+    box-shadow: 5px 6px 0px #42210b;
+  }
+  .neo-box-sm {
+    box-shadow: 3px 4px 0px #42210b;
+  }
+  .neo-box-hover:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 9px 0px #42210b;
+  }
+  .neo-box-hover:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #42210b;
+  }
+  .neo-btn {
+    box-shadow: 0px 5px 0px #42210b;
+  }
+  .neo-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0px 1px 0px #42210b;
+  }
+
+  /* Dot Grid Pattern */
+  .bg-polka-pop {
+    background-color: #fdf8ee;
+    background-image: radial-gradient(#ecc3a4 2px, transparent 2px);
+    background-size: 22px 22px;
+  }
+  .plate-3d {
+    background: radial-gradient(circle at 45% 40%, #ffffff 45%, #f7ecd6 75%, #dfcaa7 100%);
+    box-shadow: inset 0 8px 18px rgba(78, 38, 12, 0.22), 0 18px 25px rgba(66, 33, 11, 0.18), 0 0 0 6px #ffffff, 0 0 0 10px #42210b;
+  }
+  .sauce-splat {
+    background: radial-gradient(circle, #78350f 40%, #92400e 70%, rgba(146, 64, 14, 0.7) 100%);
+  }
+
+  /* Audio visualizer bar pulses */
+  .audio-bar {
+    animation: barBeat 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes barBeat {
+    0% { height: 6px; }
+    100% { height: 26px; }
+  }
+
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#9c3f00",
+          "primary-container": "#c05410",
+          "secondary": "#835334",
+          "secondary-container": "#febe98",
+          "tertiary": "#2c683a",
+          "tertiary-container": "#458150",
+          "peanut": "#4a2511",
+          "peanut-dark": "#36190a",
+          "mustard": "#f59e0b",
+          "mustard-light": "#fef3c7",
+          "chili": "#dc2626",
+          "lime-punch": "#16a34a",
+          "surface": "#fdf9f1",
+          "surface-container": "#f4ede1",
+          "surface-container-high": "#ebe3d3",
+          "outline-variant": "#dcc0ab"
+        },
+        fontFamily: {
+          "body": ["Plus Jakarta Sans", "sans-serif"],
+          "display": ["Fredoka", "cursive", "sans-serif"],
+          "headline": ["Epilogue", "sans-serif"],
+          "code": ["Space Grotesk", "monospace"]
+        },
+        borderRadius: {
+          "gemoy": "2rem",
+          "gemoy-lg": "2.5rem"
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-polka-pop font-body text-peanut antialiased selection:bg-mustard selection:text-peanut relative overflow-x-hidden pb-32">
+<!-- ================= FLOATING CUTE FOOD STICKERS BG ================= -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-35">
+<span class="absolute top-28 left-6 text-5xl animate-sticker" style="animation-duration: 24s;">🥟</span>
+<span class="absolute top-1/3 right-10 text-6xl animate-sticker" style="animation-duration: 28s;">🧈</span>
+<span class="absolute bottom-1/4 left-12 text-5xl animate-sticker" style="animation-duration: 20s;">🍋</span>
+<span class="absolute top-2/3 right-1/4 text-6xl animate-sticker" style="animation-duration: 32s;">🌶️</span>
+<span class="absolute bottom-20 right-8 text-5xl animate-sticker" style="animation-duration: 26s;">🥜</span>
+</div>
+<!-- ================= TOP WARTA TICKER BAR ================= -->
+<aside class="w-full bg-peanut text-amber-100 py-2.5 px-4 sticky top-0 z-50 border-b-4 border-peanut-dark shadow-md">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs md:text-sm">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-mustard text-peanut font-display font-black text-sm animate-bounce shadow-sm">🔥</span>
+<span class="font-display text-mustard tracking-wide uppercase font-black text-sm">KLOTER GORENG HARI INI:</span>
+<span class="font-bold text-white hidden sm:inline">Pre-Order Kloter Siang Dibuka! Tenggiri Segar Merapat!</span>
+<span class="font-bold text-white sm:hidden">Kloter Siang Dibuka!</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 bg-black/40 px-3 py-1 rounded-xl font-code font-bold text-mustard border border-mustard/40">
+<span class="material-symbols-outlined text-sm text-yellow-300">timer</span>
+<span id="batch-timer">14:52:19</span>
+<span class="text-white/70 font-normal text-xs hidden sm:inline">menuju kloter ditutup</span>
+</div>
+<div class="hidden md:flex items-center gap-1 text-xs text-lime-400 font-display font-bold">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>100% Tenggiri Asli Nelayan Cibanten</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- ================= NAVIGATION BAR ================= -->
+<header class="w-full bg-amber-50/95 backdrop-blur-md border-b-4 border-peanut sticky top-10 z-40">
+<div class="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-4">
+<!-- Brand Logo Gemoy -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="relative w-13 h-13 p-2 rounded-2xl bg-mustard border-3 border-peanut neo-box-sm group-hover:rotate-6 transition-transform">
+<svg class="w-9 h-9" fill="none" viewbox="0 0 100 100">
+<rect fill="#F59E0B" height="60" rx="16" stroke="#42210b" stroke-width="6" width="64" x="18" y="24"></rect>
+<ellipse cx="32" cy="58" fill="#F87171" opacity="0.8" rx="6" ry="4"></ellipse>
+<ellipse cx="68" cy="58" fill="#F87171" opacity="0.8" rx="6" ry="4"></ellipse>
+<circle cx="36" cy="48" fill="#42210b" r="5"></circle>
+<circle cx="38" cy="46" fill="#FFFFFF" r="1.8"></circle>
+<circle cx="64" cy="48" fill="#42210b" r="5"></circle>
+<circle cx="66" cy="46" fill="#FFFFFF" r="1.8"></circle>
+<path d="M41 56 Q50 67 59 56" stroke="#42210b" stroke-linecap="round" stroke-width="5"></path>
+<path d="M35 24 C30 12, 45 6, 50 12 C55 6, 70 12, 65 24 Z" fill="#FFFFFF" stroke="#42210b" stroke-width="4"></path>
+</svg>
+<span class="absolute -top-2 -right-2 text-sm animate-spin" style="animation-duration: 8s;">✨</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-display text-2xl font-black text-primary tracking-tight leading-none group-hover:text-primary-container">Batagor Juara</span>
+<span class="bg-peanut text-mustard text-[10px] font-display font-black px-2 py-0.5 rounded-full border border-mustard">1982</span>
+</div>
+<span class="font-display text-xs text-peanut font-bold mt-1">
+          Bandung Asli • <span class="text-tertiary">Garing Kress! Nampol Gemoy!</span>
+</span>
+</div>
+</a>
+<!-- Nav Links Pill -->
+<nav class="hidden lg:flex items-center gap-2 bg-amber-100/90 p-1.5 rounded-full border-3 border-peanut neo-box-sm">
+<a class="font-display text-xs md:text-sm px-4 py-2 rounded-full text-peanut hover:bg-mustard transition-colors flex items-center gap-1 font-black" href="#simulator-wajan">
+<span>🍳</span> Mini-Game Goreng
+      </a>
+<a class="font-display text-xs md:text-sm px-4 py-2 rounded-full text-peanut hover:bg-mustard transition-colors flex items-center gap-1 font-black" href="#studio-racik">
+<span>🎨</span> Studio Piring Builder
+      </a>
+<a class="font-display text-xs md:text-sm px-4 py-2 rounded-full text-peanut hover:bg-mustard transition-colors flex items-center gap-1 font-black" href="#katalog-menu">
+<span>🥟</span> Menu Gemoy
+      </a>
+<a class="font-display text-xs md:text-sm px-4 py-2 rounded-full text-peanut hover:bg-mustard transition-colors flex items-center gap-1 font-black" href="#checkout-section">
+<span>📝</span> Form Pesan Cepat
+      </a>
+</nav>
+<!-- Cart Button Header -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2.5 bg-gradient-to-r from-primary to-primary-container text-white px-4 py-2.5 rounded-2xl font-display font-black border-3 border-peanut neo-box-sm hover:scale-105 active:scale-95 transition-all" href="#checkout-section">
+<span class="text-2xl animate-bounce">🧺</span>
+<div class="flex flex-col text-left leading-tight">
+<span class="text-[10px] uppercase text-mustard tracking-wider">Bakul Sajian</span>
+<span class="text-sm font-black" id="nav-cart-total">Rp 38.000</span>
+</div>
+</a>
+</div>
+</div>
+</header>
+<main class="w-full relative z-10">
+<!-- ================= HERO POP-ART SECTION DENGAN DUAL MASKOT HIDUP ================= -->
+<section class="w-full relative px-4 md:px-8 pt-8 pb-14 overflow-hidden border-b-4 border-peanut">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Hero Text & Maskot Dialog Interactive -->
+<div class="lg:col-span-7 flex flex-col gap-5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1.5 bg-mustard text-peanut px-4 py-1.5 rounded-full font-display font-black text-xs border-2 border-peanut neo-box-sm animate-wobble-cute">
+          👑 Resep Pusaka Tatar Parahyangan 1982
+        </span>
+<span class="inline-flex items-center gap-1 bg-lime-200 text-tertiary px-3.5 py-1.5 rounded-full font-display font-black text-xs border-2 border-peanut neo-box-sm">
+          🐟 100% Tenggiri Asli Tanpa Aci Alot!
+        </span>
+</div>
+<h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-peanut leading-[1.12]">
+        Garing <span class="text-primary underline decoration-wavy decoration-mustard">Kresss!</span> Gurih Nampol, <br class="hidden sm:inline"/>
+        Bikin Lidah <span class="bg-mustard text-peanut px-3 py-1 rounded-2xl border-3 border-peanut neo-box-sm inline-block rotate-[-2deg]">Joget Bahagia!</span> 😋
+      </h1>
+<p class="font-body text-base md:text-lg text-peanut/90 max-w-2xl font-medium leading-relaxed">
+        Sensasi batagor nomor wahid di Bandung! Digoreng dadakan per batch dengan <strong>80% daging murni ikan tenggiri</strong>, disiram bumbu kacang sangrai bertumbuk kasar medok dan semerbak limau segar.
+      </p>
+<!-- INTERAKTIF: Dua Maskot Berbicara (Bisa Diklik & Bersuara!) -->
+<div class="bg-amber-100/90 border-3 border-peanut rounded-gemoy p-4 neo-box flex flex-col sm:flex-row items-center gap-4 max-w-xl transition-all">
+<!-- Maskot 1: Mang Kres si Koki Ikan Tenggiri -->
+<button class="flex items-center gap-3 w-full sm:w-1/2 p-2 rounded-2xl bg-white border-2 border-peanut neo-box-sm hover:scale-105 transition-all text-left group" onclick="mascotTalk('mang_kres')" type="button">
+<div class="w-13 h-13 rounded-2xl bg-sky-200 border-2 border-peanut flex items-center justify-center shrink-0 text-3xl animate-float shadow-inner">
+            🐟
+          </div>
+<div class="flex flex-col">
+<span class="font-display text-xs text-primary font-black flex items-center gap-1">
+              Mang Kres (Klik Aku!):
+            </span>
+<span class="font-display text-[11px] text-peanut leading-tight" id="mang-kres-quote">
+              "Kenyal gurih daging tenggiri Cibanten bikin nagih!"
+            </span>
+</div>
+</button>
+<!-- Maskot 2: Si Tahu Gemoy -->
+<button class="flex items-center gap-3 w-full sm:w-1/2 p-2 rounded-2xl bg-white border-2 border-peanut neo-box-sm hover:scale-105 transition-all text-left group" onclick="mascotTalk('si_tahu')" type="button">
+<div class="w-13 h-13 rounded-2xl bg-amber-200 border-2 border-peanut flex items-center justify-center shrink-0 text-3xl animate-float-slow shadow-inner">
+            🧈
+          </div>
+<div class="flex flex-col">
+<span class="font-display text-xs text-amber-800 font-black flex items-center gap-1">
+              Si Tahu Gemoy (Klik!):
+            </span>
+<span class="font-display text-[11px] text-peanut leading-tight" id="si-tahu-quote">
+              "Tahu sutra Cibuntu lumer di mulut pas masih anget!"
+            </span>
+</div>
+</button>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex flex-wrap items-center gap-3 pt-2">
+<a class="px-7 py-3.5 rounded-2xl bg-primary hover:bg-primary-container text-white font-display text-base font-black border-3 border-peanut neo-box neo-box-hover flex items-center gap-2 transition-all" href="#simulator-wajan">
+<span>🍳 Main Game Wajan Goreng</span>
+<span class="material-symbols-outlined text-lg">arrow_downward</span>
+</a>
+<a class="px-6 py-3.5 rounded-2xl bg-mustard hover:bg-amber-400 text-peanut font-display text-sm font-black border-3 border-peanut neo-box neo-box-hover flex items-center gap-2 transition-all" href="#studio-racik">
+<span>🎨 Studio Racik Piring</span>
+</a>
+</div>
+</div>
+<!-- Hero Visual Card Neo-Brutalist -->
+<div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+<div class="relative w-full max-w-md bg-mustard-light p-4 rounded-gemoy border-4 border-peanut neo-box">
+<!-- Floating Stamp Badge -->
+<div class="absolute -top-4 -right-4 z-20 bg-primary text-white border-3 border-peanut px-4 py-1.5 rounded-2xl neo-box-sm rotate-6 flex items-center gap-1.5 font-display text-xs font-black">
+<span>⭐</span>
+<span>Goreng Dadakan Panas!</span>
+</div>
+<div class="w-full h-80 rounded-2xl overflow-hidden relative border-3 border-peanut neo-box-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Batagor Juara dish crispy fried dumplings smothered in peanut sauce" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1wvGjIRye6ucNz_kYFqSkOtnpG0afrVG6AvXaEFCG_1W1Ko7ZGhjJJbhXQ2MONNMjLXywY3nBfi2QEBuYjNVi9wf_fliHfkSao5JCfznBhmi2MEuTmbQ7k70TDLSlsIanRRHHjZgFyqe4pGdU7ASsVw9wdN9OaTPbNdLEN4_YngjETKQbRYQMifNBoGlcWpqZHbuKsyOwv4mfwU__Tx2EEoYdGdNtrBRwjPpKOMCKmPzQ8ogWZwS1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-peanut/90 via-transparent to-transparent flex flex-col justify-end p-5 text-white">
+<span class="font-display text-xl font-black flex items-center gap-2">
+<span>Sensasi Kress Krispi</span> 🥟
+            </span>
+<p class="font-body text-xs text-amber-200">Dipotong garing sesaat sebelum disiram bumbu kacang sangrai Tuban!</p>
+</div>
+</div>
+<!-- Audio Kriuk Sound Wave Bar Demo -->
+<div class="mt-4 bg-white border-2 border-peanut rounded-2xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center border-2 border-peanut neo-btn active:scale-90 transition-transform" onclick="triggerCrunchSoundVisual('KREZZZZZ!!')" title="Dengarkan Suara Kress" type="button">
+<span class="material-symbols-outlined text-lg">volume_up</span>
+</button>
+<div class="flex flex-col">
+<span class="font-display text-xs font-black text-peanut">Kriuk Audio Visualizer</span>
+<span class="text-[11px] text-peanut/70">Tekan tombol untuk tes suara renyah!</span>
+</div>
+</div>
+<!-- Wave Bars -->
+<div class="flex items-end gap-1 h-7 px-2" id="audio-wave-container">
+<div class="w-1.5 bg-primary rounded-full h-2 audio-bar"></div>
+<div class="w-1.5 bg-mustard rounded-full h-4 audio-bar" style="animation-delay: 0.15s;"></div>
+<div class="w-1.5 bg-chili rounded-full h-6 audio-bar" style="animation-delay: 0.3s;"></div>
+<div class="w-1.5 bg-lime-punch rounded-full h-3 audio-bar" style="animation-delay: 0.2s;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= 1. MINI-GAME WAJAN GORENG SIMULATOR (SANGAT INTERAKTIF) ================= -->
+<section class="w-full px-4 md:px-8 py-14 bg-amber-100/60 border-b-4 border-peanut relative" id="simulator-wajan">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<!-- Header Mini Game -->
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-2">
+<div class="inline-flex items-center gap-2 bg-mustard text-peanut border-2 border-peanut px-4 py-1.5 rounded-full font-display font-black text-xs neo-box-sm">
+<span class="text-base">🎮</span> Mini-Game Interaktif Dapur Juara
+      </div>
+<h2 class="font-display text-3xl md:text-5xl font-black text-peanut">
+        Wajan Simulator: Goreng Dadakan!
+      </h2>
+<p class="font-body text-sm md:text-base text-peanut/80">
+        Klik tombol <strong>"Cemplungin Gorengan! 🥟"</strong> untuk menggoreng tahu dan siomay langsung di minyak mendidih. Kumpulkan poin kegaringan hingga 100%!
+      </p>
+</div>
+<!-- Main Game Arena -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-gemoy-lg border-4 border-peanut p-6 md:p-10 neo-box">
+<!-- WAJAN BESAR KARTUN DENGAN MINYAK & BUBBLE PARTICLES -->
+<div class="lg:col-span-6 flex flex-col items-center justify-center relative">
+<div class="relative w-72 h-72 sm:w-88 sm:h-88 rounded-full bg-gradient-to-b from-stone-800 via-stone-900 to-black border-8 border-stone-700 shadow-2xl flex items-center justify-center p-4">
+<!-- Gagang Wajan Kartun Kiri & Kanan -->
+<div class="absolute -left-7 top-1/2 -translate-y-1/2 w-8 h-16 bg-stone-800 border-4 border-stone-600 rounded-l-2xl"></div>
+<div class="absolute -right-7 top-1/2 -translate-y-1/2 w-8 h-16 bg-stone-800 border-4 border-stone-600 rounded-r-2xl"></div>
+<!-- Minyak Kelapa Mendidih (Sizzling Golden Oil) -->
+<div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-600 via-yellow-400 to-amber-300 relative overflow-hidden flex items-center justify-center border-4 border-amber-600 shadow-inner" id="oil-pool" style="animation: oilSizzle 3s ease-in-out infinite;">
+<!-- Dynamic Bubbles (Letupan Minyak) -->
+<div class="absolute w-4 h-4 rounded-full bg-white/80 top-10 left-12 animate-bubble-rise"></div>
+<div class="absolute w-5 h-5 rounded-full bg-white/80 bottom-14 right-14 animate-bubble-rise" style="animation-delay: 0.5s;"></div>
+<div class="absolute w-3 h-3 rounded-full bg-white/90 top-1/2 left-20 animate-bubble-rise" style="animation-delay: 0.8s;"></div>
+<div class="absolute w-6 h-6 rounded-full bg-white/70 bottom-8 left-1/3 animate-bubble-rise" style="animation-delay: 1.2s;"></div>
+<div class="absolute w-4 h-4 rounded-full bg-white/80 top-16 right-20 animate-bubble-rise" style="animation-delay: 0.3s;"></div>
+<!-- Splash Ripple Wave (Triggered on click) -->
+<div class="absolute w-24 h-24 rounded-full border-4 border-white/80 pointer-events-none opacity-0" id="oil-splash"></div>
+<!-- Item Batagor terapung di wajan (Bisa bertambah interaktif) -->
+<div class="relative z-10 w-full h-full flex items-center justify-center flex-wrap p-8 gap-3" id="wok-floating-items">
+<span class="text-4xl animate-float transition-all drop-shadow-md">🥟</span>
+<span class="text-4xl animate-float-slow transition-all drop-shadow-md">🧈</span>
+</div>
+<!-- Pop Text Popup Effect ("KREZZZ!", "KRIUK!", "SIZZLEEE!") -->
+<div class="absolute left-1/2 top-1/2 pointer-events-none z-30 font-display text-2xl sm:text-3xl font-black text-white px-3 py-1 rounded-xl bg-primary border-2 border-white shadow-xl opacity-0" id="sizzle-pop-text">
+              KREZZZ! 🔥
+            </div>
+</div>
+<!-- Suhu Minyak Badge -->
+<div class="absolute -bottom-3 bg-chili text-white font-display text-xs px-3.5 py-1 rounded-full border-2 border-white font-black shadow-lg animate-pulse">
+            🔥 180°C Minyak Kelapa Segar!
+          </div>
+</div>
+<!-- Petunjuk Interaksi -->
+<span class="font-display text-xs text-peanut font-bold mt-5 flex items-center gap-1.5">
+<span>👆</span> Klik tombol di sebelah kanan untuk cemplungin bahan!
+        </span>
+</div>
+<!-- KONTROL MINI-GAME & METER KEGARINGAN -->
+<div class="lg:col-span-6 flex flex-col gap-6">
+<div>
+<span class="font-display text-xs text-primary font-black uppercase tracking-wider flex items-center gap-1">
+<span>✨</span> Simulator Penggorengan Real-Time
+          </span>
+<h3 class="font-display text-2xl sm:text-3xl font-black text-peanut mt-1">
+            Goreng Sendiri Batagor Impianmu!
+          </h3>
+<p class="font-body text-sm text-peanut/80 mt-1">
+            Tiap cemplungan menambah renyah adonan ikan tenggiri dan menyumbang kuota goreng kloter hari ini!
+          </p>
+</div>
+<!-- Meter Kegaringan (Crispiness Meter) -->
+<div class="bg-amber-50 p-4 rounded-2xl border-3 border-peanut neo-box-sm flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs font-display font-black text-peanut">
+<span>Tingkat Kegaringan Batagor:</span>
+<span class="text-primary text-sm font-black" id="crisp-meter-label">65% Golden Crispy</span>
+</div>
+<div class="w-full bg-amber-200/80 rounded-full h-5 p-1 border-2 border-peanut overflow-hidden shadow-inner">
+<div class="bg-gradient-to-r from-yellow-400 via-mustard to-primary h-full rounded-full transition-all duration-300" id="crisp-meter-bar" style="width: 65%;"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-body text-peanut/80">
+<span>Kurang Garing</span>
+<span class="font-bold text-tertiary">🏆 Kress Sempurna!</span>
+<span>Garing Kress Nampol!</span>
+</div>
+</div>
+<!-- Stats Counter Box -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-amber-100 p-3.5 rounded-2xl border-2 border-peanut neo-box-sm text-center">
+<span class="block text-2xl font-display font-black text-primary" id="today-fried-count">104</span>
+<span class="text-xs font-display font-black text-peanut">Batagor Tergoreng Hari Ini</span>
+</div>
+<div class="bg-lime-100 p-3.5 rounded-2xl border-2 border-peanut neo-box-sm text-center">
+<span class="block text-2xl font-display font-black text-tertiary" id="user-clicks-count">0</span>
+<span class="text-xs font-display font-black text-peanut">Bahan Yang Kamu Cemplungin</span>
+</div>
+</div>
+<!-- TOMBOL INTERAKTIF CEMPLUNGIN GORENGAN -->
+<div class="flex flex-col sm:flex-row gap-3">
+<button class="flex-1 py-4 px-6 rounded-2xl bg-gradient-to-r from-primary to-primary-container text-white font-display text-base font-black border-3 border-peanut neo-box neo-box-hover active:scale-95 transition-all flex items-center justify-center gap-2 group" onclick="dropIngredientIntoWok()" type="button">
+<span class="text-2xl group-hover:rotate-12 transition-transform">🥟</span>
+<span>Cemplungin Gorengan! 💥</span>
+</button>
+<button class="py-4 px-5 rounded-2xl bg-mustard hover:bg-amber-400 text-peanut font-display text-sm font-black border-3 border-peanut neo-box neo-box-hover active:scale-95 transition-all flex items-center justify-center gap-1.5" onclick="clearWokItems()" title="Angkat semua batagor yang sudah matang" type="button">
+<span>🥢</span>
+<span>Angkat Matang!</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= 2. STUDIO RACIK PIRING & SAUS DRIZZLE BUILDER ================= -->
+<section class="w-full px-4 md:px-8 py-14 bg-surface relative overflow-hidden border-b-4 border-peanut" id="studio-racik">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<!-- Section Header -->
+<div class="text-center max-w-2xl mx-auto flex flex-col items-center gap-2">
+<div class="inline-flex items-center gap-2 bg-secondary-container text-peanut border-2 border-peanut px-4 py-1.5 rounded-full font-display font-black text-xs neo-box-sm">
+<span class="text-base">🎨</span> Game Virtual Plate Builder
+      </div>
+<h2 class="font-display text-3xl md:text-5xl font-black text-peanut">
+        Studio Racik Piring Batagor Juara
+      </h2>
+<p class="font-body text-sm md:text-base text-peanut/80">
+        Klik bahan favoritmu untuk menjatuhkannya ke atas piring keramik, kucurin saus kacang medok, dan taburkan cabai rawit pedas!
+      </p>
+</div>
+<!-- Playground Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT: VIRTUAL PLATE DISPLAY -->
+<div class="lg:col-span-6 bg-amber-50 rounded-gemoy-lg border-4 border-peanut p-6 md:p-8 flex flex-col items-center justify-center relative neo-box">
+<!-- Header Atas Piring -->
+<div class="w-full flex items-center justify-between mb-2">
+<span class="font-display text-xs text-peanut font-black uppercase tracking-wider flex items-center gap-1.5">
+<span>🍽️</span> Piring Sajian Juara
+          </span>
+<button class="font-display text-xs text-chili hover:underline flex items-center gap-1 font-black" onclick="resetPlate()" type="button">
+<span class="material-symbols-outlined text-sm">restart_alt</span> Kosongkan Piring
+          </button>
+</div>
+<!-- PIRING 3D CERAMIC DENGAN DYNAMIC SAUCE & CHILI OVERLAYS -->
+<div class="relative w-72 h-72 sm:w-88 sm:h-88 rounded-full plate-3d flex items-center justify-center overflow-hidden my-4" id="virtual-plate">
+<!-- Sauce Layer Drizzle (Kucuran Saus Kacang) -->
+<div class="absolute inset-5 rounded-full pointer-events-none transition-all duration-700 opacity-90 sauce-splat border-4 border-amber-950/30 flex items-center justify-center" id="sauce-layer">
+<!-- Partikel Butiran Kacang Sangrai -->
+<div class="absolute w-2.5 h-2.5 rounded-full bg-amber-950/70 top-12 left-16"></div>
+<div class="absolute w-3 h-3 rounded-full bg-amber-950/70 bottom-14 right-20"></div>
+<div class="absolute w-2 h-2 rounded-full bg-amber-950/70 top-20 right-14"></div>
+<div class="absolute w-3.5 h-3.5 rounded-full bg-amber-950/80 bottom-20 left-20"></div>
+</div>
+<!-- Cabai Rawit Taburan Overlay -->
+<div class="absolute inset-0 pointer-events-none transition-opacity duration-300 z-20 opacity-100" id="chili-sprinkle-layer">
+<span class="absolute top-14 left-24 text-xl">🌶️</span>
+<span class="absolute bottom-16 right-16 text-lg">🌶️</span>
+<span class="absolute top-1/2 right-12 text-base">🌶️</span>
+</div>
+<!-- Jeruk Limau Kembar Visual -->
+<div class="absolute top-8 right-10 text-3xl transition-transform duration-300 drop-shadow-md z-30" id="lime-visual">
+            🍋
+          </div>
+<!-- DYNAMIC ITEMS IN PLATE (ANIMASI JATUH BOUNCE FALL) -->
+<div class="relative z-20 w-full h-full flex flex-wrap items-center justify-center content-center gap-2.5 p-8" id="plate-items-container">
+<!-- Items rendered via JS -->
+</div>
+<!-- Empty Plate Message -->
+<div class="hidden absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-6 text-peanut/50 font-display text-sm" id="plate-empty-note">
+<span class="text-5xl mb-2 animate-bounce">🍽️</span>
+<span>Piringmu masih kosong melompong!<br/>Pilih bahan di samping yuk!</span>
+</div>
+</div>
+<!-- Status Bar Piring -->
+<div class="w-full bg-white border-2 border-peanut rounded-2xl p-3.5 flex items-center justify-between mt-2 neo-box-sm">
+<div class="flex items-center gap-2">
+<span class="text-2xl" id="plate-mood-icon">😋</span>
+<div class="flex flex-col">
+<span class="font-display text-xs text-peanut font-black" id="plate-summary-text">3 Potong Gurih Siap Santap</span>
+<span class="text-[11px] text-peanut/70" id="sauce-summary-text">Bumbu Kacang: Medok Banjir • Pedas: Santai</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-display text-[11px] text-peanut/70 block font-bold">Total Racikan:</span>
+<span class="font-display text-lg font-black text-primary" id="custom-plate-price">Rp 27.000</span>
+</div>
+</div>
+<!-- Tombol Masukkan Piring ke Keranjang -->
+<button class="w-full mt-4 py-4 rounded-2xl bg-primary hover:bg-primary-container text-white font-display text-sm font-black border-3 border-peanut neo-box neo-box-hover active:scale-95 transition-all flex items-center justify-center gap-2" onclick="addCustomPlateToCart()" type="button">
+<span class="text-xl">🥣</span>
+<span>Cemplungkan Racikan Piring Ini ke Bakul!</span>
+</button>
+</div>
+<!-- RIGHT: INGREDIENT CONTROLS & SAUCE LAB -->
+<div class="lg:col-span-6 flex flex-col gap-5">
+<!-- STEP 1: PILIH BAHAN (BOUNCY BUTTONS) -->
+<div class="bg-white p-5 md:p-6 rounded-gemoy border-3 border-peanut neo-box flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h4 class="font-display text-base font-black text-peanut flex items-center gap-2">
+<span class="bg-mustard text-peanut w-6 h-6 rounded-full text-xs font-black inline-flex items-center justify-center border border-peanut">1</span>
+              Klik Bahan Buat Masuk ke Piring:
+            </h4>
+<span class="text-xs font-display text-tertiary font-black bg-lime-100 px-2.5 py-0.5 rounded-full border border-tertiary/20">Bisa campur bebas!</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="p-3 bg-amber-50 hover:bg-mustard-light border-2 border-peanut rounded-2xl flex items-center gap-3 neo-box-sm neo-box-hover text-left transition-all active:scale-95 group" onclick="addItemToPlate('tahu', 'Tahu Sutra', 9000, '🧈')" type="button">
+<span class="text-3xl group-hover:scale-125 transition-transform">🧈</span>
+<div>
+<span class="font-display text-xs font-black text-peanut block">+ Tahu Sutra</span>
+<span class="text-[11px] text-primary font-bold">Rp 9.000 / pc</span>
+</div>
+</button>
+<button class="p-3 bg-amber-50 hover:bg-mustard-light border-2 border-peanut rounded-2xl flex items-center gap-3 neo-box-sm neo-box-hover text-left transition-all active:scale-95 group" onclick="addItemToPlate('siomay', 'Siomay Crispy', 9500, '🥟')" type="button">
+<span class="text-3xl group-hover:scale-125 transition-transform">🥟</span>
+<div>
+<span class="font-display text-xs font-black text-peanut block">+ Siomay Kress</span>
+<span class="text-[11px] text-primary font-bold">Rp 9.500 / pc</span>
+</div>
+</button>
+<button class="p-3 bg-amber-50 hover:bg-mustard-light border-2 border-peanut rounded-2xl flex items-center gap-3 neo-box-sm neo-box-hover text-left transition-all active:scale-95 group" onclick="addItemToPlate('pangsit', 'Pangsit Kress', 8500, '📐')" type="button">
+<span class="text-3xl group-hover:scale-125 transition-transform">📐</span>
+<div>
+<span class="font-display text-xs font-black text-peanut block">+ Pangsit Kress</span>
+<span class="text-[11px] text-primary font-bold">Rp 8.500 / pc</span>
+</div>
+</button>
+<button class="p-3 bg-amber-50 hover:bg-mustard-light border-2 border-peanut rounded-2xl flex items-center gap-3 neo-box-sm neo-box-hover text-left transition-all active:scale-95 group" onclick="addItemToPlate('telur', 'Puyuh Crispy', 10000, '🥚')" type="button">
+<span class="text-3xl group-hover:scale-125 transition-transform">🥚</span>
+<div>
+<span class="font-display text-xs font-black text-peanut block">+ Telur Puyuh</span>
+<span class="text-[11px] text-primary font-bold">Rp 10.000 / pc</span>
+</div>
+</button>
+</div>
+</div>
+<!-- STEP 2: SAUCE LAB & DRIZZLE TOGGLE -->
+<div class="bg-white p-5 md:p-6 rounded-gemoy border-3 border-peanut neo-box flex flex-col gap-4">
+<h4 class="font-display text-base font-black text-peanut flex items-center gap-2">
+<span class="bg-mustard text-peanut w-6 h-6 rounded-full text-xs font-black inline-flex items-center justify-center border border-peanut">2</span>
+            Saus Drizzle &amp; Level Pedas:
+          </h4>
+<!-- Gaya Bumbu Kacang -->
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Gaya Siraman Bumbu Kacang:</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-primary text-white font-display text-xs font-black neo-box-sm flex items-center justify-center gap-1.5 transition-all" id="btn-sauce-banjir" onclick="setSauceStyle('banjir')" type="button">
+<span>🌊 Siram Banjir Medok</span>
+</button>
+<button class="sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black flex items-center justify-center gap-1.5 transition-all" id="btn-sauce-pisah" onclick="setSauceStyle('pisah')" type="button">
+<span>🥣 Saus Pisah Mangkuk</span>
+</button>
+</div>
+</div>
+<!-- Tingkat Pedas -->
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Level Pedas Cabai Rawit:</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="spice-level-btn py-2 px-2 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black text-center transition-all" id="btn-spice-0" onclick="setSpiceLevel(0)" type="button">
+                🌱 Lvl 0 Adem
+              </button>
+<button class="spice-level-btn py-2 px-2 rounded-xl border-2 border-peanut bg-primary text-white font-display text-xs font-black text-center neo-box-sm transition-all" id="btn-spice-1" onclick="setSpiceLevel(1)" type="button">
+                🌶️ Lvl 1 Santai
+              </button>
+<button class="spice-level-btn py-2 px-2 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black text-center transition-all" id="btn-spice-2" onclick="setSpiceLevel(2)" type="button">
+                💥 Lvl 2 Goyang!
+              </button>
+</div>
+</div>
+<!-- Toggles: Jeruk Limau Segar -->
+<div class="pt-3 border-t-2 border-peanut/10 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-3xl">🍋</span>
+<div class="flex flex-col">
+<span class="font-display text-xs text-peanut font-black">Perasan Jeruk Limau Segar</span>
+<span class="text-[11px] text-peanut/70">Wangi limau kembar Tatar Parahyangan</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-limau" onchange="toggleLimau(this.checked)" type="checkbox"/>
+<div class="w-12 h-6 bg-stone-300 border-2 border-peanut rounded-full peer peer-checked:bg-lime-punch peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-2 after:border-peanut after:rounded-full after:h-4.5 after:w-4.5 after:transition-all"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= 4. KATALOG MENU POP-ART NEO-BRUTALISM ================= -->
+<section class="w-full px-4 md:px-8 py-14 bg-mustard-light/40 border-b-4 border-peanut" id="katalog-menu">
+<div class="max-w-7xl mx-auto flex flex-col gap-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-primary font-display text-xs tracking-wider uppercase font-black">
+<span>🥢</span>
+<span>Menu Paket Siap Santap</span>
+</div>
+<h2 class="font-display text-3xl md:text-5xl font-black text-peanut mt-1">Pilihan Paket Batagor Juara</h2>
+<p class="font-body text-sm md:text-base text-peanut/80">Pilih varian favoritmu, tentukan level kepedasan, dan masukkan ke bakul!</p>
+</div>
+<div class="bg-mustard border-3 border-peanut px-4 py-2 rounded-2xl text-xs text-peanut font-display font-black flex items-center gap-2 neo-box-sm">
+<span>✨</span>
+<span>Semua paket lengkap bumbu kacang Tuban medok + limau!</span>
+</div>
+</div>
+<!-- 4 Cards Neo-Brutalist Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<!-- Card 1: Batagor Komplit Sultan -->
+<div class="bg-white rounded-gemoy p-5 border-4 border-peanut neo-box neo-box-hover flex flex-col justify-between relative group transition-all">
+<div class="absolute top-4 left-4 z-20 bg-primary text-white border-2 border-peanut px-3.5 py-1 rounded-full text-xs font-display font-black neo-box-sm rotate-[-4deg]">
+          👑 Favorit Sultan!
+        </div>
+<div class="w-full h-48 rounded-2xl overflow-hidden relative mb-4 border-3 border-peanut">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Batagor Komplit Sultan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ2RONh7bH55L86BxB1ZVuQ3B9ifXPNjwoLMHO-dcDpcNHVCFnhbFZdjjvgWpBJrh-mHgdq8BzVBA2jb383ZCIpzfi1LDOBPodgyQzi1sJ1PBnSKgwnVR0x8Igiz_JvGBnPyRh83KxchkIQaSnogx3aCl3tBGjRlGHoH-lHeJyPoN9gE614iHYBGNM618-YuOJ9n7CGIH7sMk0CvzncvX5GZYY-9uh-56UtQENyBQAW0FzDumIuAo4"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-display text-xl font-black text-peanut">Batagor Komplit Sultan</h3>
+<p class="font-body text-xs text-peanut/80 line-clamp-2">2 Tahu Bakso Ikan Tenggiri + 2 Siomay Pangsit Krispi Gurih + Limau Wangi Kembar.</p>
+<div class="text-primary font-display text-2xl font-black my-1">
+            Rp 38.000 <span class="text-xs text-peanut/70 font-normal">/ porsi</span>
+</div>
+<!-- Spice Select -->
+<div class="flex flex-col gap-1 mt-1">
+<span class="font-display text-[11px] text-peanut font-bold">Level Pedas:</span>
+<div class="grid grid-cols-3 gap-1 text-xs font-display">
+<button class="spice-card-btn active-spice bg-primary text-white py-1 rounded-xl border border-peanut text-center font-black" onclick="selectCardSpice('komplit', 'Pisah', this)" type="button">Pisah</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('komplit', 'Sedang', this)" type="button">Sedang</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('komplit', 'Nampol', this)" type="button">Nampol 🌶️</button>
+</div>
+</div>
+<!-- Counter -->
+<div class="flex items-center justify-between mt-3 bg-amber-50 p-2 rounded-2xl border-2 border-peanut">
+<span class="font-display text-xs text-peanut font-black">Porsi:</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-xl bg-amber-200 hover:bg-primary hover:text-white text-peanut font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('komplit', -1)" type="button">−</button>
+<span class="font-display text-base font-black text-peanut min-w-6 text-center" id="qty-komplit">1</span>
+<button class="w-8 h-8 rounded-xl bg-primary hover:bg-primary-container text-white font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('komplit', 1)" type="button">+</button>
+</div>
+</div>
+<button class="w-full mt-3 py-3 rounded-2xl bg-mustard hover:bg-amber-400 text-peanut font-display text-xs font-black border-2 border-peanut neo-box-sm active:scale-95 transition-all flex items-center justify-center gap-1.5" onclick="addToTray('komplit')" type="button">
+<span>🛒</span>
+<span>Cemplungkan ke Bakul!</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Batagor Siomay Garing -->
+<div class="bg-white rounded-gemoy p-5 border-4 border-peanut neo-box neo-box-hover flex flex-col justify-between relative group transition-all">
+<div class="absolute top-4 left-4 z-20 bg-mustard text-peanut border-2 border-peanut px-3.5 py-1 rounded-full text-xs font-display font-black neo-box-sm rotate-[-4deg]">
+          ⚡ Garing Maksimal!
+        </div>
+<div class="w-full h-48 rounded-2xl overflow-hidden relative mb-4 border-3 border-peanut">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Batagor Siomay Garing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwoab4Bcj01R4JMdiHbpKUZIi6SYc44oY9FJx4TgG0H50xWba_Lpz8ZYj9A90jk-fHe15xB31pe266gxbBKF5CSRX1xg9DPFBJl_pkTxl5d09NDOnqW6fQ-hX-N5PNkogBA8LtI2mtmMShLkBH3jl-0Vl9uYrV170IsErHa1gSLQ5u7R_GXUjLtGDQiLkjurXTgJROVuL38O5TX1sqfBBkOWarXv5mvJbZUMqPNC4zplUCzepDWyDR"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-display text-xl font-black text-peanut">Batagor Siomay Kress</h3>
+<p class="font-body text-xs text-peanut/80 line-clamp-2">4 pcs Pangsit Siomay renyah berlapis gurih dengan isian daging tenggiri padat kenyal.</p>
+<div class="text-primary font-display text-2xl font-black my-1">
+            Rp 35.000 <span class="text-xs text-peanut/70 font-normal">/ porsi</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<span class="font-display text-[11px] text-peanut font-bold">Level Pedas:</span>
+<div class="grid grid-cols-3 gap-1 text-xs font-display">
+<button class="spice-card-btn active-spice bg-primary text-white py-1 rounded-xl border border-peanut text-center font-black" onclick="selectCardSpice('crispy', 'Pisah', this)" type="button">Pisah</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('crispy', 'Sedang', this)" type="button">Sedang</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('crispy', 'Nampol', this)" type="button">Nampol 🌶️</button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 bg-amber-50 p-2 rounded-2xl border-2 border-peanut">
+<span class="font-display text-xs text-peanut font-black">Porsi:</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-xl bg-amber-200 hover:bg-primary hover:text-white text-peanut font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('crispy', -1)" type="button">−</button>
+<span class="font-display text-base font-black text-peanut min-w-6 text-center" id="qty-crispy">0</span>
+<button class="w-8 h-8 rounded-xl bg-primary hover:bg-primary-container text-white font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('crispy', 1)" type="button">+</button>
+</div>
+</div>
+<button class="w-full mt-3 py-3 rounded-2xl bg-amber-100 hover:bg-mustard text-peanut font-display text-xs font-black border-2 border-peanut neo-box-sm active:scale-95 transition-all flex items-center justify-center gap-1.5" onclick="addToTray('crispy')" type="button">
+<span>🛒</span>
+<span>Cemplungkan ke Bakul!</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Batagor Tahu Sutra Gemoy -->
+<div class="bg-white rounded-gemoy p-5 border-4 border-peanut neo-box neo-box-hover flex flex-col justify-between relative group transition-all">
+<div class="absolute top-4 left-4 z-20 bg-lime-punch text-white border-2 border-peanut px-3.5 py-1 rounded-full text-xs font-display font-black neo-box-sm rotate-[-4deg]">
+          🧈 Favorit Si Gemoy!
+        </div>
+<div class="w-full h-48 rounded-2xl overflow-hidden relative mb-4 border-3 border-peanut">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tahu Bakso Sutra" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4ZEjGF9QpAnVd7zU0dg7xwTojy24DzUYczFvVM_JXVYtXg-5jkSXLcNZCpB69jF97xnxUREAIv11FYvLwGxOVr0grX2_4nPmu3gq5tREbGb6BU2vsMq2GDUUtexvUf52gaOe8UwT9JGGx8Jxp9_mwfwM9h3lo8NzWzYJ1hjulPaXXKq3pcOXqSv6bk4oy44v92_DyhyA7E7zzbab_BgjtnUbC7LJc4wq697YcXa5ex81nBPSAOZVt"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-display text-xl font-black text-peanut">Tahu Bakso Sutra Gemoy</h3>
+<p class="font-body text-xs text-peanut/80 line-clamp-2">Tahu putih Cibuntu yang lumer lembut di lidah, padu adonan tenggiri beraroma daun bawang segar.</p>
+<div class="text-primary font-display text-2xl font-black my-1">
+            Rp 36.000 <span class="text-xs text-peanut/70 font-normal">/ porsi</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<span class="font-display text-[11px] text-peanut font-bold">Level Pedas:</span>
+<div class="grid grid-cols-3 gap-1 text-xs font-display">
+<button class="spice-card-btn active-spice bg-primary text-white py-1 rounded-xl border border-peanut text-center font-black" onclick="selectCardSpice('tahu', 'Pisah', this)" type="button">Pisah</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('tahu', 'Sedang', this)" type="button">Sedang</button>
+<button class="spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold" onclick="selectCardSpice('tahu', 'Nampol', this)" type="button">Nampol 🌶️</button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 bg-amber-50 p-2 rounded-2xl border-2 border-peanut">
+<span class="font-display text-xs text-peanut font-black">Porsi:</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-xl bg-amber-200 hover:bg-primary hover:text-white text-peanut font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('tahu', -1)" type="button">−</button>
+<span class="font-display text-base font-black text-peanut min-w-6 text-center" id="qty-tahu">0</span>
+<button class="w-8 h-8 rounded-xl bg-primary hover:bg-primary-container text-white font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('tahu', 1)" type="button">+</button>
+</div>
+</div>
+<button class="w-full mt-3 py-3 rounded-2xl bg-amber-100 hover:bg-mustard text-peanut font-display text-xs font-black border-2 border-peanut neo-box-sm active:scale-95 transition-all flex items-center justify-center gap-1.5" onclick="addToTray('tahu')" type="button">
+<span>🛒</span>
+<span>Cemplungkan ke Bakul!</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Frozen Vac-Pack Siap Goreng -->
+<div class="bg-white rounded-gemoy p-5 border-4 border-peanut neo-box neo-box-hover flex flex-col justify-between relative group transition-all">
+<div class="absolute top-4 left-4 z-20 bg-sky-600 text-white border-2 border-peanut px-3.5 py-1 rounded-full text-xs font-display font-black neo-box-sm rotate-[-4deg]">
+          ❄️ Kirim Se-Indonesia!
+        </div>
+<div class="w-full h-48 rounded-2xl overflow-hidden relative mb-4 border-3 border-peanut">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Frozen Batagor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDytE1lZDddhi_Tqj3tA81PvsuFfPyolDpRSVPV6zg7SFTDiBKuPkCkHEEsRNG8AYNqx2jYDm8HVWdGttta9R-uqz58WtOqqPPqik8-h3DLCeWmqmaaCLHdK6UhlnZxKLs7ARwwcVIYwSUnGw7V-XFRUzoz7wPn_2b8uRLbfIgtEnVDomOZnY-4LXPxXo83_JeHgxlFXlNMYk3SRGGHvRtPV8TRseMXTNW9RM2beJv55kY9V6kAwa-u"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-display text-xl font-black text-peanut">Frozen Vac-Pack Box</h3>
+<p class="font-body text-xs text-peanut/80 line-clamp-2">Isi 10 pcs kedap udara + 1 botol bumbu kacang 250ml + jeruk limau. Tahan 1 bulan di freezer.</p>
+<div class="text-primary font-display text-2xl font-black my-1">
+            Rp 65.000 <span class="text-xs text-peanut/70 font-normal">/ box (10 pcs)</span>
+</div>
+<div class="bg-sky-50 text-sky-900 p-2 rounded-xl text-xs font-display font-black flex items-center gap-1.5 border border-sky-300">
+<span>🧊</span>
+<span>Termasuk ice gel &amp; thermal bubble!</span>
+</div>
+<div class="flex items-center justify-between mt-3 bg-amber-50 p-2 rounded-2xl border-2 border-peanut">
+<span class="font-display text-xs text-peanut font-black">Box:</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-xl bg-amber-200 hover:bg-primary hover:text-white text-peanut font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('frozen', -1)" type="button">−</button>
+<span class="font-display text-base font-black text-peanut min-w-6 text-center" id="qty-frozen">0</span>
+<button class="w-8 h-8 rounded-xl bg-primary hover:bg-primary-container text-white font-black text-lg border border-peanut flex items-center justify-center transition-colors active:scale-90" onclick="changeQty('frozen', 1)" type="button">+</button>
+</div>
+</div>
+<button class="w-full mt-3 py-3 rounded-2xl bg-amber-100 hover:bg-mustard text-peanut font-display text-xs font-black border-2 border-peanut neo-box-sm active:scale-95 transition-all flex items-center justify-center gap-1.5" onclick="addToTray('frozen')" type="button">
+<span>🛒</span>
+<span>Cemplungkan ke Bakul!</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Extra Pelengkap Bar -->
+<div class="bg-white p-6 rounded-gemoy border-4 border-peanut neo-box flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-13 h-13 rounded-2xl bg-mustard border-3 border-peanut text-peanut flex items-center justify-center text-3xl shrink-0 neo-box-sm">
+          🍯
+        </div>
+<div>
+<h4 class="font-display text-base font-black text-peanut">Tambahan Ekstra Biar Makin Banjir:</h4>
+<p class="font-body text-xs text-peanut/80">Mau bumbu lebih melimpah atau acar timun peredam minyak?</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<label class="flex items-center gap-2 bg-amber-50 px-4 py-2.5 rounded-2xl text-xs font-display font-black cursor-pointer hover:bg-mustard-light transition-colors border-2 border-peanut neo-box-sm">
+<input class="rounded text-primary focus:ring-primary accent-primary" id="extra-saus" onchange="toggleExtra('saus', 12000, 'Ekstra Botol Saus Kacang (250ml)')" type="checkbox"/>
+<span>+ Botol Bumbu Kacang (Rp 12.000)</span>
+</label>
+<label class="flex items-center gap-2 bg-amber-50 px-4 py-2.5 rounded-2xl text-xs font-display font-black cursor-pointer hover:bg-mustard-light transition-colors border-2 border-peanut neo-box-sm">
+<input class="rounded text-primary focus:ring-primary accent-primary" id="extra-acar" onchange="toggleExtra('acar', 4000, 'Acar Timun &amp; Cabai')" type="checkbox"/>
+<span>+ Acar Timun Segar (Rp 4.000)</span>
+</label>
+<label class="flex items-center gap-2 bg-amber-50 px-4 py-2.5 rounded-2xl text-xs font-display font-black cursor-pointer hover:bg-mustard-light transition-colors border-2 border-peanut neo-box-sm">
+<input class="rounded text-primary focus:ring-primary accent-primary" id="extra-limau" onchange="toggleExtra('limau', 3000, 'Ekstra 3 Jeruk Limau')" type="checkbox"/>
+<span>+ 3 Jeruk Limau (Rp 3.000)</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= 5. FORM CHECKOUT & QRIS INTERAKTIF ================= -->
+<section class="w-full px-4 md:px-8 py-14 bg-surface relative overflow-hidden border-b-4 border-peanut" id="checkout-section">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<div>
+<div class="inline-flex items-center gap-1.5 text-primary font-display text-xs uppercase tracking-wider font-black">
+<span>📝</span>
+<span>Konfirmasi Pre-Order Cepat</span>
+</div>
+<h2 class="font-display text-3xl md:text-5xl font-black text-peanut mt-1">Formulir Pemesanan &amp; Pembayaran</h2>
+<p class="font-body text-sm md:text-base text-peanut/80">Pastikan datamu benar agar pesanan disiapkan saat batch penggorengan sedang panas!</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT FORM: Data Pemesan -->
+<form class="lg:col-span-7 bg-white p-6 md:p-8 rounded-gemoy border-4 border-peanut neo-box flex flex-col gap-5" id="order-form" onsubmit="handleOrderSubmit(event)">
+<h3 class="font-display text-xl font-black text-peanut flex items-center gap-2 border-b-2 border-peanut/10 pb-3">
+<span>👤</span>
+<span>1. Data Penikmat &amp; Jadwal Pengiriman</span>
+</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Nama Lengkap Penikmat *</label>
+<div class="relative">
+<span class="absolute left-3.5 top-3 text-sm">🍜</span>
+<input class="w-full bg-amber-50 pl-10 pr-4 py-2.5 rounded-2xl text-sm font-body text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-name" placeholder="Contoh: Teh Cindy Gemoy" required="" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Nomor WhatsApp Aktif *</label>
+<div class="relative">
+<span class="absolute left-3.5 top-3 text-sm">📱</span>
+<input class="w-full bg-amber-50 pl-10 pr-4 py-2.5 rounded-2xl text-sm font-body text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-wa" placeholder="081234567890" required="" type="tel"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Pilih Tanggal Kloter Batch *</label>
+<select class="bg-amber-50 px-4 py-2.5 rounded-2xl text-sm font-display font-bold text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-date">
+<option value="Sabtu, Batch Siang (11.30 WIB)">Sabtu (Kloter Siang 11.30 WIB)</option>
+<option value="Sabtu, Batch Sore (16.30 WIB)">Sabtu (Kloter Sore 16.30 WIB)</option>
+<option value="Minggu, Batch Siang (11.30 WIB)">Minggu (Kloter Siang 11.30 WIB)</option>
+<option value="Minggu, Batch Sore (16.30 WIB)">Minggu (Kloter Sore 16.30 WIB)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Metode Pengiriman / Ambil *</label>
+<select class="bg-amber-50 px-4 py-2.5 rounded-2xl text-sm font-display font-bold text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-delivery" onchange="updateDeliveryFee(this.value)">
+<option value="pickup">Ambil Sendiri di Studio Juara (Jl. Riau No. 42)</option>
+<option value="instant">Instant Kurir (Grab/Gojek Bandung) - Rp 15.000</option>
+<option value="sameday">Sameday Paxel (Bandung Raya) - Rp 10.000</option>
+<option value="luar_kota">Paxel Cold Chain (Luar Kota Se-Jawa) - Rp 25.000</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Alamat Pengiriman (Bila Kurir)</label>
+<textarea class="bg-amber-50 px-4 py-2 rounded-2xl text-sm font-body text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-address" placeholder="Tuliskan nama jalan, RT/RW, dan patokan rumah..." rows="2"></textarea>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-display text-xs text-peanut font-black">Catatan Khusus untuk Koki Dapur</label>
+<input class="bg-amber-50 px-4 py-2 rounded-2xl text-sm font-body text-peanut border-2 border-peanut focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="cust-notes" placeholder="Contoh: Goreng agak kering / Limau dipotong 4" type="text"/>
+</div>
+<div class="p-3.5 bg-amber-100 rounded-2xl border-2 border-peanut flex items-center gap-3 text-xs text-peanut font-display font-bold">
+<span class="text-2xl">🔒</span>
+<span>Pesanan langsung masuk ke rekap oven koki secara otomatis tanpa antre panjang!</span>
+</div>
+</form>
+<!-- RIGHT SUMMARY & INTERACTIVE PAYMENT -->
+<div class="lg:col-span-5 flex flex-col gap-5">
+<div class="bg-white p-6 md:p-7 rounded-gemoy border-4 border-peanut neo-box flex flex-col gap-4">
+<div class="flex items-center justify-between border-b-2 border-peanut/10 pb-3">
+<h3 class="font-display text-xl font-black text-peanut flex items-center gap-2">
+<span>🧺</span>
+<span>2. Isi Bakul Sajian</span>
+</h3>
+<span class="bg-mustard text-peanut px-3 py-1 rounded-full text-xs font-display font-black border border-peanut" id="badge-total-items">1 Porsi</span>
+</div>
+<!-- Dynamic Items List -->
+<div class="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1" id="tray-list">
+<!-- Rendered dynamically -->
+</div>
+<!-- Calculation Rows -->
+<div class="flex flex-col gap-1.5 pt-2 text-xs font-body text-peanut/80 border-t-2 border-peanut/10">
+<div class="flex justify-between">
+<span>Subtotal Pesanan:</span>
+<span class="font-display font-black text-peanut" id="subtotal-val">Rp 38.000</span>
+</div>
+<div class="flex justify-between">
+<span>Ekstra Tambahan:</span>
+<span class="font-display font-black text-peanut" id="extras-val">Rp 0</span>
+</div>
+<div class="flex justify-between">
+<span>Ongkos Kirim:</span>
+<span class="font-display font-black text-peanut" id="shipping-val">Rp 0 (Ambil Sendiri)</span>
+</div>
+<div class="flex justify-between items-center text-sm font-display font-black text-peanut pt-2 bg-amber-50 p-3 rounded-2xl border-2 border-peanut mt-1 neo-box-sm">
+<span>Total Pembayaran:</span>
+<span class="text-primary text-xl font-black" id="grand-total-val">Rp 38.000</span>
+</div>
+</div>
+<!-- Payment Tabs -->
+<div class="flex flex-col gap-2 pt-2">
+<span class="font-display text-xs text-peanut font-black">Pilih Cara Bayar Gemoy:</span>
+<div class="grid grid-cols-3 gap-2">
+<button class="pay-tab active-pay bg-primary text-white py-2 px-1 rounded-xl text-xs font-display font-black flex flex-col items-center gap-1 border-2 border-peanut neo-box-sm transition-all" onclick="selectPayment('qris', this)" type="button">
+<span class="text-base">📱</span>
+<span>QRIS Gemoy</span>
+</button>
+<button class="pay-tab bg-amber-50 text-peanut hover:bg-amber-100 py-2 px-1 rounded-xl text-xs font-display font-black flex flex-col items-center gap-1 border-2 border-peanut transition-all" onclick="selectPayment('va', this)" type="button">
+<span class="text-base">🏦</span>
+<span>Transfer VA</span>
+</button>
+<button class="pay-tab bg-amber-50 text-peanut hover:bg-amber-100 py-2 px-1 rounded-xl text-xs font-display font-black flex flex-col items-center gap-1 border-2 border-peanut transition-all" onclick="selectPayment('cod', this)" type="button">
+<span class="text-base">🏠</span>
+<span>Bayar di Studio</span>
+</button>
+</div>
+<!-- Payment Display Box -->
+<div class="mt-2 p-4 bg-amber-50 rounded-2xl border-2 border-peanut flex flex-col items-center text-center gap-2" id="payment-display-area">
+<!-- QRIS Box -->
+<div class="flex flex-col items-center gap-2" id="pay-qris-box">
+<span class="text-xs text-peanut font-display font-black">Pindai QRIS via BCA, GoPay, OVO, ShopeePay &amp; Dana:</span>
+<div class="w-36 h-36 bg-white p-2 rounded-2xl shadow-md border-3 border-peanut flex items-center justify-center relative neo-box-sm">
+<svg class="w-32 h-32 text-stone-900" fill="currentColor" viewbox="0 0 100 100">
+<rect fill="#1c1c17" height="25" rx="3" width="25" x="5" y="5"></rect>
+<rect fill="#ffffff" height="17" rx="2" width="17" x="9" y="9"></rect>
+<rect fill="#9c3f00" height="9" width="9" x="13" y="13"></rect>
+<rect fill="#1c1c17" height="25" rx="3" width="25" x="70" y="5"></rect>
+<rect fill="#ffffff" height="17" rx="2" width="17" x="74" y="9"></rect>
+<rect fill="#9c3f00" height="9" width="9" x="78" y="13"></rect>
+<rect fill="#1c1c17" height="25" rx="3" width="25" x="5" y="70"></rect>
+<rect fill="#ffffff" height="17" rx="2" width="17" x="9" y="74"></rect>
+<rect fill="#9c3f00" height="9" width="9" x="13" y="78"></rect>
+<rect fill="#1c1c17" height="6" width="6" x="36" y="10"></rect>
+<rect fill="#1c1c17" height="6" width="6" x="46" y="10"></rect>
+<rect fill="#1c1c17" height="6" width="6" x="56" y="15"></rect>
+<rect fill="#1c1c17" height="6" width="10" x="38" y="24"></rect>
+<rect fill="#1c1c17" height="6" width="8" x="52" y="24"></rect>
+<rect fill="#1c1c17" height="6" width="8" x="10" y="40"></rect>
+<rect fill="#1c1c17" height="6" width="12" x="22" y="45"></rect>
+<rect fill="#9c3f00" height="20" rx="3" width="20" x="40" y="40"></rect>
+<circle cx="50" cy="50" fill="#ffffff" r="4"></circle>
+<rect fill="#1c1c17" height="6" width="10" x="68" y="40"></rect>
+<rect fill="#1c1c17" height="6" width="8" x="82" y="45"></rect>
+<rect fill="#1c1c17" height="8" width="8" x="38" y="70"></rect>
+<rect fill="#1c1c17" height="6" width="12" x="50" y="68"></rect>
+<rect fill="#1c1c17" height="10" width="10" x="68" y="72"></rect>
+</svg>
+</div>
+<span class="font-code text-xs font-bold text-primary">NMID: ID1023847291882</span>
+</div>
+<!-- VA Box -->
+<div class="hidden flex-col items-center gap-2 w-full text-left" id="pay-va-box">
+<div class="bg-white p-2.5 rounded-xl w-full flex items-center justify-between border-2 border-peanut">
+<div>
+<span class="text-[11px] text-peanut/70 font-display block">BCA Virtual Account</span>
+<span class="font-code text-xs font-black text-peanut">8801 0812 3456 7890</span>
+</div>
+<button class="text-xs bg-mustard px-3 py-1 rounded-lg text-peanut font-display font-black border border-peanut" onclick="navigator.clipboard.writeText('8801081234567890'); alert('Nomor BCA VA Tersalin!')" type="button">Salin</button>
+</div>
+<div class="bg-white p-2.5 rounded-xl w-full flex items-center justify-between border-2 border-peanut">
+<div>
+<span class="text-[11px] text-peanut/70 font-display block">Mandiri VA</span>
+<span class="font-code text-xs font-black text-peanut">7001 2024 9918 2011</span>
+</div>
+<button class="text-xs bg-mustard px-3 py-1 rounded-lg text-peanut font-display font-black border border-peanut" onclick="navigator.clipboard.writeText('7001202499182011'); alert('Nomor Mandiri VA Tersalin!')" type="button">Salin</button>
+</div>
+</div>
+<!-- COD Box -->
+<div class="hidden flex-col items-center gap-1 text-center py-2" id="pay-cod-box">
+<span class="text-3xl">🏬</span>
+<span class="text-xs text-peanut font-display font-black">Bayar Tunai / Debit saat Mengambil</span>
+<p class="text-[11px] text-peanut/70 max-w-xs">Pesanan langsung digoreng hangat saat Anda tiba di Studio Juara Jl. Riau No. 42 Bandung.</p>
+</div>
+</div>
+</div>
+<!-- SUBMIT CTA WHATSAPP -->
+<button class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-tertiary hover:from-tertiary hover:to-emerald-700 text-white font-display text-base font-black border-3 border-peanut neo-box neo-box-hover active:scale-95 transition-all flex items-center justify-center gap-2" onclick="submitToWhatsApp()" type="button">
+<span class="text-2xl animate-bounce">💬</span>
+<span>Kirim Pesanan ke Dapur Juara via WhatsApp!</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-[11px] text-peanut/80 font-display font-bold">
+<span>🛡️</span>
+<span>Jaminan 100% Tenggiri Asli &amp; Minyak Kelapa Segar!</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= 6. FILOSOFI RESEP KARTUN RETRO ================= -->
+<section class="w-full px-4 md:px-8 py-14 bg-amber-100/50 border-b-4 border-peanut">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-5 relative">
+<div class="aspect-4/3 rounded-gemoy overflow-hidden border-4 border-peanut neo-box relative group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bumbu Kacang Tradisional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfuH1xRW_dw74KNF2lJpJO6acUuOR_eyVtm78A8scCAqr5aVWGl2V2_Dqv0vRpNhzbIiAHzmGwhzKWKlvV6AlI33YQqrRs3-TAC8HUHithp5tC7gAx3njQTvrcG0APZmJhhblNxZhpRLUGtdace7s8p0wTutUs0qb3p-RmpEJpPp1PamTh5UvIX4jeuvBzyxFIoMFCVaWtCQumiB5TC_DD6bxrIp52jFYsxbcHai1cB4dy_9nErNJL"/>
+<div class="absolute bottom-3 left-3 bg-peanut text-mustard px-3.5 py-1.5 rounded-xl font-display text-xs border-2 border-mustard font-black">
+          Cobek Batu Karang Asli 1982
+        </div>
+</div>
+</div>
+<div class="md:col-span-7 flex flex-col gap-4">
+<div class="flex items-center gap-2 text-primary font-display text-xs tracking-wider uppercase font-black">
+<span>📜</span>
+<span>Rahasia Gurih Alami Nusantara</span>
+</div>
+<h3 class="font-display text-2xl md:text-4xl font-black text-peanut">
+        Kenapa Batagor Juara Bisa Segaring dan Segurih Ini?
+      </h3>
+<p class="font-body text-sm md:text-base text-peanut/80 leading-relaxed">
+        Kami pantang menggunakan tepung kanji berlebih. Resep turun-temurun 1982 mengunci rasio <strong>80% daging ikan tenggiri segar</strong> yang dipadu daun bawang wangi dan kulit kembang tahu sutra.
+      </p>
+<p class="font-body text-sm md:text-base text-peanut/80 leading-relaxed">
+        Bumbu kacang Tuban disangrai pelan di wajan tanah liat, lalu ditumbuk kasar agar memberi kejutan tekstur krenyes legit bersama gula aren Ciamis asli!
+      </p>
+<div class="grid grid-cols-3 gap-3 pt-2">
+<div class="p-3.5 bg-white rounded-2xl border-3 border-peanut text-center neo-box-sm">
+<span class="font-display text-2xl font-black text-primary">80%</span>
+<span class="block text-xs text-peanut font-display font-black">Tenggiri Segar</span>
+</div>
+<div class="p-3.5 bg-white rounded-2xl border-3 border-peanut text-center neo-box-sm">
+<span class="font-display text-2xl font-black text-tertiary">0%</span>
+<span class="block text-xs text-peanut font-display font-black">Pengawet Kimia</span>
+</div>
+<div class="p-3.5 bg-white rounded-2xl border-3 border-peanut text-center neo-box-sm">
+<span class="font-display text-2xl font-black text-peanut">42 Thn</span>
+<span class="block text-xs text-peanut font-display font-black">Resep Pusaka</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= FLOATING STICKY ORDER BAR ================= -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-amber-50/95 backdrop-blur-md border-t-4 border-peanut p-3 shadow-2xl">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-mustard border-3 border-peanut flex items-center justify-center text-2xl shrink-0 animate-bounce neo-box-sm">
+        🥟
+      </div>
+<div class="flex flex-col">
+<span class="font-display text-xs text-peanut font-black flex items-center gap-1">
+<span>Bakul Sajianmu:</span>
+<span class="text-primary font-black" id="floating-badge-qty">1 Item</span>
+</span>
+<span class="font-display text-base md:text-xl font-black text-primary" id="floating-grand-total">Rp 38.000</span>
+</div>
+</div>
+<a class="px-6 py-3 rounded-2xl bg-gradient-to-r from-primary to-primary-container text-white font-display text-xs md:text-sm font-black border-3 border-peanut neo-box neo-box-hover flex items-center gap-2 transition-all" href="#checkout-section">
+<span>Kirim Pesanan ke WA</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer class="w-full bg-peanut text-amber-50 py-12 px-4 md:px-8 border-t-4 border-peanut-dark">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="text-3xl">🥟</span>
+<span class="font-display text-2xl font-black text-mustard">Batagor Juara</span>
+</div>
+<p class="font-body text-xs text-amber-100/80 leading-relaxed">
+        Sajian Batagor Ikan Tenggiri Murni legendaris khas Tatar Parahyangan Bandung. Dibuat dadakan, dipadukan bumbu kacang sangrai Tuban bertumbuk kasar.
+      </p>
+<span class="font-display text-xs text-mustard font-black">100% Halal &amp; Tanpa Pengawet Sintetis</span>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-display text-base font-black text-mustard">Jaminan Kualitas Dapur</h4>
+<ul class="font-body text-xs text-amber-100/80 flex flex-col gap-1.5">
+<li>• Ikan Tenggiri Segar Nelayan Cibanten</li>
+<li>• Tahu Sutra Putih Bersih Cibuntu</li>
+<li>• Kacang Tuban Sangrai Tumbuk Kasar</li>
+<li>• Minyak Kelapa Kualitas Prima</li>
+</ul>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-display text-base font-black text-mustard">Jadwal Kloter Masak</h4>
+<div class="font-body text-xs text-amber-100/80 flex flex-col gap-1">
+<div><strong>Batch Siang:</strong> 11:00 - 13:30 WIB</div>
+<div><strong>Batch Sore:</strong> 16:00 - 19:00 WIB</div>
+<p class="text-mustard text-[11px] mt-1 font-display">Studio Juara: Jl. L.L.R.E Martadinata No. 42 Bandung.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-display text-base font-black text-mustard">Butuh Bantuan Cepat?</h4>
+<a class="bg-emerald-600 hover:bg-emerald-500 text-white font-display text-xs font-black px-4 py-3 rounded-2xl flex items-center justify-center gap-2 border-2 border-white neo-box-sm transition-all" href="https://wa.me/6281234567890" rel="noopener" target="_blank">
+<span class="material-symbols-outlined text-base">chat</span> WhatsApp Koki Juara
+      </a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto pt-6 border-t border-amber-100/20 flex flex-col sm:flex-row items-center justify-between text-xs text-amber-100/60 font-display gap-2">
+<span>© 2024 Batagor Juara 1982 Bandung. Dibuat Penuh Cinta &amp; Kriuk Garing!</span>
+<div class="flex items-center gap-4">
+<a class="hover:underline" href="#">Syarat Pengiriman</a>
+<a class="hover:underline" href="#">Resep Warisan</a>
+<a class="hover:underline" href="#">Sertifikat Halal</a>
+</div>
+</div>
+</footer>
+<!-- ================= SCRIPT LOGIKA JAVASCRIPT ================= -->
+<script>
+  // ----------------------------------------------------
+  // STATE STORE
+  // ----------------------------------------------------
+  const cartState = {
+    items: {
+      komplit: { name: 'Batagor Komplit Sultan', price: 38000, qty: 1, spice: 'Pisah' },
+      crispy: { name: 'Batagor Siomay Kress', price: 35000, qty: 0, spice: 'Pisah' },
+      tahu: { name: 'Tahu Bakso Sutra Gemoy', price: 36000, qty: 0, spice: 'Pisah' },
+      frozen: { name: 'Frozen Vac-Pack Box', price: 65000, qty: 0, spice: 'Paket Standar' },
+      custom_plate: { name: 'Piring Racik Spesial Juara', price: 27000, qty: 0, spice: 'Banjir • Lvl 1' }
+    },
+    extras: {},
+    shippingFee: 0,
+    paymentMethod: 'qris'
+  };
+
+  // Custom plate state
+  const customPlateState = {
+    items: [
+      { id: 'tahu', name: 'Tahu Sutra', price: 9000, emoji: '🧈' },
+      { id: 'siomay', name: 'Siomay Kress', price: 9500, emoji: '🥟' },
+      { id: 'pangsit', name: 'Pangsit Kress', price: 8500, emoji: '📐' }
+    ],
+    sauceStyle: 'banjir',
+    spiceLevel: 1,
+    extraLimau: true
+  };
+
+  // Game Simulator State
+  const gameState = {
+    friedToday: 104,
+    userClicks: 0,
+    crispPercentage: 65,
+    soundWords: ['KREZZZZ! 🔥', 'KRIUK RENYAH! 🥟', 'SIZZZLEEE! ✨', 'GURIH NAMPOL! 😋', 'KRESS MAX! 💥']
+  };
+
+  // Maskot Quotes
+  const mascotQuotes = {
+    mang_kres: [
+      '"Tenggiri Cibanten ini murni 80%, gurihnya nendang pisan!"',
+      '"Minyak kelapa baru ganti nih, dijamin kress keemasan!"',
+      '"Siomay pangsitku renyahnya tembus ke telinga tetangga!"',
+      '"Udah cobain level 2 goyang belum? Mantep abis!"'
+    ],
+    si_tahu: [
+      '"Tahu sutra Cibuntu lumer di mulut pas masih anget!"',
+      '"Gemoy lembut di dalem, garing renyah di luar, kenalin aku!"',
+      '"Jangan lupa kucurin jeruk limau ya biar seger pisan!"',
+      '"Bumbu kacang Tubannya banjir yuk, jangan dipisah!"'
+    ]
+  };
+  let quoteIndexMangKres = 0;
+  let quoteIndexSiTahu = 0;
+
+  function mascotTalk(character) {
+    if (character === 'mang_kres') {
+      quoteIndexMangKres = (quoteIndexMangKres + 1) % mascotQuotes.mang_kres.length;
+      document.getElementById('mang-kres-quote').textContent = mascotQuotes.mang_kres[quoteIndexMangKres];
+      triggerCrunchSoundVisual('MANG KRES: NIKMAT!');
+    } else {
+      quoteIndexSiTahu = (quoteIndexSiTahu + 1) % mascotQuotes.si_tahu.length;
+      document.getElementById('si-tahu-quote').textContent = mascotQuotes.si_tahu[quoteIndexSiTahu];
+      triggerCrunchSoundVisual('SI TAHU: GEMOY!');
+    }
+  }
+
+  // ----------------------------------------------------
+  // WAJAN GORENG MINI-GAME LOGIC
+  // ----------------------------------------------------
+  function dropIngredientIntoWok() {
+    gameState.userClicks++;
+    gameState.friedToday++;
+    gameState.crispPercentage = Math.min(100, gameState.crispPercentage + 5);
+
+    // Update UI counters
+    document.getElementById('user-clicks-count').textContent = gameState.userClicks;
+    document.getElementById('today-fried-count').textContent = gameState.friedToday;
+    
+    // Update Crisp Meter
+    const meterBar = document.getElementById('crisp-meter-bar');
+    const meterLabel = document.getElementById('crisp-meter-label');
+    if (meterBar) meterBar.style.width = gameState.crispPercentage + '%';
+    if (meterLabel) {
+      if (gameState.crispPercentage >= 100) {
+        meterLabel.textContent = '100% MAXIMUM CRISPY JUARA! 👑';
+      } else {
+        meterLabel.textContent = gameState.crispPercentage + '% Golden Crispy';
+      }
+    }
+
+    // Add visual element to wok
+    const wokItems = document.getElementById('wok-floating-items');
+    const emojis = ['🥟', '🧈', '📐', '🥚'];
+    const chosenEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    const itemSpan = document.createElement('span');
+    itemSpan.className = 'text-4xl animate-float transition-all drop-shadow-md';
+    itemSpan.style.animationDuration = (2.5 + Math.random()) + 's';
+    itemSpan.textContent = chosenEmoji;
+    wokItems.appendChild(itemSpan);
+
+    // Trigger splash wave
+    const splash = document.getElementById('oil-splash');
+    if (splash) {
+      splash.style.animation = 'splashWave 0.6s ease-out';
+      setTimeout(() => { splash.style.animation = ''; }, 600);
+    }
+
+    // Pop text
+    const randomWord = gameState.soundWords[Math.floor(Math.random() * gameState.soundWords.length)];
+    triggerWokPopText(randomWord);
+
+    // Wave visualizer
+    triggerCrunchSoundVisual(randomWord);
+  }
+
+  function clearWokItems() {
+    const wokItems = document.getElementById('wok-floating-items');
+    wokItems.innerHTML = '<span class="text-4xl animate-float">🥟</span><span class="text-4xl animate-float-slow">🧈</span>';
+    gameState.crispPercentage = 60;
+    document.getElementById('crisp-meter-bar').style.width = '60%';
+    document.getElementById('crisp-meter-label').textContent = '60% Siap Goreng Baru';
+    triggerWokPopText('ANGKAT MATANG! 🥢');
+  }
+
+  function triggerWokPopText(text) {
+    const pop = document.getElementById('sizzle-pop-text');
+    if (!pop) return;
+    pop.textContent = text;
+    pop.style.animation = 'none';
+    void pop.offsetWidth; // trigger reflow
+    pop.style.animation = 'popText 1s forwards';
+  }
+
+  function triggerCrunchSoundVisual(text) {
+    const bars = document.querySelectorAll('.audio-bar');
+    bars.forEach(b => {
+      b.style.height = (Math.random() * 22 + 8) + 'px';
+    });
+  }
+
+  // ----------------------------------------------------
+  // COUNTDOWN TIMER
+  // ----------------------------------------------------
+  function startCountdown() {
+    let seconds = 14 * 3600 + 52 * 60 + 19;
+    const timerEl = document.getElementById('batch-timer');
+    if (!timerEl) return;
+    setInterval(() => {
+      if (seconds > 0) {
+        seconds--;
+        const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+        const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        timerEl.textContent = `${h}:${m}:${s}`;
+      }
+    }, 1000);
+  }
+  startCountdown();
+
+  // ----------------------------------------------------
+  // STUDIO RACIK PIRING INTERAKTIF
+  // ----------------------------------------------------
+  function renderCustomPlate() {
+    const container = document.getElementById('plate-items-container');
+    const emptyNote = document.getElementById('plate-empty-note');
+    const priceEl = document.getElementById('custom-plate-price');
+    const moodIcon = document.getElementById('plate-mood-icon');
+    const summaryText = document.getElementById('plate-summary-text');
+    const sauceSummaryText = document.getElementById('sauce-summary-text');
+    const sauceLayer = document.getElementById('sauce-layer');
+    const limeVisual = document.getElementById('lime-visual');
+    const chiliLayer = document.getElementById('chili-sprinkle-layer');
+
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (customPlateState.items.length === 0) {
+      if (emptyNote) emptyNote.classList.remove('hidden');
+      if (priceEl) priceEl.textContent = 'Rp 0';
+      if (moodIcon) moodIcon.textContent = '🥺';
+      if (summaryText) summaryText.textContent = 'Piring Masih Kosong';
+      return;
+    }
+
+    if (emptyNote) emptyNote.classList.add('hidden');
+
+    let totalPrice = 0;
+    customPlateState.items.forEach((item, index) => {
+      totalPrice += item.price;
+      const div = document.createElement('div');
+      div.className = 'plate-item bg-amber-100 border-2 border-peanut rounded-2xl p-2.5 shadow-md flex items-center gap-1.5 cursor-pointer hover:bg-red-100 transition-transform active:scale-90';
+      div.style.animation = 'fallInPlate 0.4s ease-out';
+      div.title = 'Klik untuk menghapus potongan ini';
+      div.innerHTML = `
+        <span class="text-2xl">${item.emoji}</span>
+        <span class="font-display text-xs font-black text-peanut">${item.name}</span>
+        <span class="text-xs text-red-500 font-black ml-1">×</span>
+      `;
+      div.onclick = () => removeItemFromPlateByIndex(index);
+      container.appendChild(div);
+    });
+
+    if (priceEl) priceEl.textContent = formatRp(totalPrice);
+    if (moodIcon) moodIcon.textContent = customPlateState.items.length >= 4 ? '🤤' : '😋';
+    if (summaryText) summaryText.textContent = `${customPlateState.items.length} Potong Gurih Siap Santap`;
+
+    const spiceNames = ['Adem (No Pedas)', 'Santai (Lvl 1)', 'Goyang! (Lvl 2) 🌶️'];
+    const sauceName = customPlateState.sauceStyle === 'banjir' ? 'Banjir Medok' : 'Saus Pisah Mangkuk';
+    if (sauceSummaryText) {
+      sauceSummaryText.textContent = `Bumbu: ${sauceName} • Pedas: ${spiceNames[customPlateState.spiceLevel]}`;
+    }
+
+    if (sauceLayer) {
+      if (customPlateState.sauceStyle === 'banjir') {
+        sauceLayer.style.opacity = '0.92';
+        sauceLayer.style.transform = 'scale(1)';
+      } else {
+        sauceLayer.style.opacity = '0.15';
+        sauceLayer.style.transform = 'scale(0.85)';
+      }
+    }
+
+    if (chiliLayer) {
+      chiliLayer.style.opacity = customPlateState.spiceLevel === 0 ? '0' : (customPlateState.spiceLevel === 1 ? '0.7' : '1');
+    }
+
+    if (limeVisual) {
+      limeVisual.style.display = customPlateState.extraLimau ? 'block' : 'none';
+    }
+  }
+
+  function addItemToPlate(id, name, price, emoji) {
+    if (customPlateState.items.length >= 8) {
+      alert('Piring porselenmu sudah penuh maksimal! Cemplungkan ke bakul yuk!');
+      return;
+    }
+    customPlateState.items.push({ id, name, price, emoji });
+    triggerCrunchSoundVisual('PLOP!');
+    renderCustomPlate();
+  }
+
+  function removeItemFromPlateByIndex(index) {
+    customPlateState.items.splice(index, 1);
+    renderCustomPlate();
+  }
+
+  function resetPlate() {
+    customPlateState.items = [];
+    renderCustomPlate();
+  }
+
+  function setSauceStyle(style) {
+    customPlateState.sauceStyle = style;
+    const banjirBtn = document.getElementById('btn-sauce-banjir');
+    const pisahBtn = document.getElementById('btn-sauce-pisah');
+    
+    if (style === 'banjir') {
+      banjirBtn.className = 'sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-primary text-white font-display text-xs font-black neo-box-sm flex items-center justify-center gap-1.5 transition-all';
+      pisahBtn.className = 'sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black flex items-center justify-center gap-1.5 transition-all';
+    } else {
+      banjirBtn.className = 'sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black flex items-center justify-center gap-1.5 transition-all';
+      pisahBtn.className = 'sauce-btn py-2.5 px-3 rounded-xl border-2 border-peanut bg-primary text-white font-display text-xs font-black neo-box-sm flex items-center justify-center gap-1.5 transition-all';
+    }
+    renderCustomPlate();
+  }
+
+  function setSpiceLevel(level) {
+    customPlateState.spiceLevel = level;
+    for (let i = 0; i <= 2; i++) {
+      const btn = document.getElementById(`btn-spice-${i}`);
+      if (i === level) {
+        btn.className = 'spice-level-btn py-2 px-2 rounded-xl border-2 border-peanut bg-primary text-white font-display text-xs font-black text-center neo-box-sm transition-all';
+      } else {
+        btn.className = 'spice-level-btn py-2 px-2 rounded-xl border-2 border-peanut bg-amber-50 text-peanut font-display text-xs font-black text-center transition-all';
+      }
+    }
+    renderCustomPlate();
+  }
+
+  function toggleLimau(checked) {
+    customPlateState.extraLimau = checked;
+    renderCustomPlate();
+  }
+
+  function addCustomPlateToCart() {
+    if (customPlateState.items.length === 0) {
+      alert('Piring masih kosong! Tambahkan bahan terlebih dahulu ya.');
+      return;
+    }
+    let total = customPlateState.items.reduce((acc, curr) => acc + curr.price, 0);
+    const spiceNames = ['Lvl 0 Adem', 'Lvl 1 Santai', 'Lvl 2 Goyang!'];
+    const spiceDesc = `${customPlateState.sauceStyle === 'banjir' ? 'Banjir' : 'Pisah'} • ${spiceNames[customPlateState.spiceLevel]}`;
+    
+    cartState.items.custom_plate = {
+      name: `Piring Racik (${customPlateState.items.length} potong)`,
+      price: total,
+      qty: (cartState.items.custom_plate?.qty || 0) + 1,
+      spice: spiceDesc
+    };
+
+    renderCart();
+    const checkoutEl = document.getElementById('checkout-section');
+    if (checkoutEl) checkoutEl.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ----------------------------------------------------
+  // MENU PRODUCT CARDS
+  // ----------------------------------------------------
+  function selectCardSpice(itemId, level, btn) {
+    if (cartState.items[itemId]) {
+      cartState.items[itemId].spice = level;
+    }
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.spice-card-btn').forEach(b => {
+      b.className = 'spice-card-btn bg-amber-50 text-peanut border border-peanut/30 hover:bg-amber-100 py-1 rounded-xl text-center font-bold';
+    });
+    btn.className = 'spice-card-btn active-spice bg-primary text-white py-1 rounded-xl border border-peanut text-center font-black';
+    renderCart();
+  }
+
+  function changeQty(itemId, delta) {
+    const item = cartState.items[itemId];
+    if (!item) return;
+    const newQty = Math.max(0, item.qty + delta);
+    item.qty = newQty;
+    const qtyEl = document.getElementById(`qty-${itemId}`);
+    if (qtyEl) qtyEl.textContent = newQty;
+    renderCart();
+  }
+
+  function addToTray(itemId) {
+    if (cartState.items[itemId].qty === 0) {
+      changeQty(itemId, 1);
+    }
+    renderCart();
+    const checkoutEl = document.getElementById('checkout-section');
+    if (checkoutEl) checkoutEl.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleExtra(key, price, label) {
+    const checkbox = document.getElementById(`extra-${key}`);
+    if (checkbox && checkbox.checked) {
+      cartState.extras[key] = { name: label, price: price };
+    } else {
+      delete cartState.extras[key];
+    }
+    renderCart();
+  }
+
+  function updateDeliveryFee(type) {
+    if (type === 'pickup') cartState.shippingFee = 0;
+    else if (type === 'instant') cartState.shippingFee = 15000;
+    else if (type === 'sameday') cartState.shippingFee = 10000;
+    else if (type === 'luar_kota') cartState.shippingFee = 25000;
+    renderCart();
+  }
+
+  function selectPayment(method, btn) {
+    cartState.paymentMethod = method;
+    document.querySelectorAll('.pay-tab').forEach(b => {
+      b.className = 'pay-tab bg-amber-50 text-peanut hover:bg-amber-100 py-2 px-1 rounded-xl text-xs font-display font-black flex flex-col items-center gap-1 border-2 border-peanut transition-all';
+    });
+    btn.className = 'pay-tab active-pay bg-primary text-white py-2 px-1 rounded-xl text-xs font-display font-black flex flex-col items-center gap-1 border-2 border-peanut neo-box-sm transition-all';
+
+    const qrisBox = document.getElementById('pay-qris-box');
+    const vaBox = document.getElementById('pay-va-box');
+    const codBox = document.getElementById('pay-cod-box');
+
+    if (qrisBox) qrisBox.classList.add('hidden');
+    if (vaBox) vaBox.classList.add('hidden');
+    if (codBox) codBox.classList.add('hidden');
+
+    if (method === 'qris' && qrisBox) qrisBox.classList.remove('hidden');
+    if (method === 'va' && vaBox) vaBox.classList.remove('hidden');
+    if (method === 'cod' && codBox) codBox.classList.remove('hidden');
+  }
+
+  function formatRp(num) {
+    return 'Rp ' + num.toLocaleString('id-ID');
+  }
+
+  // ----------------------------------------------------
+  // CART RENDERING
+  // ----------------------------------------------------
+  function renderCart() {
+    const trayList = document.getElementById('tray-list');
+    const badgeTotal = document.getElementById('badge-total-items');
+    const floatingBadge = document.getElementById('floating-badge-qty');
+    const floatingTotal = document.getElementById('floating-grand-total');
+    const navCartTotal = document.getElementById('nav-cart-total');
+    const subtotalEl = document.getElementById('subtotal-val');
+    const extrasEl = document.getElementById('extras-val');
+    const shippingEl = document.getElementById('shipping-val');
+    const grandTotalEl = document.getElementById('grand-total-val');
+
+    let subtotal = 0;
+    let totalPorsi = 0;
+    let html = '';
+
+    Object.entries(cartState.items).forEach(([id, item]) => {
+      if (item.qty > 0) {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        totalPorsi += item.qty;
+        html += `
+          <div class="flex items-center justify-between p-2.5 bg-amber-50 rounded-2xl border-2 border-peanut text-xs neo-box-sm">
+            <div class="flex flex-col">
+              <span class="font-display font-black text-peanut">${item.name} (${item.qty}x)</span>
+              <span class="text-peanut/70 text-[11px]">Level: ${item.spice}</span>
+            </div>
+            <span class="font-display font-black text-peanut">${formatRp(itemTotal)}</span>
+          </div>
+        `;
+      }
+    });
+
+    let extrasTotal = 0;
+    Object.entries(cartState.extras).forEach(([key, extra]) => {
+      extrasTotal += extra.price;
+      html += `
+        <div class="flex items-center justify-between p-2.5 bg-mustard-light rounded-2xl border-2 border-peanut text-xs">
+          <span class="text-peanut font-display font-black">${extra.name}</span>
+          <span class="font-display font-black text-peanut">${formatRp(extra.price)}</span>
+        </div>
+      `;
+    });
+
+    if (html === '') {
+      html = `<div class="text-center py-4 text-xs text-peanut/70 font-display">Bakul masih kosong. Yuk pilih menu atau racik piring!</div>`;
+    }
+
+    if (trayList) trayList.innerHTML = html;
+    if (badgeTotal) badgeTotal.textContent = `${totalPorsi} Porsi`;
+    if (floatingBadge) floatingBadge.textContent = `${totalPorsi} Item`;
+    if (subtotalEl) subtotalEl.textContent = formatRp(subtotal);
+    if (extrasEl) extrasEl.textContent = formatRp(extrasTotal);
+
+    if (shippingEl) {
+      shippingEl.textContent = cartState.shippingFee === 0 ? 'Rp 0 (Ambil Sendiri)' : formatRp(cartState.shippingFee);
+    }
+
+    const grandTotal = subtotal + extrasTotal + cartState.shippingFee;
+    if (grandTotalEl) grandTotalEl.textContent = formatRp(grandTotal);
+    if (floatingTotal) floatingTotal.textContent = formatRp(grandTotal);
+    if (navCartTotal) navCartTotal.textContent = formatRp(grandTotal);
+  }
+
+  // ----------------------------------------------------
+  // WHATSAPP SUBMIT
+  // ----------------------------------------------------
+  function submitToWhatsApp() {
+    const name = document.getElementById('cust-name').value.trim();
+    const phone = document.getElementById('cust-wa').value.trim();
+    const date = document.getElementById('cust-date').value;
+    const delivery = document.getElementById('cust-delivery').selectedOptions[0].text;
+    const address = document.getElementById('cust-address').value.trim();
+    const notes = document.getElementById('cust-notes').value.trim();
+
+    if (!name || !phone) {
+      alert('Mohon lengkapi Nama & Nomor WhatsApp Anda terlebih dahulu!');
+      document.getElementById('cust-name').focus();
+      return;
+    }
+
+    let itemsText = '';
+    let subtotal = 0;
+    Object.entries(cartState.items).forEach(([id, item]) => {
+      if (item.qty > 0) {
+        itemsText += `%0A🥟 ${item.name} (${item.qty}x, ${item.spice}) : ${formatRp(item.price * item.qty)}`;
+        subtotal += item.price * item.qty;
+      }
+    });
+
+    if (itemsText === '') {
+      alert('Bakul sajian Anda masih kosong! Cemplungkan minimal 1 porsi.');
+      return;
+    }
+
+    let extrasText = '';
+    let extrasTotal = 0;
+    Object.entries(cartState.extras).forEach(([key, extra]) => {
+      extrasText += `%0A➕ ${extra.name} : ${formatRp(extra.price)}`;
+      extrasTotal += extra.price;
+    });
+
+    const grandTotal = subtotal + extrasTotal + cartState.shippingFee;
+
+    const message = `Halo Koki Dapur Batagor Juara 1982! 🥟✨%0A%0ASaya ingin memesan Pre-Order Batagor Spesial:%0A` +
+      `%0A*DATA PENIKMAT:*` +
+      `%0ANama: ${encodeURIComponent(name)}` +
+      `%0ANo. WhatsApp: ${encodeURIComponent(phone)}` +
+      `%0AJadwal Kloter: ${encodeURIComponent(date)}` +
+      `%0APengiriman: ${encodeURIComponent(delivery)}` +
+      (address ? `%0AAlamat Kirim: ${encodeURIComponent(address)}` : '') +
+      (notes ? `%0ACatatan Koki: ${encodeURIComponent(notes)}` : '') +
+      `%0A%0A*PESANAN MENU:*${itemsText}` +
+      (extrasText ? `%0A%0A*TAMBAHAN:*${extrasText}` : '') +
+      `%0A%0AOngkos Kirim: ${formatRp(cartState.shippingFee)}` +
+      `%0A*TOTAL PEMBAYARAN:* ${formatRp(grandTotal)}` +
+      `%0AMetode Bayar: ${cartState.paymentMethod.toUpperCase()}` +
+      `%0A%0AMohon kirim nomor antrean kloter ya koki, hatur nuhun! 😋`;
+
+    const waUrl = `https://wa.me/6281234567890?text=${message}`;
+    window.open(waUrl, '_blank');
+  }
+
+  function handleOrderSubmit(e) {
+    e.preventDefault();
+    submitToWhatsApp();
+  }
+
+  // Init Plate on load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCustomPlate();
+    renderCart();
+  });
+</script>
+</body></html>
