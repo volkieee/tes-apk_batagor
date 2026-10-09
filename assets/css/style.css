@@ -1908,3 +1908,426 @@ footer {
     padding: 0.2rem 0.5rem;
   }
 }
+
+/* ==========================================================================
+   ADMIN DASHBOARD — STYLING & FULL RESPONSIVE SYSTEM
+   pages/admin/admin.html Support
+   ========================================================================== */
+
+.admin-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-pop);
+}
+
+.admin-back-nav {
+  position: relative;
+  width: 100%;
+  display: flex;
+  padding: 1rem 1.5rem 0;
+  z-index: 10;
+}
+
+.admin-back-nav a {
+  text-decoration: none;
+}
+
+/* Admin Login Screen */
+.admin-login-screen {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  z-index: 10;
+}
+
+.admin-login-card {
+  background: #ffffff;
+  border: 4px solid var(--peanut);
+  box-shadow: var(--neo-shadow-lg);
+  border-radius: var(--radius-xl);
+  padding: 2.8rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+
+.login-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--mustard);
+  border: 2.5px solid var(--peanut);
+  box-shadow: var(--neo-shadow-sm);
+  color: var(--peanut);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.admin-login-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: var(--peanut);
+}
+
+.admin-login-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.8rem;
+}
+
+/* Admin Main Dashboard Content */
+.admin-main {
+  flex-grow: 1;
+  padding: 2rem 0 5rem;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.admin-title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--peanut);
+}
+
+.admin-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+/* Admin Stats Cards */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 3px solid var(--peanut);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--neo-shadow);
+  padding: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  transition: var(--transition-smooth);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--neo-shadow-lg);
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 2.5px solid var(--peanut);
+  box-shadow: 2px 2px 0px var(--peanut);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.stat-icon.count {
+  background: var(--mustard);
+  color: var(--peanut);
+}
+
+.stat-icon.revenue {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.stat-icon.pending {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.stat-details h4 {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.stat-details p {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--peanut);
+  margin-top: 0.1rem;
+}
+
+/* Orders Table Container */
+.table-container {
+  background: #ffffff;
+  border: 3.5px solid var(--peanut);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--neo-shadow-lg);
+  overflow: hidden;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.orders-table th {
+  background: var(--peanut);
+  color: #fef3c7;
+  padding: 1.1rem 1.2rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  border-bottom: 3px solid var(--peanut-dark);
+}
+
+.orders-table td {
+  padding: 1.1rem 1.2rem;
+  border-bottom: 2px solid #ecd8c8;
+  font-size: 0.92rem;
+  color: var(--peanut);
+  vertical-align: middle;
+}
+
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+
+.orders-table tr:hover {
+  background: rgba(254, 240, 138, 0.2);
+}
+
+.order-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 7rem;
+  line-height: 1.35;
+}
+
+.order-detail-list div {
+  white-space: nowrap;
+}
+
+.order-badge-status {
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1.5px solid var(--peanut);
+  box-shadow: 1px 2px 0px var(--peanut);
+  user-select: none;
+}
+
+.status-pending {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-paid {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-delivered {
+  background: var(--mustard);
+  color: var(--peanut);
+}
+
+.admin-action-btn {
+  background: #ffffff;
+  border: 2px solid var(--peanut);
+  box-shadow: 2px 2px 0px var(--peanut);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--peanut);
+  transition: var(--transition-smooth);
+}
+
+.admin-action-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: scale(1.08);
+}
+
+.admin-empty-state {
+  padding: 4.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.admin-empty-state i {
+  font-size: 3.5rem;
+  color: #d6baa3;
+}
+
+.admin-empty-state h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--peanut);
+}
+
+.admin-empty-state p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   ADMIN TABLE RESPONSIVE CARD TRANSFORMATION (Mobile & Tablet)
+   Transforms wide table into touch-friendly cards on small screens
+   ========================================================================== */
+@media (max-width: 860px) {
+  .admin-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .admin-actions-bar {
+    width: 100%;
+  }
+
+  .admin-actions-bar .btn-secondary,
+  .admin-actions-bar .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .orders-table {
+    display: block;
+    width: 100%;
+  }
+
+  /* Hide table header visually while remaining accessible */
+  .orders-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .orders-table tbody,
+  .orders-table tr,
+  .orders-table td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Each row transforms into an independent Neo-Brutalist card */
+  .orders-table tr {
+    background: #ffffff;
+    border: 3px solid var(--peanut);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--neo-shadow);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    padding: 0.4rem 0;
+  }
+
+  .orders-table tr:hover {
+    background: #ffffff;
+  }
+
+  .orders-table td {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.65rem 1rem;
+    border-bottom: 1.5px dashed #ecd8c8;
+    font-size: 0.88rem;
+  }
+
+  .orders-table td:last-child {
+    border-bottom: none;
+    padding-top: 0.8rem;
+  }
+
+  /* Injects data-label attribute as column title on left side */
+  .orders-table td::before {
+    content: attr(data-label);
+    font-family: var(--font-display);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .order-detail-list {
+    min-width: 0;
+  }
+
+  .order-detail-list div {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .orders-table td[style] {
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+  }
+
+  .order-badge-status {
+    justify-self: start;
+  }
+
+  .admin-action-btn {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: var(--radius-md);
+  }
+}
