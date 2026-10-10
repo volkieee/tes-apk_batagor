@@ -22,7 +22,7 @@ export function initAdminDashboard() {
       return;
     }
 
-    let summaryText = `*REKAP PESANAN BATAGOR JOSHUA*\nTanggal Rekap: ${getFormattedDate()}\n====================================\n\n`;
+    let summaryText = `*REKAP PESANAN BATAGOR-IN*\nTanggal Rekap: ${getFormattedDate()}\n====================================\n\n`;
     let totalIncome = 0;
     let pendingCount = 0;
 
