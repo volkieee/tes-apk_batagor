@@ -50,15 +50,25 @@ function getFormattedDate() {
 
 function constructWhatsAppMessage(order) {
   let itemsBreakdown = '';
-  const qty = order.mix || (order.total ? Math.round(order.total / ITEM_PRICE) : (order.original || 0));
+  let qty = order.mix;
+  if (!qty && order.original && order.cheese && order.original === order.cheese) {
+    qty = Math.round(order.original / 2);
+  }
+  if (!qty && order.total) {
+    qty = Math.round(order.total / ITEM_PRICE);
+  }
+  if (!qty) {
+    qty = order.original || 0;
+  }
+
   if (qty > 0) {
-    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (${qty * 2} Ori + ${qty * 2} Keju) (Rp ${(qty * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+    itemsBreakdown += `- *${qty} porsi* Batagor Original + Keju (${qty * 2} Ori + ${qty * 2} Keju)\n`;
   } else {
     if (order.original > 0) {
-      itemsBreakdown += `- *${order.original} porsi* Batagor Original (Rp ${(order.original * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+      itemsBreakdown += `- *${order.original} porsi* Batagor Original\n`;
     }
     if (order.cheese > 0) {
-      itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju (Rp ${(order.cheese * ITEM_PRICE).toLocaleString('id-ID')})\n`;
+      itemsBreakdown += `- *${order.cheese} porsi* Batagor Keju\n`;
     }
   }
 

@@ -29,7 +29,13 @@ export function initAdminDashboard() {
     ordersList.forEach((ord, idx) => {
       const classPart = ord.role === 'Siswa' ? ` (${ord.classRoom})` : ` (${ord.role})`;
       summaryText += `${idx + 1}. *${ord.name}*${classPart}\n`;
-      const qty = ord.mix || (ord.total ? Math.round(ord.total / 15000) : 0);
+      let qty = ord.mix;
+      if (!qty && ord.original && ord.cheese && ord.original === ord.cheese) {
+        qty = Math.round(ord.original / 2);
+      }
+      if (!qty && ord.total) {
+        qty = Math.round(ord.total / 15000);
+      }
       if (qty > 0) {
         summaryText += `   - Original + Keju: ${qty} porsi (${qty * 2} Ori + ${qty * 2} Keju)\n`;
       } else {
@@ -76,7 +82,13 @@ export function refreshAdminTable() {
     emptyState.style.display = 'none';
     ordersList.forEach((ord, index) => {
       totalRevenue += ord.total;
-      const mixCount = ord.mix || (ord.total ? Math.round(ord.total / 15000) : 0);
+      let mixCount = ord.mix;
+      if (!mixCount && ord.original && ord.cheese && ord.original === ord.cheese) {
+        mixCount = Math.round(ord.original / 2);
+      }
+      if (!mixCount && ord.total) {
+        mixCount = Math.round(ord.total / 15000);
+      }
       if (mixCount > 0) {
         totalMix += mixCount;
         totalOriginal += mixCount * 2;
@@ -90,7 +102,7 @@ export function refreshAdminTable() {
       let statusClass = ord.status === 'Paid' ? 'status-paid' : ord.status === 'Delivered' ? 'status-delivered' : 'status-pending';
       let detailsString = '';
       if (mixCount > 0) {
-        detailsString += `<div>Ori + Keju: <strong>${mixCount} porsi</strong> <small style="color: var(--text-muted);">(2 Ori + 2 Keju)</small></div>`;
+        detailsString += `<div>Ori + Keju: <strong>${mixCount} porsi</strong> <small style="color: var(--text-muted);">(${mixCount * 2} Ori + ${mixCount * 2} Keju)</small></div>`;
       } else {
         if (ord.original > 0) detailsString += `<div>Original: <strong>${ord.original}</strong></div>`;
         if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
