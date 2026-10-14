@@ -1280,7 +1280,7 @@ body {
   gap: 0.45rem;
   transition: var(--transition-smooth);
   line-height: 1.25;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
 }
 
 .addon-title-text {
