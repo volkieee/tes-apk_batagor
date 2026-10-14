@@ -1843,13 +1843,25 @@ body.checkout-active #order-summary-view {
   color: var(--peanut);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.proof-label-title {
+  display: inline-flex;
+  align-items: center;
   gap: 0.45rem;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .proof-upload-label .req-star {
   color: var(--accent-mercon);
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-block;
 }
 
 .proof-upload-desc {
@@ -2638,6 +2650,16 @@ footer {
   .btn-copy-rek {
     padding: 0.35rem 0.65rem;
     font-size: 0.76rem;
+  }
+
+  /* Proof Upload Label Mobile */
+  .proof-upload-label {
+    font-size: 0.88rem;
+    gap: 0.35rem;
+  }
+  .proof-upload-label .req-star {
+    font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   /* Proof Drop Area Mobile */

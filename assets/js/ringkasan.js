@@ -353,7 +353,10 @@ function renderReceipt(container, order) {
           <!-- Upload Bukti Pembayaran -->
           <div class="proof-upload-container" id="proof-upload-container">
             <label class="proof-upload-label">
-              <i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary);"></i> Upload Bukti Pembayaran <span class="req-star">* (Wajib Diisi)</span>
+              <span class="proof-label-title">
+                <i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary);"></i> Upload Bukti Pembayaran
+              </span>
+              <span class="req-star">* (Wajib Diisi)</span>
             </label>
             <p class="proof-upload-desc">
               Harap upload tangkapan layar (screenshot) / foto bukti transfer Anda sebelum lanjut ke WhatsApp.
