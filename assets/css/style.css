@@ -1119,6 +1119,8 @@ body {
   transition: var(--transition-smooth);
   user-select: none;
   min-height: 72px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sauce-option:hover .sauce-box {
@@ -1147,6 +1149,8 @@ body {
   flex-direction: column;
   gap: 0.15rem;
   text-align: left;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .sauce-text strong {
@@ -1155,6 +1159,7 @@ body {
   font-weight: 800;
   color: var(--peanut);
   transition: var(--transition-smooth);
+  overflow-wrap: break-word;
 }
 
 .sauce-text span {
@@ -1162,6 +1167,7 @@ body {
   color: var(--text-muted);
   font-weight: 600;
   line-height: 1.25;
+  overflow-wrap: break-word;
 }
 
 /* Efek saat diklik / dipilih: border berwarna primary, shadow tebal, background hangat */
@@ -1187,22 +1193,27 @@ body {
 /* --- Add-on Saus Sambal Styling --- */
 .addon-group {
   margin-top: 1.35rem;
+  width: 100%;
 }
 
 .addon-card-btn {
   border: 3px solid var(--peanut);
   background: var(--bg-warm);
   box-shadow: var(--neo-shadow-sm);
-  padding: 1rem 1.25rem;
+  padding: 0.9rem 1.15rem;
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.2rem;
+  gap: 0.85rem;
   cursor: pointer;
   transition: var(--transition-smooth);
   user-select: none;
   outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  position: relative;
 }
 
 .addon-card-btn:hover {
@@ -1224,19 +1235,21 @@ body {
 .addon-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .addon-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #ffefe8, #fed7aa);
   border: 2.5px solid var(--peanut);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: var(--accent-mercon);
   flex-shrink: 0;
   box-shadow: 2px 2px 0px var(--peanut);
@@ -1247,19 +1260,31 @@ body {
   background: var(--accent-mercon);
   color: #ffffff;
   border-color: var(--accent-mercon);
-  transform: rotate(-10deg) scale(1.08);
+  transform: rotate(-10deg) scale(1.06);
   box-shadow: 2px 3px 0px rgba(220, 38, 38, 0.4);
+}
+
+.addon-text-box {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .addon-text-box h4 {
   font-family: var(--font-display);
-  font-size: 1.08rem;
+  font-size: 1.02rem;
   font-weight: 800;
   color: var(--peanut);
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  gap: 0.45rem;
   transition: var(--transition-smooth);
+  line-height: 1.25;
+  margin-bottom: 0.15rem;
+}
+
+.addon-title-text {
+  white-space: nowrap;
 }
 
 .addon-card-btn.active .addon-text-box h4 {
@@ -1269,42 +1294,47 @@ body {
 .addon-pill-free {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.55rem;
+  padding: 0.15rem 0.5rem;
   background: var(--accent-green);
   color: #ffffff;
   border-radius: var(--radius-pill);
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   border: 1.5px solid var(--peanut);
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 .addon-text-box p {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  margin-top: 0.2rem;
+  margin: 0;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Badge Indikator Sederhana (Tambah / Terpilih) */
 .addon-check-indicator {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.85rem;
+  gap: 0.35rem;
+  padding: 0.42rem 0.75rem;
   background: #ffffff;
   border: 2px solid var(--peanut);
   border-radius: var(--radius-pill);
   font-family: var(--font-display);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 800;
   color: var(--peanut);
   box-shadow: 2px 2px 0px var(--peanut);
   transition: var(--transition-smooth);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .addon-card-btn:hover .addon-check-indicator {
@@ -1316,7 +1346,7 @@ body {
   border-color: var(--accent-mercon);
   color: #ffffff;
   box-shadow: 2px 3px 0px rgba(220, 38, 38, 0.4);
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 /* --- Checkout / Order Summary Screen --- */
@@ -2487,14 +2517,124 @@ footer {
     font-size: 1.1rem;
   }
 
+  /* Bumbu & Sauce Choice Mobile */
   .sauce-choice-grid {
     grid-template-columns: 1fr;
     gap: 0.65rem;
   }
+  .sauce-box {
+    padding: 0.75rem 0.85rem;
+    gap: 0.65rem;
+    min-height: auto;
+  }
+  .sauce-icon-wrap {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+  .sauce-text {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  .sauce-text strong {
+    font-size: 0.9rem;
+  }
+  .sauce-text span {
+    font-size: 0.72rem;
+  }
 
+  /* Add-on Saus Sambal Mobile */
+  .addon-card-btn {
+    padding: 0.75rem 0.85rem;
+    gap: 0.65rem;
+  }
+  .addon-info {
+    gap: 0.65rem;
+  }
+  .addon-icon-box {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+  .addon-text-box h4 {
+    font-size: 0.92rem;
+    gap: 0.35rem;
+  }
+  .addon-pill-free {
+    font-size: 0.62rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .addon-text-box p {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+  .addon-check-indicator {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    gap: 0.3rem;
+  }
+
+  /* Payment Method Mobile */
   .payment-method-grid {
     grid-template-columns: 1fr;
     gap: 0.65rem;
+  }
+  .payment-choice-box {
+    padding: 0.75rem 0.85rem;
+    gap: 0.65rem;
+    min-height: auto;
+  }
+  .payment-choice-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+  .payment-choice-text {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  .payment-choice-text strong {
+    font-size: 0.9rem;
+  }
+  .payment-choice-text span {
+    font-size: 0.72rem;
+  }
+
+  /* BCA ATM Card Mobile */
+  .bca-atm-card {
+    padding: 1rem 1.1rem;
+  }
+  .bca-rekening-wrapper {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .bca-rekening-digits {
+    font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+    letter-spacing: 1.5px;
+  }
+  .btn-copy-rek {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.76rem;
+  }
+
+  /* Proof Drop Area Mobile */
+  .proof-drop-area {
+    padding: 1rem 0.85rem;
+  }
+  .drop-icon-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 1.15rem;
+  }
+  .drop-main-text {
+    font-size: 0.85rem;
+  }
+  .drop-sub-text {
+    font-size: 0.72rem;
   }
 
   /* Single Variant Selector Mobile */
@@ -2613,6 +2753,59 @@ footer {
   .portion-info-chip {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
+  }
+  .preorder-form-container {
+    padding: 1.2rem 0.75rem;
+  }
+  .role-box {
+    padding: 0.6rem 0.25rem;
+    font-size: 0.76rem;
+  }
+  .role-box i {
+    font-size: 1rem;
+  }
+  .addon-card-btn {
+    padding: 0.65rem 0.75rem;
+    gap: 0.5rem;
+  }
+  .addon-info {
+    gap: 0.5rem;
+  }
+  .addon-icon-box {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  .addon-text-box h4 {
+    font-size: 0.86rem;
+  }
+  .addon-pill-free {
+    font-size: 0.6rem;
+    padding: 0.08rem 0.35rem;
+  }
+  .addon-text-box p {
+    font-size: 0.68rem;
+  }
+  .addon-check-indicator {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    gap: 0.25rem;
+  }
+  .bca-rekening-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .btn-copy-rek {
+    width: 100%;
+    justify-content: center;
+  }
+  .receipt-section {
+    padding: 1rem 0.85rem;
+  }
+  .digital-receipt-card {
+    border-radius: 16px;
   }
 }
 
@@ -3346,5 +3539,25 @@ footer {
 
   .admin-back-nav {
     padding: 0.75rem 1rem 0;
+  }
+
+  .orders-table td {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    padding: 0.65rem 0.85rem;
+    gap: 0.5rem;
+    font-size: 0.84rem;
+  }
+
+  .admin-modal {
+    padding: 1.4rem 1.1rem;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .orders-table td {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.8rem;
   }
 }
