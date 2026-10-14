@@ -71,10 +71,14 @@ export function initAdminDashboard() {
   const btnCloseProof = document.getElementById('btn-close-proof-modal');
   const btnProofClose = document.getElementById('btn-proof-modal-close');
   if (proofModal) {
-    if (btnCloseProof) btnCloseProof.addEventListener('click', () => proofModal.classList.remove('active'));
-    if (btnProofClose) btnProofClose.addEventListener('click', () => proofModal.classList.remove('active'));
+    const closeProofModal = () => {
+      proofModal.classList.remove('active');
+      proofModal.style.display = 'none';
+    };
+    if (btnCloseProof) btnCloseProof.addEventListener('click', closeProofModal);
+    if (btnProofClose) btnProofClose.addEventListener('click', closeProofModal);
     proofModal.addEventListener('click', (e) => {
-      if (e.target === proofModal) proofModal.classList.remove('active');
+      if (e.target === proofModal) closeProofModal();
     });
   }
 }
@@ -180,38 +184,112 @@ export function handleTableActions(e) {
   if (!target) return;
 
   const action = target.dataset.action;
-  const id = Number(target.dataset.orderId);
-  const index = ordersList.findIndex(o => o.id === id);
+  const targetOrderId = String(target.dataset.orderId || '');
+  const index = ordersList.findIndex(o => String(o.id) === targetOrderId);
 
-  if (index === -1) return;
+  if (index === -1) {
+    console.warn('Pesanan tidak ditemukan untuk ID:', targetOrderId);
+    return;
+  }
 
   if (action === 'view-proof') {
     const order = ordersList[index];
-    if (!order || !order.paymentProof) {
+    let proofImg = order?.paymentProof;
+
+    // Fallback pencarian ke localStorage jika di Firestore paymentProof belum sinkron
+    if (!proofImg) {
+      try {
+        const localOrders = JSON.parse(localStorage.getItem('batagor_orders') || '[]');
+        const matched = localOrders.find(lo => String(lo.id) === targetOrderId);
+        if (matched && matched.paymentProof) {
+          proofImg = matched.paymentProof;
+        }
+      } catch (err) {
+        console.warn('Pencarian bukti di localStorage gagal:', err);
+      }
+    }
+
+    if (!proofImg) {
       showToast('Bukti Kosong', 'Pesanan ini tidak memiliki foto bukti pembayaran.', 'error');
       return;
     }
+
     const modal = document.getElementById('proof-viewer-modal');
     const modalImg = document.getElementById('proof-modal-img');
     const modalName = document.getElementById('proof-modal-name');
     const modalLink = document.getElementById('proof-modal-open-link');
 
-    if (modalImg) modalImg.src = order.paymentProof;
+    if (modalImg) modalImg.src = proofImg;
     if (modalName) modalName.innerHTML = `Pemesan: <strong>${order.name}</strong> (${order.role}${order.classRoom && order.classRoom !== '-' ? ` | Kelas: ${order.classRoom}` : ''})`;
-    if (modalLink) modalLink.href = order.paymentProof;
-    if (modal) modal.classList.add('active');
+    
+    // Fitur buka gambar penuh yang aman dan kompatibel di semua browser
+    if (modalLink) {
+      modalLink.onclick = (event) => {
+        event.preventDefault();
+        const win = window.open('');
+        if (win) {
+          win.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>Bukti Pembayaran - ${order.name}</title>
+                <style>
+                  body { margin: 0; background: #0b0f19; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+                  img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+                </style>
+              </head>
+              <body>
+                <img src="${proofImg}" alt="Bukti Transfer">
+              </body>
+            </html>
+          `);
+          win.document.close();
+        } else {
+          window.location.href = proofImg;
+        }
+      };
+    }
+
+    if (modal) {
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+    }
+    return; // Berhenti agar tidak merefresh tabel saat modal dibuka
   } else if (action === 'cycle-status') {
     const states = ['Pending', 'Paid', 'Delivered'];
     const currentIdx = states.indexOf(ordersList[index].status);
     const nextIdx = (currentIdx + 1) % states.length;
     ordersList[index].status = states[nextIdx];
-    updateDoc(doc(db, 'orders', String(ordersList[index].id)), { status: ordersList[index].status })
+
+    // Sinkronkan perubahan status ke localStorage
+    try {
+      let localOrders = JSON.parse(localStorage.getItem('batagor_orders') || '[]');
+      const locIdx = localOrders.findIndex(lo => String(lo.id) === targetOrderId);
+      if (locIdx !== -1) {
+        localOrders[locIdx].status = states[nextIdx];
+        localStorage.setItem('batagor_orders', JSON.stringify(localOrders));
+      }
+    } catch (e) {
+      console.warn('Local storage status update failed:', e);
+    }
+
+    updateDoc(doc(db, 'orders', targetOrderId), { status: ordersList[index].status })
       .catch(error => console.error('Firestore status update failed:', error));
     showToast('Status Diubah', `Pesanan ${ordersList[index].name} diubah menjadi ${states[nextIdx]}`, 'success');
   } else if (action === 'delete-order') {
     if (!confirm('Apakah Anda yakin ingin menghapus catatan pesanan ini?')) return;
-    ordersList = ordersList.filter(o => o.id !== id);
-    deleteDoc(doc(db, 'orders', String(id)))
+    ordersList = ordersList.filter(o => String(o.id) !== targetOrderId);
+
+    // Hapus juga dari localStorage
+    try {
+      let localOrders = JSON.parse(localStorage.getItem('batagor_orders') || '[]');
+      localOrders = localOrders.filter(lo => String(lo.id) !== targetOrderId);
+      localStorage.setItem('batagor_orders', JSON.stringify(localOrders));
+    } catch (e) {
+      console.warn('Local storage delete failed:', e);
+    }
+
+    deleteDoc(doc(db, 'orders', targetOrderId))
       .catch(error => console.error('Firestore order delete failed:', error));
     showToast('Order Dihapus', 'Pesanan berhasil dihapus dari log lokal.', 'success');
   }
@@ -221,6 +299,17 @@ export function handleTableActions(e) {
 
 export function listenForOrders() {
   requestBrowserNotifications();
+
+  // Preload dari localStorage sebagai fallback cepat & offline
+  try {
+    const local = JSON.parse(localStorage.getItem('batagor_orders') || '[]');
+    if (Array.isArray(local) && local.length > 0 && ordersList.length === 0) {
+      ordersList = local;
+      refreshAdminTable();
+    }
+  } catch (err) {
+    console.warn('Preload localStorage failed:', err);
+  }
 
   const ordersQuery = query(collection(db, 'orders'), orderBy('id', 'desc'));
   onSnapshot(ordersQuery, snapshot => {

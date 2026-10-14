@@ -2176,17 +2176,36 @@ footer {
   color: #d6baa3;
 }
 
-/* --- Admin Password Modal --- */
-.admin-modal {
+/* --- Modal Overlay & Admin Modal System --- */
+.modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(42, 20, 6, 0.7);
+  background: rgba(15, 8, 3, 0.75);
   backdrop-filter: blur(8px);
-  z-index: 100;
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1.2rem;
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+.admin-modal {
+  display: block !important;
+  background: #ffffff;
+  border: 4px solid var(--peanut);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--neo-shadow-lg);
+  max-width: 480px;
+  width: 100%;
+  padding: 2.2rem;
+  position: relative;
+  animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .admin-modal-card {
@@ -3335,19 +3354,21 @@ footer {
 }
 
 .admin-body .modal-overlay.active {
-  display: flex;
+  display: flex !important;
 }
 
-.admin-modal {
+.admin-body .admin-modal {
+  display: block !important;
   background: var(--admin-bg-secondary);
   border: 1px solid var(--admin-border-color);
   box-shadow: var(--admin-glass-shadow);
   border-radius: 20px;
   padding: 2.2rem;
   width: 100%;
-  max-width: 460px;
+  max-width: 480px;
   position: relative;
   animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .modal-close-btn {
