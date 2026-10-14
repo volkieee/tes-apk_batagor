@@ -1087,6 +1087,141 @@ body {
   text-align: center;
 }
 
+/* --- Add-on Saus Sambal Styling --- */
+.addon-group {
+  margin-top: 1.35rem;
+}
+
+.addon-card-btn {
+  border: 3px solid var(--peanut);
+  background: var(--bg-warm);
+  box-shadow: var(--neo-shadow-sm);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  user-select: none;
+  outline: none;
+}
+
+.addon-card-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--neo-shadow);
+}
+
+.addon-card-btn:active {
+  transform: translate(0, 0);
+}
+
+/* State Aktif saat diklik / dipilih: Border berubah warna mencolok & background menyala */
+.addon-card-btn.active {
+  background: #fff4ed;
+  border-color: var(--accent-mercon);
+  box-shadow: 4px 6px 0px var(--accent-mercon);
+}
+
+.addon-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.addon-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffefe8, #fed7aa);
+  border: 2.5px solid var(--peanut);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: var(--accent-mercon);
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0px var(--peanut);
+  transition: var(--transition-smooth);
+}
+
+.addon-card-btn.active .addon-icon-box {
+  background: var(--accent-mercon);
+  color: #ffffff;
+  border-color: var(--accent-mercon);
+  transform: rotate(-10deg) scale(1.08);
+  box-shadow: 2px 3px 0px rgba(220, 38, 38, 0.4);
+}
+
+.addon-text-box h4 {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--peanut);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  transition: var(--transition-smooth);
+}
+
+.addon-card-btn.active .addon-text-box h4 {
+  color: var(--accent-mercon);
+}
+
+.addon-pill-free {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  background: var(--accent-green);
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1.5px solid var(--peanut);
+}
+
+.addon-text-box p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Badge Indikator Sederhana (Tambah / Terpilih) */
+.addon-check-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  background: #ffffff;
+  border: 2px solid var(--peanut);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--peanut);
+  box-shadow: 2px 2px 0px var(--peanut);
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+}
+
+.addon-card-btn:hover .addon-check-indicator {
+  background: var(--mustard);
+}
+
+.addon-card-btn.active .addon-check-indicator {
+  background: var(--accent-mercon);
+  border-color: var(--accent-mercon);
+  color: #ffffff;
+  box-shadow: 2px 3px 0px rgba(220, 38, 38, 0.4);
+  transform: scale(1.04);
+}
+
 /* --- Checkout / Order Summary Screen --- */
 body.checkout-active header,
 body.checkout-active #hero,

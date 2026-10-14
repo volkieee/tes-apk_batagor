@@ -43,6 +43,7 @@ export function initAdminDashboard() {
         if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
       }
       if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
+      if (ord.addonSambal) summaryText += `   - Add-on: Saus Sambal\n`;
       if (ord.notes && ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
       summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
 
@@ -108,6 +109,9 @@ export function refreshAdminTable() {
         if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
       }
       if (ord.mercon > 0) detailsString += `<div>Mercon: <strong>${ord.mercon}</strong></div>`;
+      if (ord.addonSambal) {
+        detailsString += `<div style="color: var(--accent-mercon); font-size: 0.78rem; font-weight: 700; margin-top: 0.2rem;"><i class="fa-solid fa-pepper-hot"></i> + Saus Sambal</div>`;
+      }
 
       const rowHtml = `
         <tr>

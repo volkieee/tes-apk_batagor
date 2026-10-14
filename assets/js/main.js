@@ -72,6 +72,10 @@ function constructWhatsAppMessage(order) {
     }
   }
 
+  if (order.addonSambal) {
+    itemsBreakdown += `- *Add-on:* Saus Sambal 🌶️ (Gratis)\n`;
+  }
+
   const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
 
   return `*PRE-ORDER BATAGOR-IN* 🥟
@@ -313,6 +317,31 @@ function initFormListeners() {
     });
   });
 
+  // Add-on Saus Sambal (Simple Click Toggle)
+  const addonSambalBtn = document.getElementById('addon-sambal-btn');
+  if (addonSambalBtn) {
+    addonSambalBtn.addEventListener('click', () => {
+      const isSelected = addonSambalBtn.classList.toggle('active');
+      addonSambalBtn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      const icon = addonSambalBtn.querySelector('.indicator-icon');
+      const text = addonSambalBtn.querySelector('.indicator-text');
+      if (isSelected) {
+        if (icon) icon.className = 'fa-solid fa-check indicator-icon';
+        if (text) text.textContent = 'Ditambahkan';
+      } else {
+        if (icon) icon.className = 'fa-solid fa-plus indicator-icon';
+        if (text) text.textContent = 'Tambah';
+      }
+    });
+
+    addonSambalBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        addonSambalBtn.click();
+      }
+    });
+  }
+
   // Next Button Trigger -> Transisi ke Ringkasan Saja (Elemen lain menghilang)
   const btnNextOrder = document.getElementById('btn-next-order');
   if (btnNextOrder) {
@@ -353,6 +382,7 @@ function initFormListeners() {
       }
 
       const activePortion = portionQty > 0 ? portionQty : Math.max(1, originalQty + cheeseQty);
+      const hasSambal = addonSambalBtn ? addonSambalBtn.classList.contains('active') : false;
 
       const orderData = {
         id: Date.now(),
@@ -362,6 +392,7 @@ function initFormListeners() {
         mix: activePortion,
         original: activePortion * 2,
         cheese: activePortion * 2,
+        addonSambal: hasSambal,
         total: activePortion * ITEM_PRICE,
         notes: notes || '-',
         date: getFormattedDate(),
@@ -421,6 +452,20 @@ function showCheckoutView(order) {
         </div>
       `;
     }
+  }
+
+  if (order.addonSambal) {
+    itemsHtml += `
+      <div class="receipt-item-row">
+        <div class="item-name-col">
+          <span class="item-title"><i class="fa-solid fa-pepper-hot" style="color: var(--accent-mercon);"></i> Saus Sambal</span>
+          <span class="item-subtitle">Add-on pelengkap rasa</span>
+        </div>
+        <div class="item-price-col" style="color: var(--accent-green); font-weight: 800;">
+          Gratis
+        </div>
+      </div>
+    `;
   }
 
   const classRow = order.role === 'Siswa'
@@ -573,6 +618,16 @@ function resetPreorderForm() {
   originalQty = 0;
   cheeseQty = 0;
   updateQuantityDisplay();
+
+  const addonSambalBtn = document.getElementById('addon-sambal-btn');
+  if (addonSambalBtn) {
+    addonSambalBtn.classList.remove('active');
+    addonSambalBtn.setAttribute('aria-pressed', 'false');
+    const icon = addonSambalBtn.querySelector('.indicator-icon');
+    const text = addonSambalBtn.querySelector('.indicator-text');
+    if (icon) icon.className = 'fa-solid fa-plus indicator-icon';
+    if (text) text.textContent = 'Tambah';
+  }
 
   sessionStorage.removeItem('batagor_draft_order');
   localStorage.removeItem('batagor_draft_order');

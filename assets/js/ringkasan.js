@@ -59,6 +59,10 @@ function constructWhatsAppMessage(order) {
     }
   }
 
+  if (order.addonSambal) {
+    itemsBreakdown += `- *Add-on:* Saus Sambal 🌶️ (Gratis)\n`;
+  }
+
   const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
 
   return `*PRE-ORDER BATAGOR-IN* 🥟
@@ -204,6 +208,20 @@ function renderReceipt(container, order) {
         </div>
       `;
     }
+  }
+
+  if (order.addonSambal) {
+    itemsHtml += `
+      <div class="receipt-item-row">
+        <div class="item-name-col">
+          <span class="item-title"><i class="fa-solid fa-pepper-hot" style="color: var(--accent-mercon);"></i> Saus Sambal</span>
+          <span class="item-subtitle">Add-on pelengkap rasa</span>
+        </div>
+        <div class="item-price-col" style="color: var(--accent-green); font-weight: 800;">
+          Gratis
+        </div>
+      </div>
+    `;
   }
 
   const classRow = order.role === 'Siswa'
