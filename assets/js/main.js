@@ -77,17 +77,25 @@ function constructWhatsAppMessage(order) {
   }
 
   const classLine = order.role === 'Siswa' ? `*Kelas:* ${order.classRoom}\n` : '';
+  const bumbuLine = `*Bumbu Kacang:* ${order.bumbu || 'Digabung'}\n`;
+
+  let paymentText = '';
+  if (order.paymentMethod === 'BCA') {
+    paymentText = `*Metode Pembayaran:* Transfer BCA (5390903440 a/n Sugata Joeng)\n*Status Pembayaran:* Bukti Transfer Terlampir ✅\n`;
+  } else {
+    paymentText = `*Metode Pembayaran:* 💵 Tunai / Cash (Bayar Saat Diterima)\n`;
+  }
 
   return `*PRE-ORDER BATAGOR-IN* 🥟
 --------------------------------------------
 *Nama:* ${order.name}
 *Status:* ${order.role}
-${classLine}--------------------------------------------
+${classLine}${bumbuLine}--------------------------------------------
 *Rincian Pesanan:*
 ${itemsBreakdown}
 *Catatan:* ${order.notes || '-'}
 --------------------------------------------
-*Total Tagihan:* Rp ${order.total.toLocaleString('id-ID')}
+${paymentText}*Total Tagihan:* Rp ${order.total.toLocaleString('id-ID')}
 --------------------------------------------
 _Halo kak, saya ingin mengonfirmasi pesanan Batagor-in saya di atas. Terima kasih!_ 🙏`;
 }
@@ -383,6 +391,8 @@ function initFormListeners() {
 
       const activePortion = portionQty > 0 ? portionQty : Math.max(1, originalQty + cheeseQty);
       const hasSambal = addonSambalBtn ? addonSambalBtn.classList.contains('active') : false;
+      const selectedBumbuRadio = document.querySelector('input[name="bumbu-option"]:checked');
+      const bumbuChoice = selectedBumbuRadio ? selectedBumbuRadio.value : 'Digabung';
 
       const orderData = {
         id: Date.now(),
@@ -392,6 +402,7 @@ function initFormListeners() {
         mix: activePortion,
         original: activePortion * 2,
         cheese: activePortion * 2,
+        bumbu: bumbuChoice,
         addonSambal: hasSambal,
         total: activePortion * ITEM_PRICE,
         notes: notes || '-',
@@ -475,6 +486,12 @@ function showCheckoutView(order) {
        </div>`
     : '';
 
+  const bumbuRow = `
+    <div class="receipt-info-row">
+      <span class="info-label"><i class="fa-solid fa-droplet"></i> Bumbu Kacang</span>
+      <span class="info-value highlight" style="color: var(--primary); font-weight: 800;">${order.bumbu || 'Digabung'}</span>
+    </div>`;
+
   const notesRow = order.notes && order.notes !== '-'
     ? `<div class="receipt-info-row">
          <span class="info-label"><i class="fa-solid fa-message"></i> Catatan Khusus</span>
@@ -507,6 +524,7 @@ function showCheckoutView(order) {
             <span class="info-value">${order.role}</span>
           </div>
           ${classRow}
+          ${bumbuRow}
           ${notesRow}
         </div>
       </div>
@@ -519,6 +537,97 @@ function showCheckoutView(order) {
         <div class="receipt-total-row">
           <span>Total Pembayaran</span>
           <span class="total-amount">Rp ${order.total.toLocaleString('id-ID')}</span>
+        </div>
+      </div>
+
+      <!-- Metode Pembayaran: Cash atau Transfer BCA -->
+      <div class="receipt-section payment-section">
+        <h4 class="receipt-section-title"><i class="fa-solid fa-wallet"></i> Metode Pembayaran <span class="req">*</span></h4>
+        
+        <div class="payment-method-grid">
+          <label class="payment-choice-card" id="card-pay-cash">
+            <input type="radio" name="payment-method" value="Cash" checked>
+            <div class="payment-choice-box">
+              <div class="payment-choice-icon">
+                <i class="fa-solid fa-money-bill-wave"></i>
+              </div>
+              <div class="payment-choice-text">
+                <strong>Tunai / Cash</strong>
+                <span>Bayar saat pesanan tiba</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-choice-card" id="card-pay-bca">
+            <input type="radio" name="payment-method" value="BCA">
+            <div class="payment-choice-box">
+              <div class="payment-choice-icon bca-blue">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+              <div class="payment-choice-text">
+                <strong>Transfer BCA</strong>
+                <span>a/n Sugata Joeng</span>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- Detail Transfer BCA & Upload Bukti (Wajib jika BCA) -->
+        <div class="bca-panel" id="bca-panel" style="display: none;">
+          <div class="bca-atm-card">
+            <div class="bca-atm-header">
+              <span class="bca-atm-logo">BCA</span>
+              <span class="bca-atm-type"><i class="fa-solid fa-shield-halved"></i> Rekening Resmi</span>
+            </div>
+            <div class="bca-atm-body">
+              <span class="bca-label-rek">Nomor Rekening BCA Penjual:</span>
+              <div class="bca-rekening-wrapper">
+                <span class="bca-rekening-digits" id="bca-rek-number">5390903440</span>
+                <button type="button" class="btn-copy-rek" id="btn-copy-rek" title="Salin nomor rekening">
+                  <i class="fa-solid fa-copy"></i> Salin
+                </button>
+              </div>
+              <div class="bca-holder-name">
+                Atas Nama: <strong>Sugata Joeng</strong>
+              </div>
+            </div>
+            <div class="bca-atm-footer">
+              <span>Total Transfer:</span>
+              <strong>Rp ${order.total.toLocaleString('id-ID')}</strong>
+            </div>
+          </div>
+
+          <!-- Upload Bukti Pembayaran -->
+          <div class="proof-upload-container" id="proof-upload-container">
+            <label class="proof-upload-label">
+              <i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary);"></i> Upload Bukti Pembayaran <span class="req-star">* (Wajib Diisi)</span>
+            </label>
+            <p class="proof-upload-desc">
+              Harap upload tangkapan layar (screenshot) / foto bukti transfer Anda sebelum lanjut ke WhatsApp.
+            </p>
+
+            <input type="file" id="input-payment-proof" accept="image/*" style="display: none;">
+
+            <div class="proof-drop-area" id="proof-drop-area">
+              <div class="drop-area-placeholder" id="drop-area-placeholder">
+                <div class="drop-icon-circle">
+                  <i class="fa-solid fa-camera"></i>
+                </div>
+                <span class="drop-main-text">Klik untuk Pilih / Ambil Foto Bukti</span>
+                <span class="drop-sub-text">Mendukung format JPG, PNG, WEBP</span>
+              </div>
+
+              <div class="drop-area-preview" id="drop-area-preview" style="display: none;">
+                <img id="payment-proof-preview-img" src="" alt="Bukti Pembayaran">
+                <div class="preview-overlay">
+                  <span class="preview-success-tag"><i class="fa-solid fa-circle-check"></i> Foto Bukti Terpasang</span>
+                  <button type="button" class="btn-reupload" id="btn-reupload">
+                    <i class="fa-solid fa-rotate-right"></i> Ganti Foto
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -551,12 +660,129 @@ function showCheckoutView(order) {
     });
   }
 
-  // Listener tombol WhatsApp
+  // Interaktivitas Metode Pembayaran (Cash vs BCA)
+  const payRadios = document.querySelectorAll('input[name="payment-method"]');
+  const bcaPanel = document.getElementById('bca-panel');
+  let uploadedProofBase64 = null;
+
+  payRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const selected = document.querySelector('input[name="payment-method"]:checked')?.value || 'Cash';
+      if (selected === 'BCA') {
+        if (bcaPanel) bcaPanel.style.display = 'block';
+      } else {
+        if (bcaPanel) bcaPanel.style.display = 'none';
+      }
+    });
+  });
+
+  // Salin Nomor Rekening BCA
+  const btnCopyRek = document.getElementById('btn-copy-rek');
+  if (btnCopyRek) {
+    btnCopyRek.addEventListener('click', () => {
+      navigator.clipboard.writeText('5390903440')
+        .then(() => {
+          btnCopyRek.classList.add('copied');
+          btnCopyRek.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin!';
+          showToast('Nomor Rekening Disalin', '5390903440 (BCA a/n Sugata Joeng) disalin ke clipboard.', 'success');
+          setTimeout(() => {
+            btnCopyRek.classList.remove('copied');
+            btnCopyRek.innerHTML = '<i class="fa-solid fa-copy"></i> Salin';
+          }, 2500);
+        })
+        .catch(() => {
+          showToast('Salin Manual', 'No. Rekening BCA: 5390903440 a/n Sugata Joeng', 'info');
+        });
+    });
+  }
+
+  // Upload & Kompresi Foto Bukti Transfer
+  const inputProof = document.getElementById('input-payment-proof');
+  const dropArea = document.getElementById('proof-drop-area');
+  const btnReupload = document.getElementById('btn-reupload');
+  const placeholder = document.getElementById('drop-area-placeholder');
+  const previewWrap = document.getElementById('drop-area-preview');
+  const previewImg = document.getElementById('payment-proof-preview-img');
+
+  if (dropArea && inputProof) {
+    dropArea.addEventListener('click', (e) => {
+      if (e.target.closest('#btn-reupload')) return;
+      inputProof.click();
+    });
+
+    if (btnReupload) {
+      btnReupload.addEventListener('click', (e) => {
+        e.stopPropagation();
+        inputProof.click();
+      });
+    }
+
+    inputProof.addEventListener('change', () => {
+      const file = inputProof.files?.[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showToast('Format Salah', 'Mohon unggah file berupa foto atau gambar (JPG, PNG, WEBP).', 'error');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 900;
+          let width = img.width;
+          let height = img.height;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          uploadedProofBase64 = canvas.toDataURL('image/jpeg', 0.75);
+
+          if (previewImg) previewImg.src = uploadedProofBase64;
+          if (placeholder) placeholder.style.display = 'none';
+          if (previewWrap) previewWrap.style.display = 'block';
+          if (dropArea) dropArea.classList.remove('has-error');
+          showToast('Foto Terpasang', 'Bukti pembayaran transfer BCA berhasil diunggah.', 'success');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Listener tombol WhatsApp (Validasi Wajib Upload Bukti jika BCA)
   const btnConfirmWA = document.getElementById('btn-confirm-wa');
   if (btnConfirmWA) {
     btnConfirmWA.addEventListener('click', () => {
+      const selectedPayMethod = document.querySelector('input[name="payment-method"]:checked')?.value || 'Cash';
+
+      // VALIDASI WAJIB BUKTI TF JIKA BCA
+      if (selectedPayMethod === 'BCA' && !uploadedProofBase64) {
+        showToast('Bukti Transfer Wajib', 'Silakan upload bukti pembayaran transfer BCA Anda terlebih dahulu sebelum lanjut ke WhatsApp!', 'error');
+        if (dropArea) {
+          dropArea.classList.add('has-error');
+          dropArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
       btnConfirmWA.disabled = true;
       btnConfirmWA.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Membuka WhatsApp...';
+
+      order.paymentMethod = selectedPayMethod;
+      order.paymentProof = selectedPayMethod === 'BCA' ? uploadedProofBase64 : null;
 
       // Simpan riwayat pesanan ke localStorage (sinkron, cepat)
       let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];
@@ -628,6 +854,9 @@ function resetPreorderForm() {
     if (icon) icon.className = 'fa-solid fa-plus indicator-icon';
     if (text) text.textContent = 'Tambah';
   }
+
+  const defaultBumbuRadio = document.getElementById('bumbu-digabung');
+  if (defaultBumbuRadio) defaultBumbuRadio.checked = true;
 
   sessionStorage.removeItem('batagor_draft_order');
   localStorage.removeItem('batagor_draft_order');

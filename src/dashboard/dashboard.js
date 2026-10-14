@@ -43,7 +43,10 @@ export function initAdminDashboard() {
         if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
       }
       if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
+      summaryText += `   - Bumbu Kacang: ${ord.bumbu || 'Digabung'}\n`;
       if (ord.addonSambal) summaryText += `   - Add-on: Saus Sambal\n`;
+      const payLabel = ord.paymentMethod === 'BCA' ? 'Transfer BCA (Bukti Ada)' : 'Tunai / Cash';
+      summaryText += `   - Pembayaran: ${payLabel}\n`;
       if (ord.notes && ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
       summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
 
@@ -62,6 +65,18 @@ export function initAdminDashboard() {
         console.error(err);
       });
   });
+
+  // Modal Bukti Transfer Close Handlers
+  const proofModal = document.getElementById('proof-viewer-modal');
+  const btnCloseProof = document.getElementById('btn-close-proof-modal');
+  const btnProofClose = document.getElementById('btn-proof-modal-close');
+  if (proofModal) {
+    if (btnCloseProof) btnCloseProof.addEventListener('click', () => proofModal.classList.remove('active'));
+    if (btnProofClose) btnProofClose.addEventListener('click', () => proofModal.classList.remove('active'));
+    proofModal.addEventListener('click', (e) => {
+      if (e.target === proofModal) proofModal.classList.remove('active');
+    });
+  }
 }
 
 /**
@@ -109,8 +124,29 @@ export function refreshAdminTable() {
         if (ord.cheese > 0) detailsString += `<div>Keju: <strong>${ord.cheese}</strong></div>`;
       }
       if (ord.mercon > 0) detailsString += `<div>Mercon: <strong>${ord.mercon}</strong></div>`;
+      detailsString += `<div>Bumbu: <strong>${ord.bumbu || 'Digabung'}</strong></div>`;
       if (ord.addonSambal) {
         detailsString += `<div style="color: var(--accent-mercon); font-size: 0.78rem; font-weight: 700; margin-top: 0.2rem;"><i class="fa-solid fa-pepper-hot"></i> + Saus Sambal</div>`;
+      }
+
+      // Badge Metode Pembayaran & Tombol Lihat Bukti Transfer
+      if (ord.paymentMethod === 'BCA') {
+        detailsString += `
+          <div style="margin-top: 0.4rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+            <span class="badge-payment-bca"><i class="fa-solid fa-building-columns"></i> BCA</span>
+            ${ord.paymentProof ? `
+              <button type="button" class="btn-admin-proof" data-action="view-proof" data-order-id="${ord.id}" title="Lihat Foto Bukti Transfer">
+                <i class="fa-solid fa-receipt"></i> Bukti TF
+              </button>
+            ` : '<small style="color: var(--accent-mercon); font-size: 0.72rem;">(Tanpa Foto)</small>'}
+          </div>
+        `;
+      } else {
+        detailsString += `
+          <div style="margin-top: 0.4rem;">
+            <span class="badge-payment-cash"><i class="fa-solid fa-money-bill-wave"></i> Tunai (Cash)</span>
+          </div>
+        `;
       }
 
       const rowHtml = `
@@ -149,7 +185,22 @@ export function handleTableActions(e) {
 
   if (index === -1) return;
 
-  if (action === 'cycle-status') {
+  if (action === 'view-proof') {
+    const order = ordersList[index];
+    if (!order || !order.paymentProof) {
+      showToast('Bukti Kosong', 'Pesanan ini tidak memiliki foto bukti pembayaran.', 'error');
+      return;
+    }
+    const modal = document.getElementById('proof-viewer-modal');
+    const modalImg = document.getElementById('proof-modal-img');
+    const modalName = document.getElementById('proof-modal-name');
+    const modalLink = document.getElementById('proof-modal-open-link');
+
+    if (modalImg) modalImg.src = order.paymentProof;
+    if (modalName) modalName.innerHTML = `Pemesan: <strong>${order.name}</strong> (${order.role}${order.classRoom && order.classRoom !== '-' ? ` | Kelas: ${order.classRoom}` : ''})`;
+    if (modalLink) modalLink.href = order.paymentProof;
+    if (modal) modal.classList.add('active');
+  } else if (action === 'cycle-status') {
     const states = ['Pending', 'Paid', 'Delivered'];
     const currentIdx = states.indexOf(ordersList[index].status);
     const nextIdx = (currentIdx + 1) % states.length;

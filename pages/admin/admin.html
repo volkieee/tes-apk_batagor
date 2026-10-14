@@ -166,6 +166,32 @@
     </div>
   </div>
 
+  <!-- Modal Bukti Transfer Penjual -->
+  <div class="modal-overlay" id="proof-viewer-modal">
+    <div class="admin-modal" style="max-width: 520px; text-align: center;">
+      <button class="modal-close-btn" id="btn-close-proof-modal" aria-label="Tutup modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="modal-title" style="justify-content: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+        <i class="fa-solid fa-receipt" style="color: var(--primary);"></i> Bukti Transfer BCA
+      </h3>
+      <p id="proof-modal-name" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Nama Pemesan: <strong>-</strong>
+      </p>
+      <div style="background: #111827; border: 2.5px solid var(--peanut); border-radius: var(--radius-md); overflow: hidden; max-height: 55vh; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;">
+        <img id="proof-modal-img" src="" alt="Bukti Transfer" style="max-width: 100%; max-height: 55vh; object-fit: contain;">
+      </div>
+      <div style="display: flex; gap: 0.75rem; justify-content: center;">
+        <a id="proof-modal-open-link" href="#" target="_blank" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; text-decoration: none;">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Gambar Penuh
+        </a>
+        <button type="button" class="btn-secondary" id="btn-proof-modal-close" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification System -->
   <div class="toast-notification" id="toast-notif">
     <div class="toast-icon" id="toast-icon">
