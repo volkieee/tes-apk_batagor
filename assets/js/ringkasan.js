@@ -73,7 +73,7 @@ function constructWhatsAppMessage(order) {
     paymentText = `*Metode Pembayaran:* 💵 Tunai / Cash (Bayar Saat Diterima)\n`;
   }
 
-  return `*PRE-ORDER BATAGOR-IN* 🥟
+  return `*PRE-ORDER BATAGOR-IN (BATCH 2)* 🥟
 --------------------------------------------
 *Nama:* ${order.name}
 *Status:* ${order.role}
@@ -388,20 +388,20 @@ function renderReceipt(container, order) {
       </div>
 
       <div class="receipt-footer-instructions">
-        <div class="instruction-box">
-          <i class="fa-solid fa-shield-halved"></i>
+        <div class="instruction-box warning-box">
+          <i class="fa-solid fa-triangle-exclamation"></i>
           <div>
-            <strong>Langkah Terakhir:</strong>
-            <p>Klik tombol hijau di bawah untuk mengirim data pesanan Anda langsung ke WhatsApp penjual dengan format otomatis.</p>
+            <strong><span class="wajib-badge">WAJIB</span> Langkah Terakhir: Kirim ke WhatsApp</strong>
+            <p>Pesanan Anda <strong>BELUM RESMI MASUK & TIDAK AKAN DIPROSES</strong> sebelum Anda menekan tombol di bawah dan mengirimkan pesan konfirmasi ke WhatsApp penjual!</p>
           </div>
         </div>
 
         <div class="receipt-actions">
-          <button type="button" class="btn-checkout" id="btn-confirm-wa">
-            <i class="fa-brands fa-whatsapp"></i> Kirim Order via WhatsApp
+          <button type="button" class="btn-checkout pulse-wa" id="btn-confirm-wa">
+            <i class="fa-brands fa-whatsapp"></i> (Wajib) Kirim Order via WhatsApp
           </button>
-          <a href="index.html#preorder" class="btn-summary-back" id="btn-edit-order" style="text-align: center; text-decoration: none; display: block;">
-            <i class="fa-solid fa-pen-to-square"></i> Ubah / Edit Formulir
+          <a href="index.html#preorder" class="btn-summary-back" id="btn-edit-order" style="text-align: center; text-decoration: none;">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Formulir
           </a>
         </div>
       </div>
@@ -572,7 +572,7 @@ function renderReceipt(container, order) {
       return;
     }
 
-    showToast('Pesanan Terkirim!', 'Membuka WhatsApp di tab baru...', 'success');
+    showToast('Wajib Kirim Chat di WA!', 'Membuka WhatsApp... Pastikan Anda menekan tombol KIRIM (Send) di WA agar pesanan resmi diproses!', 'success');
 
     // Setelah WA terbuka, redirect ke halaman utama setelah jeda singkat
     setTimeout(() => {
