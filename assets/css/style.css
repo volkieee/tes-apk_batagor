@@ -3291,6 +3291,156 @@ footer {
   letter-spacing: -0.02em;
 }
 
+/* Batch Filter Bar in Admin Dashboard */
+.batch-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--admin-glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--admin-glass-border);
+  border-radius: 18px;
+  box-shadow: var(--admin-glass-shadow);
+}
+
+.batch-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.batch-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1.15rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--admin-text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.batch-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--admin-text-main);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.batch-tab-btn.active {
+  background: linear-gradient(135deg, var(--admin-primary), #d9531e);
+  color: #ffffff !important;
+  border-color: var(--admin-primary);
+  box-shadow: 0 4px 16px rgba(234, 114, 28, 0.4);
+}
+
+.batch-tab-btn.active i {
+  color: #ffffff !important;
+}
+
+.batch-count-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+}
+
+.batch-tab-btn.active .batch-count-pill {
+  background: #ffffff;
+  color: var(--admin-primary);
+}
+
+.batch-status-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  color: var(--admin-text-muted);
+  font-weight: 600;
+}
+
+.batch-indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--admin-primary);
+  box-shadow: 0 0 10px var(--admin-primary);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.badge-batch-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+.badge-batch-tag.batch-2 {
+  background: rgba(234, 114, 28, 0.18);
+  color: var(--admin-primary);
+  border: 1px solid rgba(234, 114, 28, 0.35);
+}
+
+.badge-batch-tag.batch-1 {
+  background: rgba(148, 163, 184, 0.14);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+@media (max-width: 768px) {
+  .batch-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    padding: 0.85rem;
+  }
+  .batch-tabs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .batch-tab-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .batch-status-info {
+    justify-content: center;
+    padding-top: 0.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}
+
 /* Orders Table Container Glassmorphism */
 .table-container {
   background: var(--admin-glass-bg);

@@ -407,6 +407,7 @@ function initFormListeners() {
         total: activePortion * ITEM_PRICE,
         notes: notes || '-',
         date: getFormattedDate(),
+        batch: 'Batch 2',
         status: 'Pending'
       };
 
@@ -786,6 +787,7 @@ function showCheckoutView(order) {
 
       order.paymentMethod = selectedPayMethod;
       order.paymentProof = selectedPayMethod === 'BCA' ? uploadedProofBase64 : null;
+      order.batch = order.batch || 'Batch 2';
 
       // Simpan riwayat pesanan ke localStorage (sinkron, cepat)
       let ordersList = JSON.parse(localStorage.getItem('batagor_orders')) || [];

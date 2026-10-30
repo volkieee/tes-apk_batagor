@@ -1,6 +1,6 @@
 // ==========================================================================
 // ADMIN - DASHBOARD MODULE
-// Manages table population, stats calculation, and order actions.
+// Manages table population, batch filtering, stats calculation, and order actions.
 // ==========================================================================
 
 import { showToast } from '../ui/ui.js';
@@ -9,62 +9,130 @@ import { db } from '../config/firebase-config.js';
 
 let ordersList = [];
 let hasLoadedOrders = false;
+let currentBatchFilter = 'Batch 2'; // Default: Batch 2 (Aktif & Fresh)
+
+// Cutoff timestamp: Pesanan Batch 1 selesai per pertengahan Oktober 2026.
+// Semua pesanan mulai akhir Oktober 2026 (atau bertanda Batch 2) otomatis masuk Batch 2!
+const BATCH_2_START_TIMESTAMP = 1793000000000;
 
 /**
- * Initializes the main dashboard functionalities like the export button.
+ * Normalizes and determines which batch an order belongs to.
+ * Double protection: checks both .batch property and order timestamp ID.
+ */
+export function getOrderBatch(ord) {
+  if (!ord) return 'Batch 1';
+  
+  // 1. Cek jika order secara eksplisit memiliki atribut batch
+  const b = String(ord.batch || '').trim().toLowerCase();
+  if (b.includes('2')) return 'Batch 2';
+  if (b.includes('1')) return 'Batch 1';
+
+  // 2. Cek berdasarkan waktu pemesanan (semua pesanan hari ini otomatis Batch 2)
+  const orderIdNum = Number(ord.id);
+  if (!isNaN(orderIdNum) && orderIdNum >= BATCH_2_START_TIMESTAMP) {
+    return 'Batch 2';
+  }
+
+  // 3. Pesanan lama yang dibuat di Batch 1
+  return 'Batch 1';
+}
+
+/**
+ * Initializes the main dashboard functionalities like batch tabs and the export button.
  */
 export function initAdminDashboard() {
   const btnExport = document.getElementById('btn-export-orders');
 
-  btnExport.addEventListener('click', () => {
-    if (ordersList.length === 0) {
-      showToast('Log Kosong', 'Belum ada pesanan masuk untuk diekspor.', 'error');
-      return;
-    }
+  // Tab batch switching
+  const tabsGroup = document.getElementById('batch-tabs-group');
+  if (tabsGroup) {
+    tabsGroup.addEventListener('click', (e) => {
+      const btn = e.target.closest('.batch-tab-btn');
+      if (!btn) return;
+      const selectedBatch = btn.dataset.batch;
+      if (!selectedBatch) return;
 
-    let summaryText = `*REKAP PESANAN BATAGOR-IN*\nTanggal Rekap: ${getFormattedDate()}\n====================================\n\n`;
-    let totalIncome = 0;
-    let pendingCount = 0;
+      currentBatchFilter = selectedBatch;
+      tabsGroup.querySelectorAll('.batch-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    ordersList.forEach((ord, idx) => {
-      const classPart = ord.role === 'Siswa' ? ` (${ord.classRoom})` : ` (${ord.role})`;
-      summaryText += `${idx + 1}. *${ord.name}*${classPart}\n`;
-      let qty = ord.mix;
-      if (!qty && ord.original && ord.cheese && ord.original === ord.cheese) {
-        qty = Math.round(ord.original / 2);
+      const labelEl = document.getElementById('current-batch-label');
+      if (labelEl) {
+        if (selectedBatch === 'Batch 2') labelEl.textContent = 'Batch 2';
+        else if (selectedBatch === 'Batch 1') labelEl.textContent = 'Batch 1 Selesai';
+        else labelEl.textContent = 'Semua Riwayat Pesanan';
       }
-      if (!qty && ord.total) {
-        qty = Math.round(ord.total / 15000);
-      }
-      if (qty > 0) {
-        summaryText += `   - Original + Keju: ${qty} porsi (${qty * 2} Ori + ${qty * 2} Keju)\n`;
-      } else {
-        if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
-        if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
-      }
-      if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
-      summaryText += `   - Bumbu Kacang: ${ord.bumbu || 'Digabung'}\n`;
-      if (ord.addonSambal) summaryText += `   - Add-on: Saus Sambal\n`;
-      const payLabel = ord.paymentMethod === 'BCA' ? 'Transfer BCA (Bukti Ada)' : 'Tunai / Cash';
-      summaryText += `   - Pembayaran: ${payLabel}\n`;
-      if (ord.notes && ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
-      summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
 
-      totalIncome += ord.total;
-      if (ord.status === 'Pending') pendingCount++;
+      refreshAdminTable();
     });
+  }
 
-    summaryText += `====================================\n`;
-    summaryText += `*Total Pesanan:* ${ordersList.length} Order (${pendingCount} Pending)\n`;
-    summaryText += `*Estimasi Pendapatan:* Rp ${totalIncome.toLocaleString('id-ID')}\n`;
+  // Export Rekap Order Button
+  if (btnExport) {
+    btnExport.addEventListener('click', () => {
+      let displayedOrders = ordersList;
+      if (currentBatchFilter === 'Batch 2') {
+        displayedOrders = ordersList.filter(o => getOrderBatch(o) === 'Batch 2');
+      } else if (currentBatchFilter === 'Batch 1') {
+        displayedOrders = ordersList.filter(o => getOrderBatch(o) === 'Batch 1');
+      }
 
-    navigator.clipboard.writeText(summaryText)
-      .then(() => showToast('Rekap Disalin!', 'Seluruh rekap pesanan disalin ke clipboard Anda.', 'success'))
-      .catch(err => {
-        showToast('Gagal Salin', 'Tidak dapat menyalin ke clipboard.', 'error');
-        console.error(err);
+      if (displayedOrders.length === 0) {
+        const batchName = currentBatchFilter === 'Batch 2' ? 'Batch 2' : currentBatchFilter === 'Batch 1' ? 'Batch 1' : 'semua batch';
+        showToast('Log Kosong', `Belum ada pesanan di ${batchName} untuk diekspor.`, 'error');
+        return;
+      }
+
+      const batchTitle = currentBatchFilter === 'Batch 2' 
+        ? 'BATCH 2' 
+        : currentBatchFilter === 'Batch 1' 
+          ? 'BATCH 1 SELESAI' 
+          : 'SEMUA BATCH';
+
+      let summaryText = `*REKAP PESANAN BATAGOR-IN - ${batchTitle}*\nTanggal Rekap: ${getFormattedDate()}\n====================================\n\n`;
+      let totalIncome = 0;
+      let pendingCount = 0;
+
+      displayedOrders.forEach((ord, idx) => {
+        const classPart = ord.role === 'Siswa' ? ` (${ord.classRoom})` : ` (${ord.role})`;
+        summaryText += `${idx + 1}. *${ord.name}*${classPart} [${getOrderBatch(ord)}]\n`;
+        let qty = ord.mix;
+        if (!qty && ord.original && ord.cheese && ord.original === ord.cheese) {
+          qty = Math.round(ord.original / 2);
+        }
+        if (!qty && ord.total) {
+          qty = Math.round(ord.total / 15000);
+        }
+        if (qty > 0) {
+          summaryText += `   - Original + Keju: ${qty} porsi (${qty * 2} Ori + ${qty * 2} Keju)\n`;
+        } else {
+          if (ord.original > 0) summaryText += `   - Original: ${ord.original} porsi\n`;
+          if (ord.cheese > 0) summaryText += `   - Keju: ${ord.cheese} porsi\n`;
+        }
+        if (ord.mercon > 0) summaryText += `   - Mercon: ${ord.mercon} porsi\n`;
+        summaryText += `   - Bumbu Kacang: ${ord.bumbu || 'Digabung'}\n`;
+        if (ord.addonSambal) summaryText += `   - Add-on: Saus Sambal\n`;
+        const payLabel = ord.paymentMethod === 'BCA' ? 'Transfer BCA (Bukti Ada)' : 'Tunai / Cash';
+        summaryText += `   - Pembayaran: ${payLabel}\n`;
+        if (ord.notes && ord.notes !== '-') summaryText += `   - Catatan: "${ord.notes}"\n`;
+        summaryText += `   - Status: [${ord.status.toUpperCase()}] | Total: Rp ${ord.total.toLocaleString('id-ID')}\n\n`;
+
+        totalIncome += ord.total;
+        if (ord.status === 'Pending') pendingCount++;
       });
-  });
+
+      summaryText += `====================================\n`;
+      summaryText += `*Total Pesanan (${batchTitle}):* ${displayedOrders.length} Order (${pendingCount} Pending)\n`;
+      summaryText += `*Estimasi Pendapatan:* Rp ${totalIncome.toLocaleString('id-ID')}\n`;
+
+      navigator.clipboard.writeText(summaryText)
+        .then(() => showToast('Rekap Disalin!', `Rekap ${batchTitle} disalin ke clipboard Anda.`, 'success'))
+        .catch(err => {
+          showToast('Gagal Salin', 'Tidak dapat menyalin ke clipboard.', 'error');
+          console.error(err);
+        });
+    });
+  }
 
   // Modal Bukti Transfer Close Handlers
   const proofModal = document.getElementById('proof-viewer-modal');
@@ -84,23 +152,69 @@ export function initAdminDashboard() {
 }
 
 /**
- * Refreshes the admin table and statistics from localStorage.
+ * Updates count pills on batch tabs
+ */
+function updateBatchPills() {
+  const count2 = ordersList.filter(o => getOrderBatch(o) === 'Batch 2').length;
+  const count1 = ordersList.filter(o => getOrderBatch(o) === 'Batch 1').length;
+  const countAll = ordersList.length;
+
+  const pill2 = document.getElementById('badge-count-batch-2');
+  const pill1 = document.getElementById('badge-count-batch-1');
+  const pillAll = document.getElementById('badge-count-batch-all');
+
+  if (pill2) pill2.textContent = count2;
+  if (pill1) pill1.textContent = count1;
+  if (pillAll) pillAll.textContent = countAll;
+}
+
+/**
+ * Refreshes the admin table and statistics filtered by current batch.
  */
 export function refreshAdminTable() {
+  updateBatchPills();
+
   const tableBody = document.getElementById('orders-table-body');
   const emptyState = document.getElementById('table-empty-state');
   const statOrders = document.getElementById('stat-total-orders');
   const statRevenue = document.getElementById('stat-total-revenue');
   const statRatio = document.getElementById('stat-variant-ratio');
 
+  if (!tableBody) return;
+
+  // Filter orders according to current selected batch
+  let displayedOrders = ordersList;
+  if (currentBatchFilter === 'Batch 2') {
+    displayedOrders = ordersList.filter(o => getOrderBatch(o) === 'Batch 2');
+  } else if (currentBatchFilter === 'Batch 1') {
+    displayedOrders = ordersList.filter(o => getOrderBatch(o) === 'Batch 1');
+  }
+
   let totalRevenue = 0, totalCheese = 0, totalOriginal = 0, totalMix = 0, totalMercon = 0;
   tableBody.innerHTML = '';
 
-  if (ordersList.length === 0) {
-    emptyState.style.display = 'flex';
+  if (displayedOrders.length === 0) {
+    if (emptyState) {
+      emptyState.style.display = 'flex';
+      const emptyTitle = emptyState.querySelector('h3');
+      const emptyDesc = emptyState.querySelector('p');
+      if (emptyTitle && emptyDesc) {
+        if (currentBatchFilter === 'Batch 2') {
+          emptyTitle.textContent = 'Belum Ada Pre-Order di Batch 2';
+          emptyDesc.textContent = 'Daftar pesanan baru Batch 2 yang dibuat lewat formulir akan otomatis muncul di sini secara real-time.';
+        } else if (currentBatchFilter === 'Batch 1') {
+          emptyTitle.textContent = 'Batch 1 Selesai Kosong';
+          emptyDesc.textContent = 'Tidak ada rekaman pesanan untuk Batch 1.';
+        } else {
+          emptyTitle.textContent = 'Belum Ada Pesanan Masuk';
+          emptyDesc.textContent = 'Daftar pesanan baru yang dibuat lewat formulir pesanan akan muncul di sini.';
+        }
+      }
+    }
   } else {
-    emptyState.style.display = 'none';
-    ordersList.forEach((ord, index) => {
+    if (emptyState) emptyState.style.display = 'none';
+
+    displayedOrders.forEach((ord, index) => {
       totalRevenue += ord.total;
       let mixCount = ord.mix;
       if (!mixCount && ord.original && ord.cheese && ord.original === ord.cheese) {
@@ -153,11 +267,17 @@ export function refreshAdminTable() {
         `;
       }
 
+      const batchTag = getOrderBatch(ord);
+      const batchClass = batchTag === 'Batch 2' ? 'batch-2' : 'batch-1';
+
       const rowHtml = `
         <tr>
           <td data-label="No">${index + 1}</td>
           <td data-label="Waktu" style="font-size: 0.8rem; color: var(--text-muted); white-space: nowrap;">${ord.date || '-'}</td>
-          <td data-label="Nama & Kelas"><strong>${ord.name}</strong><div style="font-size: 0.75rem; color: var(--text-muted)">${ord.role} ${ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div></td>
+          <td data-label="Nama & Kelas">
+            <strong>${ord.name}</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">${ord.role} ${ord.classRoom && ord.classRoom !== '-' ? `| ${ord.classRoom}` : ''}</div>
+          </td>
           <td data-label="Detail Pesanan"><div class="order-detail-list">${detailsString || '-'}</div></td>
           <td data-label="Catatan" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${ord.notes}">${ord.notes}</td>
           <td data-label="Total"><strong>Rp ${ord.total.toLocaleString('id-ID')}</strong></td>
@@ -168,11 +288,13 @@ export function refreshAdminTable() {
     });
   }
 
-  statOrders.textContent = ordersList.length;
-  statRevenue.textContent = `Rp ${totalRevenue.toLocaleString('id-ID')}`;
-  statRatio.textContent = totalMix > 0 
-    ? `${totalMix} Porsi (${totalOriginal} Ori / ${totalCheese} Keju)` 
-    : `${totalOriginal} Orig / ${totalCheese} Keju`;
+  if (statOrders) statOrders.textContent = displayedOrders.length;
+  if (statRevenue) statRevenue.textContent = `Rp ${totalRevenue.toLocaleString('id-ID')}`;
+  if (statRatio) {
+    statRatio.textContent = totalMix > 0 
+      ? `${totalMix} Porsi (${totalOriginal} Ori / ${totalCheese} Keju)` 
+      : `${totalOriginal} Orig / ${totalCheese} Keju`;
+  }
 }
 
 /**
@@ -352,13 +474,14 @@ function requestBrowserNotifications() {
 function notifyNewOrder(order) {
   const itemCount = (order.original || 0) + (order.cheese || 0) + (order.mercon || 0);
   const total = Number(order.total || 0).toLocaleString('id-ID');
-  const message = `${itemCount} porsi - Rp ${total}`;
+  const batchTag = getOrderBatch(order);
+  const message = `[${batchTag}] ${itemCount} porsi - Rp ${total}`;
 
   showToast('Order Baru Masuk', `${order.name || 'Pelanggan'}: ${message}`, 'success');
 
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
 
-  const browserNotification = new Notification('Order Baru Masuk - Batagor', {
+  const browserNotification = new Notification(`Order Baru Masuk (${batchTag}) - Batagor`, {
     body: `${order.name || 'Pelanggan'} memesan ${message}.`,
     icon: '../../assets/img/foto batagor.jpg',
     tag: `batagor-order-${order.id}`

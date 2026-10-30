@@ -546,6 +546,7 @@ function renderReceipt(container, order) {
       total: order.total,
       notes: order.notes || '-',
       date: order.date || getFormattedDate(),
+      batch: order.batch || 'Batch 2',
       status: 'Pending'
     };
 

@@ -112,6 +112,28 @@
           </div>
         </div>
 
+        <!-- Batch Filter Switcher -->
+        <div class="batch-filter-bar">
+          <div class="batch-tabs" id="batch-tabs-group">
+            <button type="button" class="batch-tab-btn active" data-batch="Batch 2" id="tab-batch-2">
+              <i class="fa-solid fa-fire" style="color: #ea580c;"></i> Batch 2
+              <span class="batch-count-pill" id="badge-count-batch-2">0</span>
+            </button>
+            <button type="button" class="batch-tab-btn" data-batch="Batch 1" id="tab-batch-1">
+              <i class="fa-solid fa-box-archive"></i> Batch 1 Selesai
+              <span class="batch-count-pill" id="badge-count-batch-1">0</span>
+            </button>
+            <button type="button" class="batch-tab-btn" data-batch="All" id="tab-batch-all">
+              <i class="fa-solid fa-layer-group"></i> Semua Riwayat
+              <span class="batch-count-pill" id="badge-count-batch-all">0</span>
+            </button>
+          </div>
+          <div class="batch-status-info" id="batch-status-info">
+            <span class="batch-indicator-dot"></span>
+            <span>Menampilkan data: <strong id="current-batch-label" style="color: var(--admin-primary);">Batch 2</strong></span>
+          </div>
+        </div>
+
         <!-- Orders Table -->
         <div class="table-container">
           <table class="orders-table" id="orders-table">
