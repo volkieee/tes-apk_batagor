@@ -741,6 +741,18 @@ body {
   letter-spacing: -0.02em;
 }
 
+.batch-title-tag {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .batch-title-tag {
+    display: block;
+    margin-top: 0.25rem;
+  }
+}
+
 .section-desc {
   font-size: 1.05rem;
   color: var(--text-muted);
