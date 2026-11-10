@@ -15,6 +15,19 @@
   <meta name="twitter:title" content="Batagor-in">
   <meta name="twitter:description" content="Pre-order Batagor Crispy Premium.">
   <meta name="twitter:image" content="https://batagor-in.vercel.app/assets/img/foto%20batagor.jpg">
+  <!-- PWA Manifest & App Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+  <!-- Mobile App / PWA Meta Tags -->
+  <meta name="theme-color" content="#C05410">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Batagor-in">
+
   <!-- Google Fonts for Stitch Theme -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -465,6 +478,15 @@
 
   <!-- Core Javascript -->
   <script type="module" src="assets/js/main.js"></script>
+
+  <!-- Register PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 
 </html>
