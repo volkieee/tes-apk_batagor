@@ -68,6 +68,9 @@
           </div>
 
           <div class="admin-actions-bar">
+            <button class="btn-primary" id="btn-open-spreadsheet" style="padding: 0.6rem 1.25rem; font-size: 0.85rem; background: #15803d; border-color: #166534; box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);">
+              <i class="fa-solid fa-file-excel"></i> Buka Spreadsheet
+            </button>
             <button class="btn-secondary" id="btn-settings-modal" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
               <i class="fa-solid fa-gears"></i> Pengaturan No. WA
             </button>
@@ -164,6 +167,151 @@
       </div>
     </section>
   </main>
+
+  <!-- Modal Spreadsheet View (Excel / Google Sheets Style) -->
+  <div class="modal-overlay" id="spreadsheet-modal" style="display: none;">
+    <div class="spreadsheet-modal-card">
+      <!-- App Header -->
+      <div class="spreadsheet-app-header">
+        <div class="sheet-logo-group">
+          <div class="sheet-excel-badge">
+            <i class="fa-solid fa-file-excel"></i>
+          </div>
+          <div class="sheet-title-info">
+            <h3>Batagor-in Orders Sheet <span class="sheet-live-tag"><i class="fa-solid fa-circle"></i> Live Sync</span></h3>
+            <p class="sheet-meta">Spreadsheet Rekap Pemesanan Batagor-in • Format Kolom Komprehensif</p>
+          </div>
+        </div>
+        <div class="sheet-top-actions">
+          <button type="button" class="btn-sheet-tool" id="btn-copy-batch-2" title="Salin khusus tabel Batch 2 ke clipboard" style="background: rgba(34, 197, 94, 0.22); border-color: #22c55e; color: #86efac;">
+            <i class="fa-solid fa-copy"></i> Salin Batch 2
+          </button>
+          <button type="button" class="btn-sheet-tool" id="btn-copy-batch-1" title="Salin khusus tabel Batch 1 ke clipboard" style="background: rgba(59, 130, 246, 0.22); border-color: #3b82f6; color: #93c5fd;">
+            <i class="fa-solid fa-copy"></i> Salin Batch 1
+          </button>
+          <button type="button" class="btn-sheet-tool" id="btn-copy-sheets" title="Salin tabel yang sedang aktif ke clipboard">
+            <i class="fa-solid fa-clipboard-list"></i> Salin Aktif
+          </button>
+          <button type="button" class="btn-sheet-tool btn-sheet-download" id="btn-download-csv" title="Unduh data tabel aktif dalam format file .csv (Bisa dibuka di Microsoft Excel)">
+            <i class="fa-solid fa-download"></i> Unduh CSV
+          </button>
+          <button type="button" class="btn-sheet-tool" id="btn-close-spreadsheet" title="Tutup spreadsheet" style="background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #fca5a5;">
+            <i class="fa-solid fa-xmark"></i> Tutup
+          </button>
+        </div>
+      </div>
+
+      <!-- Toolbar Bar (Batch selector + Live search) -->
+      <div class="spreadsheet-toolbar-bar">
+        <div class="sheet-tab-buttons" id="sheet-batch-tabs">
+          <button type="button" class="sheet-tab-item active" data-sheet-batch="Batch 2">
+            <i class="fa-solid fa-fire" style="color: #ea580c;"></i> Tabel Batch 2
+            <span class="sheet-tab-badge" id="sheet-count-batch-2">0</span>
+          </button>
+          <button type="button" class="sheet-tab-item" data-sheet-batch="Batch 1">
+            <i class="fa-solid fa-box-archive" style="color: #60a5fa;"></i> Tabel Batch 1 Selesai
+            <span class="sheet-tab-badge" id="sheet-count-batch-1">0</span>
+          </button>
+          <button type="button" class="sheet-tab-item" data-sheet-batch="Separated">
+            <i class="fa-solid fa-table-columns" style="color: #fbbf24;"></i> 2 Tabel Terpisah
+            <span class="sheet-tab-badge" id="sheet-count-batch-all">0</span>
+          </button>
+        </div>
+
+        <div class="sheet-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="sheet-search-filter" class="sheet-input" placeholder="Cari nama, kelas, status, atau catatan...">
+        </div>
+      </div>
+
+      <!-- Summary Formula Bar -->
+      <div class="spreadsheet-summary-strip">
+        <div class="sheet-stat-pill">
+          <i class="fa-solid fa-calculator" style="color: #22c55e;"></i>
+          <span>Total Baris:</span>
+          <strong id="sheet-sum-rows">0 baris</strong>
+        </div>
+        <div class="sheet-stat-pill">
+          <i class="fa-solid fa-boxes-stacked" style="color: #f59e0b;"></i>
+          <span>Total Porsi:</span>
+          <strong id="sheet-sum-portions">0 porsi</strong>
+        </div>
+        <div class="sheet-stat-pill">
+          <i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i>
+          <span>Total Omzet:</span>
+          <strong id="sheet-sum-revenue">Rp 0</strong>
+        </div>
+        <div class="sheet-stat-pill">
+          <i class="fa-solid fa-clock" style="color: #eab308;"></i>
+          <span>Pending:</span>
+          <strong id="sheet-sum-pending">0</strong>
+        </div>
+        <div class="sheet-stat-pill">
+          <i class="fa-solid fa-circle-check" style="color: #3b82f6;"></i>
+          <span>Lunas (Paid):</span>
+          <strong id="sheet-sum-paid">0</strong>
+        </div>
+      </div>
+
+      <!-- Grid Table Wrapper -->
+      <div class="spreadsheet-table-wrapper" id="spreadsheet-scroll-area">
+        <table class="spreadsheet-grid" id="spreadsheet-grid-table">
+          <thead>
+            <!-- Row of column letters A-L -->
+            <tr class="grid-col-letters">
+              <th class="grid-corner-cell"><i class="fa-solid fa-table-cells" style="font-size: 0.65rem;"></i></th>
+              <th>A</th>
+              <th>B</th>
+              <th>C</th>
+              <th>D</th>
+              <th>E</th>
+              <th>F</th>
+              <th>G</th>
+              <th>H</th>
+              <th>I</th>
+              <th>J</th>
+              <th>K</th>
+              <th>L</th>
+            </tr>
+            <!-- Row of field column headers -->
+            <tr class="grid-headers">
+              <th class="grid-row-index-head">#</th>
+              <th>Order ID</th>
+              <th>Waktu</th>
+              <th>Nama Pemesan</th>
+              <th>Peran</th>
+              <th>Kelas / Ruang</th>
+              <th>Porsi (Mix)</th>
+              <th>Bumbu</th>
+              <th>Add-on Sambal</th>
+              <th>Total (Rp)</th>
+              <th>Metode Bayar</th>
+              <th>Catatan</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="spreadsheet-tbody">
+            <!-- Dynamically generated rows -->
+          </tbody>
+          <tfoot id="spreadsheet-tfoot">
+            <!-- Summary total row -->
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="spreadsheet-app-footer">
+        <div class="sheet-footer-left">
+          <span>Sheet Aktif: <strong class="sheet-cell-pointer" id="sheet-current-view-name">Batch 2</strong></span>
+          <span>•</span>
+          <span>Tip: Klik <strong>"Salin ke Sheets"</strong> lalu paste (Ctrl+V) langsung ke Google Sheets.</span>
+        </div>
+        <div class="sheet-footer-right">
+          <span id="sheet-footer-timestamp">Sinkron: Waktu Lokal</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Settings Modal for WhatsApp Config -->
   <div class="modal-overlay" id="settings-modal">

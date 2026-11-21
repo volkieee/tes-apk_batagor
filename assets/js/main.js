@@ -9,6 +9,7 @@ let originalQty = 0;
 let cheeseQty = 0;
 const ITEM_PRICE = 15000;
 const DEFAULT_SELLER_WA = '6285921214331';
+const IS_PREORDER_CLOSED = true; // Pre-Order Batch 2 resmi ditutup
 
 // Firebase Firestore safe dynamic helper
 async function saveOrderToFirestore(order) {
@@ -116,6 +117,15 @@ function updateQuantityDisplay() {
 
 // Global variant select helper (called from menu buttons or global clicks)
 window.selectVariant = function (type) {
+  if (IS_PREORDER_CLOSED) {
+    showToast('Pre-Order Ditutup', 'Pre-Order telah selesai dan formulir telah ditutup.', 'info');
+    const section = document.getElementById('preorder');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    return;
+  }
+
   const section = document.getElementById('preorder');
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' });
@@ -168,6 +178,12 @@ function initMenuCardsDelegation() {
 function initQuantityControls() {
   const btnPortionMinus = document.getElementById('btn-portion-minus') || document.getElementById('btn-original-minus');
   const btnPortionPlus = document.getElementById('btn-portion-plus') || document.getElementById('btn-original-plus');
+
+  if (IS_PREORDER_CLOSED) {
+    if (btnPortionMinus) btnPortionMinus.disabled = true;
+    if (btnPortionPlus) btnPortionPlus.disabled = true;
+    return;
+  }
 
   if (btnPortionMinus) {
     btnPortionMinus.addEventListener('click', () => {
@@ -353,8 +369,20 @@ function initFormListeners() {
   // Next Button Trigger -> Transisi ke Ringkasan Saja (Elemen lain menghilang)
   const btnNextOrder = document.getElementById('btn-next-order');
   if (btnNextOrder) {
+    if (IS_PREORDER_CLOSED) {
+      btnNextOrder.disabled = true;
+      btnNextOrder.style.opacity = '0.7';
+      btnNextOrder.style.cursor = 'not-allowed';
+      btnNextOrder.innerHTML = '<i class="fa-solid fa-lock"></i> Formulir PO Ditutup';
+    }
+
     btnNextOrder.addEventListener('click', (e) => {
       e.preventDefault();
+
+      if (IS_PREORDER_CLOSED) {
+        showToast('Pre-Order Ditutup', 'Mohon maaf, Pre-Order telah selesai dan formulir ditutup.', 'info');
+        return;
+      }
 
       const name = inputName ? inputName.value.trim() : '';
       const selectedRadio = document.querySelector('input[name="user-role"]:checked');

@@ -69,8 +69,8 @@
       </nav>
 
       <div class="nav-actions">
-        <a href="#preorder" class="btn-preorder-nav">
-          <i class="fa-solid fa-basket-shopping"></i> Pesan
+        <a href="#preorder" class="btn-preorder-nav" style="background: #ef4444; border-color: #b91c1c;">
+          <i class="fa-solid fa-circle-xmark"></i> PO Ditutup
         </a>
         <button class="burger-menu" id="burger-menu" aria-label="Open menu">
           <span></span>
@@ -86,15 +86,15 @@
     <section id="hero" class="hero-section">
       <div class="container hero-grid">
         <div class="hero-content">
-          <span class="hero-badge badge-batch-hero">
-            <i class="fa-solid fa-fire"></i> BATCH 2
+          <span class="hero-badge badge-batch-hero" style="background: #fee2e2; color: #b91c1c; border-color: #ef4444;">
+            <i class="fa-solid fa-circle-xmark"></i> PRE-ORDER RESMI DITUTUP
           </span>
           <h1 class="hero-title">
             WELCOME TO <br><span class="gradient-text">BATAGOR-IN!</span>
           </h1>
           <div class="hero-actions">
-            <a href="#preorder" class="btn-primary">
-              <i class="fa-solid fa-basket-shopping"></i> Pre-Order Sekarang
+            <a href="#preorder" class="btn-primary" style="background: #ef4444; border-color: #b91c1c;">
+              <i class="fa-solid fa-circle-xmark"></i> Pre-Order Ditutup
             </a>
             <a href="#menu" class="btn-secondary">
               <i class="fa-solid fa-utensils"></i> Lihat Varian
@@ -208,13 +208,29 @@
     <section id="preorder" class="preorder-section section-padding">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Batch 2 Dibuka</span>
-          <h2 class="section-title">Formulir Pre-Order <span class="batch-title-tag">(Batch 2)</span></h2>
+          <span class="section-tag" style="background: #fee2e2; color: #b91c1c; border-color: #ef4444;"><i class="fa-solid fa-lock"></i> Pre-Order Selesai</span>
+          <h2 class="section-title">Formulir Pre-Order <span class="batch-title-tag" style="background: #ef4444; color: #ffffff;">(PO Ditutup)</span></h2>
         </div>
 
-        <div class="preorder-layout" style="display: flex; justify-content: center;">
-          <!-- Form Wrapper -->
-          <div class="preorder-form-container" style="max-width: 640px; width: 100%;">
+        <div class="preorder-layout" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+          <!-- Notification Card: Pre-Order Closed -->
+          <div class="po-closed-card">
+            <span class="po-closed-badge">
+              <i class="fa-solid fa-circle-xmark"></i> PRE-ORDER DITUTUP
+            </span>
+            <h3 class="po-closed-title">Terima Kasih Atas Antusiasme Kamu! 🎉</h3>
+            <p class="po-closed-desc" style="margin-bottom: 0;">
+              Pre-Order Batagor-in telah selesai dan kuota pemesanan telah terpenuhi. Terima kasih banyak atas dukungan semuanya!
+            </p>
+          </div>
+
+          <!-- Form Wrapper (Disabled State with Overlay) -->
+          <div class="preorder-form-container form-disabled-state" style="max-width: 640px; width: 100%; position: relative;">
+            <div class="form-disabled-overlay">
+              <span class="badge-pill" style="background: var(--peanut); color: #fff; font-size: 0.95rem; font-weight: 800; padding: 0.75rem 1.4rem; border: 2.5px solid #fff; border-radius: 30px; box-shadow: var(--neo-shadow-sm);">
+                <i class="fa-solid fa-lock"></i> Formulir PO Ditutup
+              </span>
+            </div>
             <h3 class="form-title">
               <i class="fa-solid fa-pen-to-square"></i> Data Pemesan
             </h3>

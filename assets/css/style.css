@@ -3559,6 +3559,12 @@ footer {
   border-color: var(--admin-primary);
 }
 
+.admin-action-btn.btn-edit:hover {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
 .admin-action-btn.btn-delete:hover {
   background: var(--admin-accent-mercon);
   border-color: var(--admin-accent-mercon);
@@ -3836,4 +3842,551 @@ footer {
     padding: 0.55rem 0.75rem;
     font-size: 0.8rem;
   }
+}
+
+/* ==========================================================================
+   PRE-ORDER CLOSED NOTIFICATION CARD (NEO-BRUTALIST)
+   ========================================================================== */
+.po-closed-card {
+  max-width: 640px;
+  width: 100%;
+  background: #ffffff;
+  border: 4px solid var(--peanut);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--neo-shadow-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.po-closed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.4rem 1.1rem;
+  border: 2px solid #ef4444;
+  border-radius: 30px;
+  margin-bottom: 1rem;
+}
+
+.po-closed-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--peanut);
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.po-closed-desc {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 1.6rem;
+}
+
+.po-closed-info-box {
+  background: var(--bg-pop);
+  border: 2px dashed var(--peanut);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: left;
+  margin-bottom: 1.6rem;
+}
+
+.po-closed-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.po-closed-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.po-closed-info-item i {
+  font-size: 1.15rem;
+  margin-top: 0.2rem;
+}
+
+.po-closed-info-text strong {
+  display: block;
+  color: var(--peanut);
+  font-size: 0.92rem;
+  margin-bottom: 0.2rem;
+}
+
+.po-closed-info-text p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.form-disabled-state {
+  opacity: 0.55;
+  pointer-events: none;
+  filter: grayscale(0.35);
+  user-select: none;
+  position: relative;
+}
+
+.form-disabled-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(253, 248, 238, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   ADMIN SPREADSHEET ENGINE MODAL (EXCEL & GOOGLE SHEETS STYLE)
+   ========================================================================== */
+.spreadsheet-modal-card {
+  max-width: 96vw !important;
+  width: 1360px !important;
+  max-height: 92vh !important;
+  height: 92vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #0b1120 !important;
+  border: 3.5px solid var(--peanut) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 20px !important;
+}
+
+.spreadsheet-app-header {
+  background: linear-gradient(135deg, #14532d 0%, #166534 60%, #15803d 100%);
+  padding: 1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #14532d;
+  color: #ffffff;
+}
+
+.sheet-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.sheet-excel-badge {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  color: #166534;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.sheet-title-info h3 {
+  font-family: var(--font-code);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sheet-live-tag {
+  background: rgba(34, 197, 94, 0.25);
+  border: 1px solid #4ade80;
+  color: #86efac;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sheet-live-tag i {
+  font-size: 0.45rem;
+  color: #4ade80;
+  animation: pulse 1.5s infinite;
+}
+
+.sheet-meta {
+  color: #bbf7d0;
+  font-size: 0.78rem;
+  margin: 0.2rem 0 0;
+  font-weight: 500;
+}
+
+.sheet-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn-sheet-tool {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.btn-sheet-tool:hover {
+  background: rgba(255, 255, 255, 0.24);
+  transform: translateY(-1px);
+}
+
+.btn-sheet-download {
+  background: #f59e0b;
+  border-color: #d97706;
+  color: #42210b;
+}
+
+.btn-sheet-download:hover {
+  background: #fbbf24;
+}
+
+.spreadsheet-toolbar-bar {
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  padding: 0.65rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sheet-tab-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.sheet-tab-item {
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease;
+}
+
+.sheet-tab-item:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+.sheet-tab-item.active {
+  background: #15803d;
+  color: #ffffff;
+  border-color: #22c55e;
+}
+
+.sheet-tab-badge {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 0.08rem 0.45rem;
+  font-size: 0.7rem;
+}
+
+.sheet-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  width: 280px;
+}
+
+.sheet-search-box i {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.sheet-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f1f5f9;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.sheet-input::placeholder {
+  color: #64748b;
+}
+
+.spreadsheet-summary-strip {
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+}
+
+.sheet-stat-pill {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.sheet-stat-pill strong {
+  color: #f3f4f6;
+  font-family: var(--font-code);
+  font-weight: 700;
+}
+
+.spreadsheet-table-wrapper {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  background: #090d16;
+}
+
+.spreadsheet-grid {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+}
+
+/* Excel Row of Letters (A, B, C...) */
+.grid-col-letters th {
+  background: #1e293b;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-family: var(--font-code);
+  font-weight: 700;
+  text-align: center;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #334155;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+
+.grid-corner-cell {
+  background: #0f172a !important;
+  color: #64748b !important;
+  width: 44px;
+  min-width: 44px;
+  text-align: center;
+  position: sticky;
+  left: 0;
+  z-index: 6 !important;
+}
+
+/* Real Header Row */
+.grid-headers th {
+  background: #1e3a29;
+  color: #bbf7d0;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-align: left;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #2d5a3f;
+  position: sticky;
+  top: 25px;
+  z-index: 3;
+}
+
+.grid-row-index-head {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+  text-align: center !important;
+  width: 44px;
+  min-width: 44px;
+  position: sticky;
+  left: 0;
+  z-index: 5 !important;
+}
+
+/* Body Cells */
+.spreadsheet-grid td {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #1e293b;
+  font-size: 0.82rem;
+}
+
+.grid-row-index {
+  background: #0f172a;
+  color: #64748b;
+  font-family: var(--font-code);
+  font-weight: 700;
+  text-align: center;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  border-right: 2px solid #334155 !important;
+}
+
+.spreadsheet-grid tbody tr:nth-child(even) {
+  background: #0c1220;
+}
+
+.spreadsheet-grid tbody tr:hover {
+  background: rgba(34, 197, 94, 0.12) !important;
+}
+
+.cell-code {
+  font-family: var(--font-code);
+  font-weight: 600;
+}
+
+.cell-currency {
+  font-family: var(--font-code);
+  font-weight: 700;
+  text-align: right;
+  color: #4ade80;
+}
+
+.cell-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.cell-badge-pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.cell-badge-paid {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.cell-badge-delivered {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+/* Spreadsheet Footer Total Row */
+.spreadsheet-grid tfoot tr {
+  background: #14281d;
+  border-top: 2px solid #22c55e;
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+}
+
+.spreadsheet-grid tfoot td {
+  padding: 0.75rem 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid #1e3a29;
+}
+
+.spreadsheet-app-footer {
+  background: #0a0f1d;
+  border-top: 1px solid #1e293b;
+  padding: 0.45rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.sheet-footer-left, .sheet-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sheet-cell-pointer {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SPREADSHEET SEPARATED TABLES (BATCH 2 & BATCH 1)
+   ========================================================================== */
+.grid-batch-section-header td {
+  background: linear-gradient(90deg, #14532d 0%, #166534 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: 0.9rem !important;
+  padding: 0.8rem 1rem !important;
+  border-top: 3px solid #22c55e !important;
+  border-bottom: 2px solid #14532d !important;
+  letter-spacing: 0.03em;
+}
+
+.grid-batch-section-header.batch-1-header td {
+  background: linear-gradient(90deg, #1e293b 0%, #334155 100%) !important;
+  border-top: 3px solid #60a5fa !important;
+  border-bottom: 2px solid #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.grid-batch-gap-row td {
+  height: 38px !important;
+  background: #020617 !important;
+  border: none !important;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-family: var(--font-code);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.grid-subtotal-row td {
+  background: #0f2318 !important;
+  border-top: 2px dashed #22c55e !important;
+  border-bottom: 2px solid #14532d !important;
+  font-weight: 800 !important;
+  color: #86efac !important;
+}
+
+.grid-subtotal-row.batch-1-subtotal td {
+  background: #0f172a !important;
+  border-top: 2px dashed #60a5fa !important;
+  border-bottom: 2px solid #1e293b !important;
+  color: #93c5fd !important;
 }
